@@ -44,7 +44,7 @@
 </head>
 <body class="services-page">
     <!-- Back Button -->
-    <a href="../" class="back-button magnetic" data-magnetic="0.2">
+    <a href="../index.html" class="back-button magnetic" data-magnetic="0.2">
         ← Back to Home
     </a>
 
@@ -240,10 +240,10 @@
     
     // Proceed to checkout
     document.getElementById('checkoutBtn').addEventListener('click', function() {
-        const servicesArray = Array.from(selectedServices.values());
-        localStorage.setItem('selectedServices', JSON.stringify(servicesArray));
-        window.location.href = '../cta/';
-    });
+    const servicesArray = Array.from(selectedServices.values());
+    localStorage.setItem('selectedServices', JSON.stringify(servicesArray));
+    window.location.href = '../cta/';
+});
 </script>
     
     <script src="../js/script.js"></script>
