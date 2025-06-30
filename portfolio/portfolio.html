@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Portfolio | Lucient Creative</title>
+    <meta name="description" content="Explore our premium portfolio work">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/portfolio.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="../images/favicon3.png" type="image/png">
+    <style>
+    /* Hero section styles */
+    body.portfolio-page .hero {
+        height: 100vh;
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px 60px 60px;
+        position: relative;
+    }
+    
+    body.portfolio-page .hero-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    body.portfolio-page .hero-text {
+        flex: 1;
+    }
+    
+    body.portfolio-page .hero-image {
+        flex: 1;
+        text-align: right;
+    }
+    
+    body.portfolio-page .hero h1,
+    body.portfolio-page .hero h2 {
+        font-size: clamp(2rem, 5vw, 4.5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 0.05em 0;
+        letter-spacing: -0.05em;
+    }
+    
+    body.portfolio-page .hero-subtitle {
+        font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+        margin: 1em 0 2em;
+        color: var(--text-secondary);
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        opacity: 0.9;
+        max-width: 700px;
+        line-height: 1.6;
+    }
+    
+    .hero-image img {
+        border-radius: 24px;
+        box-shadow: 0 30px 80px rgba(0, 120, 212, 0.3);
+        border: 1px solid rgba(0, 120, 212, 0.2);
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    @media (max-width: 768px) {
+        body.portfolio-page .hero {
+            padding: 0 30px 40px;
+            min-height: 500px;
+        }
+        
+        body.portfolio-page .hero-content {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        body.portfolio-page .hero-image {
+            margin-top: 40px;
+            text-align: center;
+        }
+    }
+
+    /* Additional testimonial styles */
+    .additional-testimonial .testimonial-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--accent-cyan);
+        margin-bottom: 20px;
+    }
+
+    .additional-testimonial h4 {
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+        color: white;
+    }
+
+    .additional-testimonial p {
+        font-size: 1rem;
+        color: var(--text-tertiary);
+        margin-bottom: 15px;
+    }
+
+    .additional-testimonial .testimonial-quote {
+        font-style: italic;
+        margin-top: 20px;
+        max-width: 100%;
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    /* Portfolio item clickable area */
+    .portfolio-item {
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body class="portfolio-page">
+    <!-- Back Button -->
+    <a href="../index.html" class="back-button magnetic" data-magnetic="0.2">
+        ← Back to Home
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="fade-in-up" data-delay="0.2">Our</h1>
+                <h2 class="fade-in-up" data-delay="0.4">Portfolio</h2>
+                <p class="hero-subtitle fade-in-up" data-delay="0.6">Premium digital experiences we've crafted for exceptional brands</p>
+            </div>
+            <div class="hero-image fade-in-up" data-delay="0.8">
+                <img src="../images/portfolio-hero.png" alt="Portfolio Showcase">
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Content -->
+    <div class="portfolio-container">
+        <div class="portfolio-categories">
+            <button class="portfolio-category-btn active" data-category="all">All Work</button>
+            <button class="portfolio-category-btn" data-category="portfolios">Portfolios</button>
+            <button class="portfolio-category-btn" data-category="landing-pages">Landing Pages</button>
+            <button class="portfolio-category-btn" data-category="branding">UI/UX Design</button>
+        </div>
+
+        <div class="portfolio-items">
+            <!-- Portfolio Item 1 -->
+            <div class="portfolio-item magnetic" data-magnetic="0.1" data-category="portfolios" data-id="portfolio1">
+                <img src="../images/portfolio-preview1.png" alt="Minimalist Portfolio" class="portfolio-image">
+                <div class="portfolio-testimonial">
+                    <div class="portfolio-testimonial-content">
+                        "The Website Is Phenomenal for a portfolio, and will work out greatly in advance for the agency"
+                    </div>
+                    <div class="portfolio-testimonial-author">
+                        <img src="../images/test1.png" alt="Charlie Fr.">
+                        <div>
+                            <h4>Charlie Fr.</h4>
+                            <p>Founder of The Effect Network</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coming Soon Items -->
+            <div class="coming-soon" data-category="landing-pages">
+                <p>More landing page examples coming soon</p>
+            </div>
+            <div class="coming-soon" data-category="branding">
+                <p>More branding projects coming soon</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Detail Overlay -->
+    <div class="portfolio-detail-overlay" id="portfolioDetail">
+        <div class="close-detail">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </div>
+        <div class="portfolio-detail-container">
+            <div class="portfolio-detail-content">
+                <div class="detail-grid">
+                    <div class="detail-main-section">
+                        <h2 class="portfolio-detail-title" id="detailTitle">Project Title</h2>
+                        
+                        <!-- Main Project Image -->
+                        <div class="project-main-image">
+                            <img id="detailMainImage" src="" alt="Main Project Image">
+                        </div>
+
+                        <div class="project-description-section">
+                            <h4 class="section-label">PROJECT OVERVIEW</h4>
+                            <p class="portfolio-detail-description" id="detailDescription">
+                                Project description placeholder text. This area will contain detailed information about the project.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-side-section">
+                        <!-- Project Meta Information -->
+                        <div class="project-meta-section">
+                            <h4 class="section-label">PROJECT DETAILS</h4>
+                            <div class="portfolio-detail-meta">
+                                <div class="portfolio-detail-meta-item">
+                                    <h5>CLIENT</h5>
+                                    <p id="detailClient">Client placeholder</p>
+                                </div>
+                                <div class="portfolio-detail-meta-item">
+                                    <h5>SERVICES</h5>
+                                    <p id="detailServices">Services placeholder</p>
+                                </div>
+                                <div class="portfolio-detail-meta-item">
+                                    <h5>DURATION</h5>
+                                    <p id="detailDuration">Duration placeholder</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Additional Project Image -->
+                        <div class="project-secondary-image">
+                            <img id="detailSecondaryImage" src="" alt="Secondary Project Image">
+                        </div>
+                        
+                        <!-- Testimonial Section -->
+                        <div class="portfolio-testimonial-fixed">
+                            <h4 class="section-label">CLIENT TESTIMONIAL</h4>
+                            <img src="" alt="Testimonial" class="testimonial-image" id="fixedTestimonialImage">
+                            <h4 id="fixedTestimonialName">Client Name</h4>
+                            <p id="fixedTestimonialPosition">Client Position</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Project data with image arrays
+        const projects = {
+            portfolio1: {
+                title: "The Effect Portfolio",
+                description: "A refined digital platform designed for ambitious entrepreneurs. We built The Effect Network to feel like a private mastermind—clean, focused, and built for scale. The sleek interface, subtle animations, and structured layout reflect the precision of its content: elite marketing systems, proven client acquisition strategies, and advanced insights from top-performing founders. A minimalist color palette and refined iconography maintain a high-end feel, while the experience guides users through a journey of transformation, clarity, and strategic growth.",
+                client: "Charlie Fr.",
+                services: "Signature Portfolio",
+                duration: "2 Weeks",
+                testimonialName: "Charlie Fr.",
+                testimonialPosition: "Founder of The Effect Network",
+                testimonialImage: "../images/test1.png",
+                mainImage: "../images/portfolio-full1.jpg",
+                secondaryImage: "../images/portfolio-full2.jpg"
+            }
+        };
+
+        // Portfolio category switching
+        document.querySelectorAll('.portfolio-category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.portfolio-category-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                const portfolioItems = document.querySelectorAll('.portfolio-item');
+                const comingSoonItems = document.querySelectorAll('.coming-soon');
+                
+                if (category === 'all') {
+                    // Show all portfolio items and coming soon items
+                    portfolioItems.forEach(item => item.style.display = 'block');
+                    comingSoonItems.forEach(item => item.style.display = 'flex');
+                } else {
+                    // Hide all items first
+                    portfolioItems.forEach(item => item.style.display = 'none');
+                    comingSoonItems.forEach(item => item.style.display = 'none');
+                    
+                    // Show matching portfolio items
+                    document.querySelectorAll(`.portfolio-item[data-category="${category}"]`).forEach(item => {
+                        item.style.display = 'block';
+                    });
+                    
+                    // Show matching coming soon items
+                    document.querySelectorAll(`.coming-soon[data-category="${category}"]`).forEach(item => {
+                        item.style.display = 'flex';
+                    });
+                }
+            });
+        });
+
+        // Click handler for portfolio items
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const projectId = item.dataset.id;
+                const project = projects[projectId];
+                
+                if (project) {
+                    // Set basic info
+                    document.getElementById('detailTitle').textContent = project.title;
+                    document.getElementById('detailDescription').textContent = project.description;
+                    document.getElementById('detailClient').textContent = project.client;
+                    document.getElementById('detailServices').textContent = project.services;
+                    document.getElementById('detailDuration').textContent = project.duration;
+                    
+                    // Set images
+                    document.getElementById('detailMainImage').src = project.mainImage;
+                    document.getElementById('detailMainImage').alt = project.title;
+                    document.getElementById('detailSecondaryImage').src = project.secondaryImage;
+                    document.getElementById('detailSecondaryImage').alt = project.title + " - Additional View";
+                    
+                    // Set fixed testimonial
+                    document.getElementById('fixedTestimonialName').textContent = project.testimonialName;
+                    document.getElementById('fixedTestimonialPosition').textContent = project.testimonialPosition;
+                    const testimonialImg = document.getElementById('fixedTestimonialImage');
+                    testimonialImg.src = project.testimonialImage;
+                    testimonialImg.alt = project.testimonialName;
+                    
+                    // Show modal
+                    document.getElementById('portfolioDetail').style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+        
+        // Close detail view
+        document.querySelector('.close-detail').addEventListener('click', () => {
+            document.getElementById('portfolioDetail').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close when clicking outside content
+        document.getElementById('portfolioDetail').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('portfolioDetail')) {
+                document.getElementById('portfolioDetail').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('portfolioDetail').style.display === 'flex') {
+                if (e.key === 'Escape') {
+                    document.getElementById('portfolioDetail').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

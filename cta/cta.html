@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started | Lucient Creative</title>
+    <meta name="description" content="Start your premium design project">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/cta.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="../images/favicon4.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("CM554ofw-8yRHsN0m");
+        })();
+    </script>
+    <style>
+        /* Additional styles for multi-select */
+        .multi-service-container {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .service-checkbox {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        .service-checkbox input {
+            margin-right: 12px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Honeypot field */
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+        }
+        
+        /* Error message styling */
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: #ff6b6b !important;
+            animation: inputError 0.5s ease;
+        }
+        
+        @keyframes inputError {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-3px); }
+            100% { transform: translateX(0); }
+        }
+        
+        /* Submit button disabled state */
+        .form-submit:disabled {
+            background: rgba(0, 120, 212, 0.3) !important;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .form-submit:disabled:hover {
+            background: rgba(0, 120, 212, 0.3) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="../index.html" class="back-button magnetic" data-magnetic="0.2">
+        ← Back to Home
+    </a>
+
+    <!-- CTA Page Content -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="fade-in-up" data-delay="0.2">Discover Your</h1>
+                <h2 class="fade-in-up" data-delay="0.4">Identity</h2>
+                <p class="hero-subtitle fade-in-up" data-delay="0.6">Let's craft something remarkable together</p>
+            </div>
+            <div class="hero-image fade-in-up" data-delay="0.8">
+                <img src="../images/cta-hero.png" alt="Get Started">
+            </div>
+        </div>
+    </section>
+
+    <section class="glass-section">
+    <div class="cta-form">
+        <h2>Start Your Project</h2>
+        <form id="project-form" autocomplete="off" novalidate>
+            <!-- Honeypot field for spam prevention -->
+            <div class="hp-field">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="website" tabindex="-1">
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required autocomplete="off" autocorrect="off" spellcheck="false">
+                <div class="error-message">Please enter your name</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required autocomplete="off" autocorrect="off" spellcheck="false">
+                <div class="error-message">Please enter a valid email (e.g., name@domain.com)</div>
+            </div>
+            <div class="form-group">
+                <label for="service">Service Needed</label>
+                <select id="service" name="service" required onchange="toggleServiceOptions()" autocomplete="off">
+                    <option value="">Select a service</option>
+                    <option value="portfolio">Signature Portfolio</option>
+                    <option value="landing-page">Landing Page</option>
+                    <option value="copywriting">Copywriting</option>
+                    <option value="uiux">UI/UX Design</option>
+                    <option value="multiple">Multiple Services</option>
+                </select>
+                <div class="error-message">Please select a service</div>
+            </div>
+            
+            <!-- Service options container (hidden by default) -->
+            <div id="service-options-container" class="service-options-container" style="display: none;">
+                <div class="plan-options">
+                    <div class="plan-option">
+                        <input type="radio" id="essential-plan" name="plan" value="essential" checked>
+                        <label for="essential-plan">
+                            <span class="plan-name">Essential Plan</span>
+                            <span class="plan-price" id="essential-price">$0</span>
+                        </label>
+                    </div>
+                    <div class="plan-option">
+                        <input type="radio" id="elite-plan" name="plan" value="elite">
+                        <label for="elite-plan">
+                            <span class="plan-name">Elite Plan</span>
+                            <span class="plan-price" id="elite-price">$0</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Multi-Service Selector (Hidden by default) -->
+            <div id="multi-service-container" class="multi-service-container">
+                <p>Select all that apply:</p>
+                <div class="service-checkbox">
+                    <input type="checkbox" id="service1" name="services[]" value="Signature Portfolio" data-essential="199" data-elite="899">
+                    <label for="service1">Signature Portfolio</label>
+                </div>
+                <div class="service-checkbox">
+                    <input type="checkbox" id="service2" name="services[]" value="Landing Page" data-essential="299" data-elite="599">
+                    <label for="service2">Landing Page</label>
+                </div>
+                <div class="service-checkbox">
+                    <input type="checkbox" id="service4" name="services[]" value="Copywriting" data-essential="149" data-elite="699">
+                    <label for="service4">Copywriting</label>
+                </div>
+                <div class="service-checkbox">
+                    <input type="checkbox" id="service5" name="services[]" value="UI/UX Design" data-essential="199" data-elite="899">
+                    <label for="service5">UI/UX Design</label>
+                </div>
+                
+                <div class="plan-options">
+                    <div class="plan-option">
+                        <input type="radio" id="multi-essential-plan" name="multi-plan" value="essential" checked>
+                        <label for="multi-essential-plan">
+                            <span class="plan-name">Essential Plan</span>
+                        </label>
+                    </div>
+                    <div class="plan-option">
+                        <input type="radio" id="multi-elite-plan" name="multi-plan" value="elite">
+                        <label for="multi-elite-plan">
+                            <span class="plan-name">Elite Plan</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Monthly Maintenance Option (always visible) -->
+            <div class="maintenance-option">
+                <input type="checkbox" id="maintenance" name="maintenance">
+                <label for="maintenance">Monthly Maintenance</label>
+                
+                <div class="tooltip-icon">
+                    <span>?</span>
+                    <span class="tooltip-text">
+                        Enjoy ongoing updates, design refinements, security checks, and smooth performance,<br>
+                        all covered in a seamless monthly plan at just <strong>$19</strong> for Essential and <strong>$49</strong> for Elite.
+                    </span>
+                </div>
+            </div>
+            
+            <div class="total-cost">
+                <span>Estimated Total:</span>
+                <span id="total-cost">$0</span>
+            </div>
+            
+            <!-- Message field -->
+            <div class="form-group">
+                <label for="message">Project Details</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <div class="error-message">Please provide project details</div>
+            </div>
+            
+            <!-- Submit button -->
+            <button type="submit" class="form-submit">Submit Request</button>
+        </form>
+    </div>
+</section>
+
+    <script>
+        // Service pricing data
+        const servicePricing = {
+            'portfolio': { essential: 89, elite: 199 },
+            'landing-page': { essential: 149, elite: 279 },
+            'copywriting': { essential: 99, elite: 179 },
+            'uiux': { essential: 119, elite: 249 }
+        };
+
+        // Maintenance pricing
+        const maintenancePricing = {
+            essential: 19,
+            elite: 49
+        };
+
+        // Track form submission time and submitted emails
+        let lastSubmissionTime = 0;
+        const submissionCooldown = 30000; // 30 seconds cooldown
+        const submittedEmails = new Set();
+        
+        // First check for stored services
+        document.addEventListener('DOMContentLoaded', function() {
+            const storedServices = JSON.parse(localStorage.getItem('selectedServices'));
+            
+            if (storedServices && storedServices.length > 0) {
+                const serviceSelect = document.getElementById('service');
+                
+                if (storedServices.length === 1) {
+                    // If only one service, select it directly
+                    const serviceName = storedServices[0];
+                    for (let i = 0; i < serviceSelect.options.length; i++) {
+                        if (serviceSelect.options[i].text === serviceName) {
+                            serviceSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                } else {
+                    // If multiple services, select "Multiple Services" option
+                    serviceSelect.value = 'multiple';
+                    toggleServiceOptions();
+                    
+                    // Check all relevant checkboxes
+                    storedServices.forEach(service => {
+                        const checkboxes = document.querySelectorAll('input[name="services[]"]');
+                        checkboxes.forEach(checkbox => {
+                            if (checkbox.value === service) {
+                                checkbox.checked = true;
+                            }
+                        });
+                    });
+                }
+                
+                // Clear the stored services
+                localStorage.removeItem('selectedServices');
+            }
+            
+            // Initialize form validation
+            validateForm();
+        });
+
+        // Enhanced honeypot field check
+        function checkHoneypot() {
+            const honeypot = document.getElementById('website');
+            // Also check for common bot patterns
+            if (honeypot.value.trim() !== '' || 
+                honeypot.value.includes('http://') || 
+                honeypot.value.includes('https://')) {
+                console.log('Bot detected via honeypot');
+                return false;
+            }
+            return true;
+        }
+        
+        // Disable button and show cooldown
+        function startCooldown(button) {
+            button.disabled = true;
+            const originalText = button.textContent;
+            let secondsLeft = 30;
+            
+            button.textContent = `Submitted (${secondsLeft}s)`;
+            
+            const countdown = setInterval(() => {
+                secondsLeft--;
+                button.textContent = `Submitted (${secondsLeft}s)`;
+                
+                if (secondsLeft <= 0) {
+                    clearInterval(countdown);
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    validateForm(); // Re-check form validity
+                }
+            }, 1000);
+        }
+        
+        // Toggle multi-service selector
+        function toggleMultiService() {
+            const multiServiceContainer = document.getElementById('multi-service-container');
+            if (document.getElementById('service').value === 'multiple') {
+                multiServiceContainer.style.display = 'block';
+            } else {
+                multiServiceContainer.style.display = 'none';
+                // Clear any selected checkboxes
+                document.querySelectorAll('input[name="services[]"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            }
+            validateForm(); // Re-check form validity
+        }
+        
+        // Validate email format strictly
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email) && 
+                   email.indexOf('@') > 0 && 
+                   email.lastIndexOf('.') > email.indexOf('@') + 1;
+        }
+        
+        // Show error message
+        function showError(input, message) {
+            const formGroup = input.closest('.form-group');
+            formGroup.classList.add('error');
+            const errorMessage = formGroup.querySelector('.error-message');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+        
+        // Hide error message
+        function hideError(input) {
+            const formGroup = input.closest('.form-group');
+            formGroup.classList.remove('error');
+            formGroup.querySelector('.error-message').style.display = 'none';
+        }
+        
+        // Show premium error message
+        function showPremiumMessage(message) {
+            const errorHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,8,20,0.95);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 9999;
+                    backdrop-filter: blur(10px);
+                    animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+                ">
+                    <div style="
+                        background: rgba(0,30,60,0.8);
+                        padding: 40px;
+                        border-radius: 20px;
+                        max-width: 500px;
+                        text-align: center;
+                        border: 1px solid rgba(255, 107, 107, 0.3);
+                        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+                    ">
+                        <h3 style="
+                            font-family: 'Lora', serif;
+                            color: #ff6b6b;
+                            margin-bottom: 20px;
+                            font-size: 1.8rem;
+                        ">Submission Error</h3>
+                        <p style="
+                            line-height: 1.6;
+                            margin-bottom: 25px;
+                            font-size: 1.1rem;
+                        ">
+                            ${message}
+                        </p>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+                            border: none;
+                            color: white;
+                            padding: 12px 30px;
+                            border-radius: 50px;
+                            margin-top: 30px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        ">
+                            Understood
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', errorHTML);
+        }
+        
+        // Show confirmation message
+        function showConfirmation(servicesSelected, email) {
+            const confirmationHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,8,20,0.95);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 9999;
+                    backdrop-filter: blur(10px);
+                    animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+                ">
+                    <div style="
+                        background: rgba(0,30,60,0.8);
+                        padding: 40px;
+                        border-radius: 20px;
+                        max-width: 500px;
+                        text-align: center;
+                        border: 1px solid rgba(0,120,212,0.3);
+                        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+                    ">
+                        <h3 style="
+                            font-family: 'Lora', serif;
+                            color: #a1e6ff;
+                            margin-bottom: 20px;
+                            font-size: 1.8rem;
+                        ">Request Received</h3>
+                        <p style="
+                            line-height: 1.6;
+                            margin-bottom: 25px;
+                            font-size: 1.1rem;
+                        ">
+                            Our design team is carefully reviewing your ${servicesSelected.length > 1 ? 'selected services' : 'service request'}.<br><br>
+                            You'll receive a personalized response via email within <span style="color: #a1e6ff;">24 hours</span> with next steps.
+                        </p>
+                        <p style="
+                            font-size: 0.9rem;
+                            opacity: 0.8;
+                            margin-top: 30px;
+                        ">
+                            Check your inbox (and spam folder) at:<br>
+                            <span style="color: #a1e6ff;">${email}</span>
+                        </p>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: linear-gradient(135deg, #0078d4, #00b4b4);
+                            border: none;
+                            color: white;
+                            padding: 12px 30px;
+                            border-radius: 50px;
+                            margin-top: 30px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        ">
+                            Understood
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', confirmationHTML);
+        }
+        
+        // Validate entire form in real-time
+        function validateForm() {
+            let isValid = true;
+            const submitButton = document.querySelector('.form-submit');
+            
+            // Check honeypot field
+            if (!checkHoneypot()) {
+                isValid = false;
+            }
+            
+            // Validate name
+            const name = document.getElementById('name');
+            if (!name.value.trim()) {
+                showError(name, 'Please enter your name');
+                isValid = false;
+            } else {
+                hideError(name);
+            }
+            
+            // Validate email (strict)
+            const email = document.getElementById('email');
+            if (!email.value.trim() || !isValidEmail(email.value)) {
+                showError(email, 'Please enter a valid email (e.g., name@domain.com)');
+                isValid = false;
+            } else if (submittedEmails.has(email.value.trim())) {
+                showError(email, 'This email has already submitted a request');
+                isValid = false;
+            } else {
+                hideError(email);
+            }
+            
+            // Validate service selection
+            const service = document.getElementById('service');
+            if (!service.value) {
+                showError(service, 'Please select a service');
+                isValid = false;
+            } else {
+                hideError(service);
+                
+                // If multiple services selected, check at least one checkbox is checked
+                if (service.value === 'multiple') {
+                    const checkedServices = document.querySelectorAll('input[name="services[]"]:checked');
+                    if (checkedServices.length === 0) {
+                        showError(service, 'Please select at least one service');
+                        isValid = false;
+                    } else {
+                        hideError(service);
+                    }
+                }
+            }
+            
+            // Validate message
+            const message = document.getElementById('message');
+            if (!message.value.trim()) {
+                showError(message, 'Please provide project details');
+                isValid = false;
+            } else {
+                hideError(message);
+            }
+            
+            // Enable/disable submit button based on validation
+            submitButton.disabled = !isValid;
+            
+            return isValid;
+        }
+        
+        // Toggle service options based on selection
+        function toggleServiceOptions() {
+            const serviceSelect = document.getElementById('service');
+            const serviceOptionsContainer = document.getElementById('service-options-container');
+            const multiServiceContainer = document.getElementById('multi-service-container');
+            
+            if (serviceSelect.value === 'multiple') {
+                serviceOptionsContainer.style.display = 'none';
+                multiServiceContainer.style.display = 'block';
+                calculateMultiTotal();
+            } else if (serviceSelect.value) {
+                serviceOptionsContainer.style.display = 'block';
+                multiServiceContainer.style.display = 'none';
+                updateSingleServicePrices();
+            } else {
+                serviceOptionsContainer.style.display = 'none';
+                multiServiceContainer.style.display = 'none';
+            }
+            
+            validateForm();
+        }
+        
+        // Update prices for single service selection
+        function updateSingleServicePrices() {
+            const serviceSelect = document.getElementById('service');
+            const service = serviceSelect.value;
+            
+            if (service && service !== 'multiple') {
+                document.getElementById('essential-price').textContent = '$' + servicePricing[service].essential;
+                document.getElementById('elite-price').textContent = '$' + servicePricing[service].elite;
+                calculateSingleTotal();
+            }
+        }
+        
+        // Calculate total for single service
+        function calculateSingleTotal() {
+            const serviceSelect = document.getElementById('service');
+            const service = serviceSelect.value;
+            const plan = document.querySelector('input[name="plan"]:checked').value;
+            const maintenance = document.getElementById('maintenance').checked;
+            
+            if (service && service !== 'multiple') {
+                let total = servicePricing[service][plan];
+                if (maintenance) {
+                    total += maintenancePricing[plan];
+                }
+                
+                document.getElementById('total-cost').textContent = '$' + total;
+            }
+        }
+        
+        // Calculate total for multiple services
+        function calculateMultiTotal() {
+            const checkboxes = document.querySelectorAll('input[name="services[]"]:checked');
+            const plan = document.querySelector('input[name="multi-plan"]:checked').value;
+            const maintenance = document.getElementById('maintenance').checked;
+            
+            let total = 0;
+            checkboxes.forEach(checkbox => {
+                total += parseInt(checkbox.dataset[plan]);
+            });
+            
+            if (maintenance) {
+                total += maintenancePricing[plan] * checkboxes.length;
+            }
+            
+            document.getElementById('total-cost').textContent = '$' + total;
+        }
+        
+        // Event listeners for plan changes
+        document.querySelectorAll('input[name="plan"]').forEach(radio => {
+            radio.addEventListener('change', calculateSingleTotal);
+        });
+        
+        document.getElementById('maintenance').addEventListener('change', function() {
+            const serviceSelect = document.getElementById('service');
+            if (serviceSelect.value === 'multiple') {
+                calculateMultiTotal();
+            } else {
+                calculateSingleTotal();
+            }
+        });
+        
+        // Event listeners for multi-service plan changes
+        document.querySelectorAll('input[name="multi-plan"]').forEach(radio => {
+            radio.addEventListener('change', calculateMultiTotal);
+        });
+        
+        // Event listeners for multi-service checkboxes
+        document.querySelectorAll('input[name="services[]"]').forEach(checkbox => {
+            checkbox.addEventListener('change', calculateMultiTotal);
+        });
+        
+        // Enhanced form submission handler
+        document.getElementById('project-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Check honeypot first
+            if (!checkHoneypot()) {
+                showPremiumMessage('There was an issue with your submission. Please try again.');
+                return;
+            }
+            
+            const currentTime = Date.now();
+            const email = document.getElementById('email').value.trim();
+            
+            // Check for duplicate submissions
+            if (submittedEmails.has(email)) {
+                showError(document.getElementById('email'), 'This email has already submitted a request');
+                return;
+            }
+            
+            // Check cooldown period
+            if (currentTime - lastSubmissionTime < submissionCooldown) {
+                showPremiumMessage('Please wait a moment before submitting another request.');
+                return;
+            }
+            
+            // Update submission tracking
+            lastSubmissionTime = currentTime;
+            submittedEmails.add(email);
+            
+            // Disable button and show loading state
+            const submitButton = document.querySelector('.form-submit');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            
+            // Prepare services data
+            let servicesSelected = [];
+            if (document.getElementById('service').value === 'multiple') {
+                document.querySelectorAll('input[name="services[]"]:checked').forEach(checkbox => {
+                    servicesSelected.push(checkbox.value);
+                });
+            } else {
+                servicesSelected.push(document.getElementById('service').options[document.getElementById('service').selectedIndex].text);
+            }
+            
+            // Send via EmailJS
+            emailjs.sendForm('service_gfxheps', 'template_k1dkfm9', this)
+                .then(function() {
+                    // Show success message
+                    showConfirmation(servicesSelected, email);
+                    
+                    // Reset form
+                    document.getElementById('project-form').reset();
+                    toggleServiceOptions();
+                    
+                    // Start cooldown timer
+                    startCooldown(submitButton);
+                }, function(error) {
+                    // On error, re-enable button and show error
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Request';
+                    showPremiumMessage('Our system encountered an unexpected error. Please email us directly at contact@lucientcreative.com');
+                });
+        });
+        
+        // Real-time validation as user types
+        document.querySelectorAll('#project-form input, #project-form select, #project-form textarea').forEach(input => {
+            input.addEventListener('input', function() {
+                validateForm();
+            });
+        });
+    </script>
+    <script src="../js/script.js"></script>
+</body>
+</html>
