@@ -575,50 +575,51 @@
         
         // Update prices for single service selection
         function updateSingleServicePrices() {
-            const serviceSelect = document.getElementById('service');
-            const service = serviceSelect.value;
-            
-            if (service && service !== 'multiple') {
-                document.getElementById('essential-price').textContent = '$' + servicePricing[service].essential;
-                document.getElementById('elite-price').textContent = '$' + servicePricing[service].elite;
-                calculateSingleTotal();
-            }
-        }
+    const serviceSelect = document.getElementById('service');
+    const service = serviceSelect.value;
+    
+    if (service && service !== 'multiple') {
+        document.getElementById('essential-price').textContent = '$' + servicePricing[service].essential;
+        document.getElementById('elite-price').textContent = '$' + servicePricing[service].elite;
+        calculateSingleTotal();
+    }
+}
         
         // Calculate total for single service
         function calculateSingleTotal() {
-            const serviceSelect = document.getElementById('service');
-            const service = serviceSelect.value;
-            const plan = document.querySelector('input[name="plan"]:checked').value;
-            const maintenance = document.getElementById('maintenance').checked;
-            
-            if (service && service !== 'multiple') {
-                let total = servicePricing[service][plan];
-                if (maintenance) {
-                    total += maintenancePricing[plan];
-                }
-                
-                document.getElementById('total-cost').textContent = '$' + total;
-            }
+    const serviceSelect = document.getElementById('service');
+    const service = serviceSelect.value;
+    const plan = document.querySelector('input[name="plan"]:checked').value;
+    const maintenance = document.getElementById('maintenance').checked;
+    
+    if (service && service !== 'multiple') {
+        let total = servicePricing[service][plan];
+        if (maintenance) {
+            total += maintenancePricing[plan];
         }
+        
+        document.getElementById('total-cost').textContent = '$' + total;
+    }
+}
         
         // Calculate total for multiple services
         function calculateMultiTotal() {
-            const checkboxes = document.querySelectorAll('input[name="services[]"]:checked');
-            const plan = document.querySelector('input[name="multi-plan"]:checked').value;
-            const maintenance = document.getElementById('maintenance').checked;
-            
-            let total = 0;
-            checkboxes.forEach(checkbox => {
-                total += parseInt(checkbox.dataset[plan]);
-            });
-            
-            if (maintenance) {
-                total += maintenancePricing[plan] * checkboxes.length;
-            }
-            
-            document.getElementById('total-cost').textContent = '$' + total;
-        }
+    const checkboxes = document.querySelectorAll('input[name="services[]"]:checked');
+    const plan = document.querySelector('input[name="multi-plan"]:checked').value;
+    const maintenance = document.getElementById('maintenance').checked;
+    
+    let total = 0;
+    checkboxes.forEach(checkbox => {
+        total += parseInt(checkbox.dataset[plan]);
+    });
+    
+    if (maintenance) {
+        // Maintenance is per service, so multiply by number of services
+        total += maintenancePricing[plan] * checkboxes.length;
+    }
+    
+    document.getElementById('total-cost').textContent = '$' + total;
+}
         
         // Event listeners for plan changes
         document.querySelectorAll('input[name="plan"]').forEach(radio => {
