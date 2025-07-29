@@ -1,0 +1,118 @@
+:root {
+    /* Colors */
+    --color-black: #000000;
+    --color-dark: #0A0A0A;
+    --color-gray: #1A1A1A;
+    --color-light: #F5F5F5;
+    --color-white: #FFFFFF;
+    --color-primary: #D4AF37; /* Gold */
+    --color-secondary: #B22222; /* Red */
+    --color-accent: #0077B6; /* Blue */
+     --color-space-dark: #0A0A12;
+    --color-space-light: #1A1A2E;
+    --color-nebula-gold: rgba(212, 175, 55, 0.1);
+    --color-nebula-blue: rgba(0, 119, 182, 0.1);
+    --color-nebula-red: rgba(178, 34, 34, 0.1);
+    --navbar-height: 80px;
+    --navbar-height-mobile: 60px;
+    
+    /* Typography */
+    --font-primary: 'Space Mono', monospace;
+    --font-secondary: 'Space Grotesk', sans-serif;
+
+    .section-subtitle {
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    display: block;
+    opacity: 0.8;
+}
+    
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 8rem;
+    
+    /* Borders */
+    --border-radius: 4px;
+    --border-width: 1px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    
+    /* Transitions */
+    --transition-fast: 0.2s;
+    --transition-medium: 0.4s;
+    --transition-slow: 0.8s;
+}
+
+/* Base Reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background: 
+        radial-gradient(ellipse at center, var(--color-space-dark) 0%, var(--color-black) 100%),
+        url('../assets/images/space-bg.jpg') center/cover no-repeat fixed;
+    background-blend-mode: overlay;
+    color: var(--color-light);
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-primary);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-secondary);
+    font-weight: 100;
+    line-height: 1.2;
+    margin-bottom: var(--space-sm);
+}
+
+p {
+    margin-bottom: var(--space-sm);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
