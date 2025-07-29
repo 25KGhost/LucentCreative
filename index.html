@@ -1,177 +1,358 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucent Creative | Premium Digital Design</title>
-    <meta name="description" content="Elevated digital design for premium brands. Signature portfolios, high-converting landing pages, and refined UI/UX experiences.">
+    <title>Lucient Creative | Premium Digital Design</title>
+    <meta name="description" content="Where vision meets code. Premium digital experiences for exceptional brands.">
     
-    <!-- CSS Links -->
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- Preload critical assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="assets/fonts/custom-font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/images/hero-bg.jpg" as="image">
+<link rel="preconnect" href="https://assets.calendly.com" crossorigin>
+<link rel="preconnect" href="https://calendly.com" crossorigin>
+<link rel="preload" href="https://assets.calendly.com/assets/external/widget.js" as="script">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 </head>
 <body>
-    <!-- Luxury Loading Animation -->
-    <div id="luxuryLoader" class="luxury-loader">
-        <div class="loader-content">
-            <div class="loader-logo">Lucent</div>
-            <div class="loader-bar">
-                <div class="loader-progress"></div>
+    <!-- Custom Cursors -->
+<div class="custom-cursor default-cursor"></div>
+<div class="custom-cursor hover-cursor"></div>
+<div class="custom-cursor click-cursor"></div>
+
+    <!-- Space Background Elements -->
+    <div class="space-bg"></div>
+    <div class="particles"></div>
+    
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    
+    <!-- Navigation -->
+    <nav class="main-nav">
+    <div class="nav-container">
+        <!-- Social Icons (Left) -->
+        <div class="nav-socials">
+            <a href="#" class="social-icon" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.84 12.24c0 5.3-4.29 9.59-9.59 9.59a9.57 9.57 0 01-4.73-1.22L2 22l1.54-5.36a9.59 9.59 0 1118.3-4.4z"/>
+        <path d="M16.47 14.31l-1.2-.34a.7.7 0 00-.67.18l-.38.38a.71.71 0 01-.76.17c-1.3-.52-2.27-1.49-2.79-2.79a.71.71 0 01.17-.76l.38-.38a.7.7 0 00.18-.67l-.34-1.2a.71.71 0 00-.67-.5h-.53a.7.7 0 00-.7.76c.09 1.59.77 3.07 1.87 4.18a6.27 6.27 0 004.18 1.87.7.7 0 00.76-.7v-.53a.71.71 0 00-.5-.67z"/>
+    </svg>
+</a>
+
+    <a href="#" class="social-icon" aria-label="Twitter">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.6 3H21L14.2 10.4L22.2 21H15.6L10.8 14.9L5.2 21H1L8.2 13.1L0.6 3H7.4L11.7 8.5L16.6 3ZM15.4 19H17.4L6.7 4.8H4.6L15.4 19Z" fill="currentColor"/>
+    </svg>
+</a>
+
+    <a href="#" class="social-icon" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+        </svg>
+    </a>
+</div>
+        
+        <!-- Logo (Center) -->
+        <div class="logo-container">
+            <a href="#" class="logo" aria-label="Home">
+                <img src="assets/images/logo.png" alt="Logo" class="logo-image">
+            </a>
+        </div>
+        
+        <!-- Nav Links (Between logo and menu button) -->
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#process">Process</a>
+            <a href="#contact">Contact</a>
+            <a href="#">About</a>
+        </div>
+        
+        <!-- Menu Button (Right) -->
+        <div class="menu-toggle">
+            <span class="menu-text">Menu</span>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
             </div>
         </div>
     </div>
+</nav>
 
-    <!-- Updated Header -->
-    <header id="mainHeader">
-        <div class="logo magnetic" data-magnetic="0.3">
-            <a href="index.html" class="logo-text">Lucent Creative</a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#" class="magnetic" data-magnetic="0.15">Home</a></li>
-        <li><a href="services/" class="magnetic" data-magnetic="0.15">Services</a></li>
-        <li><a href="portfolio/" class="magnetic" data-magnetic="0.15">Portfolio</a></li>
-        <li><a href="#contact" class="magnetic" data-magnetic="0.15">Contact</a></li>
-        <li><a href="services/" class="cta-button magnetic" data-magnetic="0.1">Refine with Lucent</a></li>
-            </ul>
-        </nav>
-    </header>
+<!-- Floating Social Icons -->
+<div class="floating-socials">
+    <a href="#" class="social-icon" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+        </svg>
+    </a>
+    
+    <a href="#" class="social-icon" aria-label="Twitter">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.6 3H21L14.2 10.4L22.2 21H15.6L10.8 14.9L5.2 21H1L8.2 13.1L0.6 3H7.4L11.7 8.5L16.6 3ZM15.4 19H17.4L6.7 4.8H4.6L15.4 19Z" fill="currentColor"/>
+    </svg>
+</a>
 
+<a href="#" class="social-icon" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.84 12.24c0 5.3-4.29 9.59-9.59 9.59a9.57 9.57 0 01-4.73-1.22L2 22l1.54-5.36a9.59 9.59 0 1118.3-4.4z"/>
+        <path d="M16.47 14.31l-1.2-.34a.7.7 0 00-.67.18l-.38.38a.71.71 0 01-.76.17c-1.3-.52-2.27-1.49-2.79-2.79a.71.71 0 01.17-.76l.38-.38a.7.7 0 00.18-.67l-.34-1.2a.71.71 0 00-.67-.5h-.53a.7.7 0 00-.7.76c.09 1.59.77 3.07 1.87 4.18a6.27 6.27 0 004.18 1.87.7.7 0 00.76-.7v-.53a.71.71 0 00-.5-.67z"/>
+    </svg>
+</a>
+    
+    
+</div>
+    
     <!-- Hero Section -->
-    <section class="hero" id="hero">
+    <section class="hero-section nebula-glow light-transition-down">
+        <div class="hero-bg"></div>
         <div class="hero-content">
-            <div class="hero-text" style="margin-top: 60px;">
-                <h1 class="fade-in-up" data-delay="0.2" style="font-size: clamp(2rem, 5vw, 3.5rem)"></h1>
-                <h2 class="fade-in-up" data-delay="0.4" style="font-size: clamp(2rem, 5vw, 3.5rem)">Work That</h2>
-                <h2 class="fade-in-up" data-delay="0.6" style="font-size: clamp(2rem, 5vw, 3.5rem)">Elevates</h2>
-                <h2 class="fade-in-up" data-delay="0.8" style="font-size: clamp(2rem, 5vw, 3.5rem)">Brands</h2>
-                <p class="hero-subtitle fade-in-up" data-delay="1.0">Premium Portfolios, Landing Pages, and Copywriting for Visionaries</p>
-                <div class="hero-buttons fade-in-up" data-delay="1.2">
-                    <a href="services/" class="work-with-us-button magnetic" data-magnetic="0.3">Work With Us</a>
-                    <a href="portfolio/" class="view-work magnetic" data-magnetic="0.3">View Our Work</a>
+            <h1 class="hero-title">
+                <span class="line">Where Vision</span>
+                <span class="line">Meets Code</span>
+            </h1>
+            <p class="hero-subtitle">Premium digital experiences for exceptional brands</p>
+            <div class="scroll-hint">
+                <span>Scroll</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+<section class="about-section light-transition-up">
+  <div class="section-container">
+    <div class="about-content">
+      <span class="section-subtitle fade-in">Our Design Philosophy</span>
+      <h2 class="section-title text-reveal">Crafting Digital Elegance</h2>
+      
+      <div class="about-grid">
+        <!-- Precision Card -->
+        <div class="about-item" data-gsap-trigger>
+          <span class="item-number glow">01</span>
+          <h3 class="item-title">Precision</h3>
+          <p class="item-description">Every element is placed with care. Built for clarity, speed, and feel.</p>
+          <div class="item-stars"></div>
+        </div>
+        
+        <!-- Vision Card -->
+        <div class="about-item" data-gsap-trigger>
+          <span class="item-number glow">02</span>
+          <h3 class="item-title">Vision</h3>
+          <p class="item-description">Timeless over trendy. Design that aligns with your brand's essence.</p>
+          <div class="item-stars"></div>
+        </div>
+        
+        <!-- Impact Card -->
+        <div class="about-item" data-gsap-trigger>
+          <span class="item-number glow">03</span>
+          <h3 class="item-title">Impact</h3>
+          <p class="item-description">Beauty backed by strategy. We craft for results, not just looks.</p>
+          <div class="item-stars"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider">
+    <div class="divider-line"></div>
+  </div>
+</section>
+    
+    <!-- Work Section -->
+    <section class="projects-section light-transition-down" id="work">
+    <div class="project-grid-item" data-category="landing">
+  <div class="project-card">
+    <div class="project-image">
+      <img src="assets/images/project2.jpg" alt="SynthMind Launchpad" loading="lazy">
+    </div>
+    <div class="project-overlay">
+      <div class="project-header">
+        <h3>SynthMind Launchpad</h3>
+        <span class="project-category">Landing Pages</span>
+      </div>
+      <p class="project-brief">Interactive AI landing</p>
+    </div>
+  </div>
+  <div class="project-brief right-brief">
+    <span class="brief-label">LATEST PROJECT</span>
+    <h3 class="brief-title">SynthMind Launchpad</h3>
+    
+    <div class="brief-section">
+      <span class="section-label">PROJECT BRIEF</span>
+      <p>Next-gen landing page for an AI startup featuring interactive demos and conversion-focused design.</p>
+    </div>
+    
+    <div class="brief-meta">
+      <div class="meta-item">
+        <span class="meta-label">Client:</span>
+        <span class="meta-value">SynthMind AI</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Date:</span>
+        <span class="meta-value">05 Aug 2023 – 15 Sep 2023</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Scope:</span>
+        <span class="meta-value">UX Strategy, UI Design, Development</span>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        <div class="projects-more">
+            <a href="projects.html" class="cta-button view-all">
+                <span>View All Projects</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+    
+    <!-- Process Section -->
+    <section class="creative-showcase light-transition-up" id="process">
+    <div class="section-container">
+        <h2 class="section-title dynamic-underline">Creative Vision</h2>
+        
+        <div class="creative-blocks">
+            <!-- Block 1 -->
+            <div class="creative-block">
+                <div class="block-content">
+                    <div class="block-text left-text">
+                        <h3>01. Discovery</h3>
+                        <p>We dive deep to understand your brand essence, audience, and objectives through immersive workshops.</p>
+                    </div>
+                    <div class="block-image right-image">
+                        <div class="image-mask mask-1">
+                            <img src="assets/images/creative1.jpg" alt="Discovery Phase" loading="lazy">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="hero-image fade-in-up" data-delay="1.0" style="margin-top: 60px;">
-                <img src="images/hero-showcase.png" alt="Premium Design Work">
+            
+            <!-- Block 2 -->
+            <div class="creative-block">
+                <div class="block-content reverse">
+                    <div class="block-text right-text">
+                        <h3>02. Strategy</h3>
+                        <p>Crafting the digital roadmap with precision, balancing innovation with measurable results.</p>
+                    </div>
+                    <div class="block-image left-image">
+                        <div class="image-mask mask-2">
+                            <img src="assets/images/creative2.jpg" alt="Strategy Phase" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Block 3 -->
+            <div class="creative-block">
+                <div class="block-content">
+                    <div class="block-text center-text">
+                        <h3>03. Execution</h3>
+                        <p>Where vision becomes reality through meticulous design and engineering excellence.</p>
+                    </div>
+                    <div class="block-image center-image">
+                        <div class="image-mask mask-3">
+                            <img src="assets/images/creative3.jpg" alt="Execution Phase" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Block 4 -->
+            <div class="creative-block">
+                <div class="block-content reverse">
+                    <div class="block-text left-text">
+                        <h3>04. Launch</h3>
+                        <p>Delivering exceptional digital experiences that captivate and convert.</p>
+                    </div>
+                    <div class="block-image right-image">
+                        <div class="image-mask mask-4">
+                            <img src="assets/images/creative4.jpg" alt="Launch Phase" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+    <!-- Contact Section -->
+    <section class="contact-section light-transition-down" id="contact">
+        <div class="section-container">
+            <h2 class="section-title">Let's Build<br>Something Legendary</h2>
+            <a href="#" class="cta-button calendly-button" data-calendly>
+    <span>Start Your Project</span>
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</a>
+            <div class="social-links">
+                <a href="#" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Instagram icon -->
+                    </svg>
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Twitter icon -->
+                    </svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- LinkedIn icon -->
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
-
-    <!-- Expertise Section -->
-    <section class="expertise glass-section fade-in-up" id="services" data-delay="0">
-        <h2>Our Expertise:</h2>
-        <div class="expertise-grid">
-            <div class="expertise-item fade-in-up stagger-delay-1 magnetic" data-magnetic="0.2">
-                <img src="images/portfolio-icon.png" alt="Signature Portfolios" class="expertise-icon">
-                <h3>Signature Portfolios</h3>
-                <p>We shape digital identities that speak clearly and confidently.</p>
-                <p>Everything we create is designed to leave a lasting, elevated impression.</p>
-            </div>
-            <div class="expertise-item fade-in-up stagger-delay-2 magnetic" data-magnetic="0.2">
-                <img src="images/copywriting-icon.png" alt="Strategic Copywriting" class="expertise-icon">
-                <h3>Strategic Copywriting</h3>
-                <p>Refined words that speak with quiet authority and depth.</p>
-                <p>Clear, evocative, and built to move audiences.</p>
-            </div>
-            <div class="expertise-item fade-in-up stagger-delay-3 magnetic" data-magnetic="0.2">
-                <img src="images/landing-page-icon.png" alt="High-Impact Landing Pages" class="expertise-icon">
-                <h3>High-Impact Landing Pages</h3>
-                <p>Build to capture attention early and lead users exactly where they need to go.</p>
-                <p>Crafted to impress at first glance and convert by the lost scroll.</p>
-            </div>
-            <div class="expertise-item fade-in-up stagger-delay-4 magnetic" data-magnetic="0.2">
-                <img src="images/uiux-icon.png" alt="Refined UI/UX Design" class="expertise-icon">
-                <h3>Refined UI/UX Design</h3>
-                <p>Modern interfaces designed to feel premium from first click to final scroll.</p>
-                <p>Looks sharp, loads fast, converts.</p>
-            </div>
-        </div>
-        <div class="text-center fade-in-up" data-delay="1.0" style="width: 100%; display: flex; justify-content: center;">
-            <a href="/services" class="explore-services-btn magnetic" data-magnetic="0.3">Explore Our Services</a>
-        </div>
-    </section>
-
-    <!-- Elevate Section -->
-    <section class="elevate glass-section fade-in-up" id="elevate" data-delay="0">
-        <h2>Elevate Your Work With Us</h2>
-        <div class="services-grid">
-            <div class="service fade-in-up stagger-delay-1 magnetic" data-magnetic="0.3">
-                <img src="images/brand-icon.png" alt="Brand Identity" class="service-icon">
-                <h3>Brand Identity</h3>
-                <p>We shape digital identities that speak clearly and confidently. Everything we create is designed to leave a lasting, elevated impression.</p>
-            </div>
-            <div class="service fade-in-up stagger-delay-2 magnetic" data-magnetic="0.3">
-                <img src="images/conversion-icon.png" alt="Conversions" class="service-icon">
-                <h3>Conversions</h3>
-                <p>We build with purpose, not just visuals. Every section is crafted to guide your audience and turn views into results.</p>
-            </div>
-            <div class="service fade-in-up stagger-delay-3 magnetic" data-magnetic="0.3">
-                <img src="images/aesthetic-icon.png" alt="Aesthetic" class="service-icon">
-                <h3>Aesthetic</h3>
-                <p>We design with clarity, intention, and taste. Every layout, color, and detail works together to feel timeless.</p>
-            </div>
-            <div class="service fade-in-up stagger-delay-4 magnetic" data-magnetic="0.3">
-                <img src="images/copywriting-icon.png" alt="Copywriting" class="service-icon">
-                <h3>Copywriting</h3>
-                <p>We write with meaning, precision, and flow. Your message will connect, resonate, and convert — without sounding like everyone else.</p>
-            </div>
-            <div class="service fade-in-up stagger-delay-5 magnetic" data-magnetic="0.3">
-                <img src="images/efficiency-icon.png" alt="Efficiency" class="service-icon">
-                <h3>Efficiency</h3>
-                <p>We deliver high-end results fast, without cutting corners. Our process is built to move with speed, precision, and polish.</p>
-            </div>
-            <div class="service fade-in-up stagger-delay-6 magnetic" data-magnetic="0.3">
-                <img src="images/process-icon.png" alt="Seamless Process" class="service-icon">
-                <h3>Seamless Process</h3>
-                <p>We manage every detail from start to finish, so you don't have to. One team, one vision, no stress.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- More Work Section -->
-    <section class="more-work glass-section fade-in-up" id="portfolio" data-delay="0">
-        <h2>Selected Work</h2>
-        <p>Explore our portfolio of premium digital experiences</p>
-        <a href="portfolio/" class="discover-button magnetic">View Full Portfolio</a>
-    </section>
-
-    <!-- Elevate Story Section -->
-    <section class="elevate-story glass-section fade-in-up" id="contact" data-delay="0">
-        <h2>Let's Elevate Your Story</h2>
-        <p>We partner with brands that value craftsmanship, attention to detail, and premium experiences. Whether you're launching something new or elevating an existing presence, we'll help you stand out with intention.</p>
-        <p>Our process is collaborative, refined, and built for results. Let's create something remarkable together.</p>
-        <a href="services/" class="discover-button magnetic">Discover Your Identity</a>
-    </section>
-
+    
     <!-- Footer -->
-    <footer class="fade-in-up">
+    <footer class="main-footer">
         <div class="footer-content">
-            <img src="images/lucient-logo-white.png" alt="Lucient Creative" class="footer-logo">
-            <p>Digital craftsmanship for brands that lead with elegance.</p>
-
-            <div class="footer-socials">
-    <a href="https://x.com/LucentCreativ" class="social-icon" target="_blank">
-        <img src="images/twitter-icon.png" alt="Twitter">
-    </a>
-    <a href="https://www.instagram.com/lucientcreative/" class="social-icon" target="_blank">
-        <img src="images/instagram-icon.png" alt="Instagram">
-    </a>
-    <a href="https://mail.google.com/mail/?view=cm&to=lucentcreative.eu@gmail.com" class="social-icon" target="_blank">
-        <img src="images/email-icon.png" alt="Email">
-    </a>
-</div>
-
-            <p class="copyright">© 2025 Lucent Creative. All Rights Reserved.</p>
+            <a href="#" class="footer-logo" aria-label="Lucient Creative">
+                <svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Logo SVG content -->
+                </svg>
+            </a>
+            <p class="copyright">© 2025 Lucient Creative. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+            </div>
         </div>
     </footer>
-
-    <!-- Mesh Gradient Overlay -->
-    <div class="mesh-gradient"></div>
-
-    <!-- JavaScript -->
-    <script src="js/script.js"></script>
+    
+    <!-- GSAP & Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    
+    <script src="js/animations/hero.js"></script>
+    <script src="js/animations/projects.js"></script>
+    <script src="js/animations/projectpage.js"></script>
+    <script src="js/animations/showcase.js"></script>
+    <script src="js/animations/process.js"></script>
+    <script src="js/animations/cursor.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
