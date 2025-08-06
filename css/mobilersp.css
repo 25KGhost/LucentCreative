@@ -1,0 +1,440 @@
+/* Consolidated Mobile Responsiveness - Optimized */
+/* Base Mobile Styles */
+@media (max-width: 1024px) {
+    :root {
+        --space-xs: 0.25rem;
+        --space-sm: 0.5rem;
+        --space-md: 1rem;
+        --space-lg: 2rem;
+        --space-xl: 3rem;
+    }
+
+    html {
+        font-size: 14px;
+    }
+}
+
+/* Navigation */
+@media (max-width: 1024px) {
+    .main-nav {
+        padding: 1rem;
+    }
+
+    .nav-container {
+        flex-wrap: wrap;
+    }
+
+    .logo-container {
+        position: static;
+        transform: none;
+        order: 1;
+        margin: 0 auto;
+    }
+
+    .nav-socials {
+        order: 2;
+        margin-right: auto;
+    }
+
+    .menu-toggle {
+        order: 3;
+        margin-left: auto;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(10, 10, 18, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 998;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .nav-links.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    .logo-image {
+        height: 2rem;
+    }
+}
+
+/* Hero Section */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 90vh;
+        padding-top: var(--navbar-height-mobile);
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        max-width: 90%;
+        line-height: 1.6;
+    }
+
+    .scroll-hint {
+        bottom: var(--space-md);
+    }
+}
+
+/* About Section */
+@media (max-width: 768px) {
+    .about-section {
+        padding: 4rem 0;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .about-item {
+        padding: 1.5rem;
+        min-height: auto;
+    }
+
+    .item-description {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+}
+
+/* Projects Grid */
+@media (max-width: 1024px) {
+    .projects-grid-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .project-grid-item {
+        flex-direction: column;
+        margin-bottom: 3rem;
+    }
+
+    .project-card {
+        aspect-ratio: 16/9;
+    }
+
+    .project-brief {
+        width: 100%;
+        padding: 1.5rem 0;
+    }
+
+    .left-brief, .right-brief {
+        order: 0;
+    }
+}
+
+/* Featured Project */
+@media (max-width: 768px) {
+    .featured-project {
+        flex-direction: column;
+    }
+
+    .project-visual {
+        height: 300px;
+    }
+
+    .project-details {
+        padding: 0;
+    }
+
+    .project-title {
+        font-size: 1.8rem;
+    }
+
+    .project-description {
+        font-size: 1rem;
+    }
+}
+
+/* Vision Section */
+@media (max-width: 768px) {
+    .vision-section {
+        padding: 3rem 1rem;
+    }
+
+    .vision-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-steps {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .process-arrow {
+        transform: rotate(90deg);
+    }
+
+    .vision-canvas-container {
+        height: 300px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+/* Testimonials */
+@media (max-width: 768px) {
+    .testimonials-section {
+        padding: 4rem 0;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    .testimonial-text {
+        font-size: 1rem;
+        padding-left: 1.5rem;
+    }
+
+    .testimonial-text::before {
+        font-size: 3rem;
+        top: -0.5rem;
+    }
+
+    .author-avatar {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Category Filter */
+@media (max-width: 768px) {
+    .category-filter {
+        padding: 1rem 0;
+    }
+
+    .filter-buttons {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0 1rem 0.5rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-button {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+}
+
+/* Footer */
+@media (max-width: 768px) {
+    .main-footer {
+        padding: 2rem 0;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* Contact Section */
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 3rem 0;
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .cta-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Process Section */
+@media (max-width: 768px) {
+    .process-step {
+        min-width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    .step-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+}
+
+/* Typography Adjustments */
+@media (max-width: 768px) {
+    h1, h2, h3 {
+        line-height: 1.2;
+    }
+
+    .hero-title .line {
+        display: inline;
+    }
+
+    .hero-title .line:after {
+        content: " ";
+        display: block;
+        height: 0.5em;
+    }
+
+    .section-title {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Very Small Screens */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: clamp(2rem, 9vw, 2.8rem);
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .testimonial-card {
+        padding: 1rem;
+    }
+
+    .author-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .project-brief {
+        padding: 1rem 0;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .project-card,
+    .testimonial-card,
+    .filter-button {
+        transform: none !important;
+    }
+    
+    .project-overlay {
+        opacity: 1 !important;
+    }
+    
+    .section-title svg text {
+        stroke-dashoffset: 0 !important;
+        fill: var(--color-primary) !important;
+    }
+}
+
+/* Touch Devices */
+@media (pointer: coarse) {
+    .custom-cursor {
+        display: none !important;
+    }
+    
+    body {
+        cursor: auto !important;
+    }
+
+    /* Larger tap targets for mobile */
+    a, button {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .filter-button {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Landscape Orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero-section {
+        min-height: 120vh;
+    }
+
+    .projects-header {
+        height: 80vh;
+    }
+}
+
+/* Project Modal Adjustments */
+@media (max-width: 768px) {
+    .project-modal {
+        padding: 1rem;
+    }
+
+    .modal-header {
+        padding: 1.5rem;
+    }
+
+    .modal-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .modal-meta {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Improved Form Elements */
+@media (max-width: 768px) {
+    input, textarea, button {
+        font-size: 16px !important; /* Prevent iOS zoom */
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Performance Optimizations for Mobile */
+@media (max-width: 768px) {
+    .space-bg, .particles {
+        background-attachment: scroll !important;
+    }
+
+    .hero-bg {
+        background-attachment: scroll;
+    }
+}
