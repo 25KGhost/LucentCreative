@@ -16,6 +16,7 @@
         transparent 70%
     );
     z-index: 0;
+    opacity: 0.03;
 }
 
 .hero-bg {
@@ -27,7 +28,7 @@
     background-image: url('../assets/images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.4;
+    opacity: 0.1;
     z-index: 1;
 }
 
@@ -111,11 +112,13 @@
         var(--color-nebula-blue) 0%,
         transparent 30%
     );
+    opacity: 0.03;
     z-index: 0;
 }
 
 .about-item {
     position: relative;
+    height: 200px;
   padding: 2.5rem;
   border: 1px solid rgba(212, 175, 55, 0.1);
   border-radius: 8px;
@@ -154,8 +157,8 @@
         var(--color-space-light) 0%,
         var(--color-space-dark) 100%
     );
+    opacity: 0.05;
     z-index: 0;
-    opacity: 0.7;
 }
 
 .sticky-title h2 {
@@ -324,8 +327,8 @@
         var(--color-nebula-red) 50%,
         transparent 100%
     );
+    opacity: 0.03;
     z-index: 0;
-    opacity: 0.3;
 }
 
 .process-title {
@@ -378,6 +381,7 @@
         var(--color-nebula-blue) 0%,
         transparent 70%
     );
+    opacity: 0.03;
     z-index: 0;
 }
 
@@ -435,6 +439,8 @@
 }
 
 .footer-links a {
+    position: relative;
+    z-index: 101;
     font-size: 0.875rem;
     transition: color var(--transition-fast);
 }
@@ -492,15 +498,6 @@
     gap: 5vw;
 }
 
-.block-content.reverse {
-    flex-direction: row-reverse;
-}
-
-.block-text {
-    flex: 1;
-    z-index: 2;
-}
-
 .block-text h3 {
     font-size: clamp(1.5rem, 3vw, 2.5rem);
     color: var(--color-primary);
@@ -511,11 +508,6 @@
     font-size: clamp(1rem, 1.5vw, 1.25rem);
     line-height: 1.6;
     max-width: 500px;
-}
-
-.left-text {
-    text-align: left;
-    margin-right: auto;
 }
 
 .right-text {
@@ -827,7 +819,8 @@
 .logo-container {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(2.3); /* 1.0 is default; increase for size */
+    transform-origin: center;
 }
 
 .logo-image {
@@ -1136,20 +1129,181 @@
 }
 }
 
-/* Calendly Widget Styling */
-.calendly-overlay {
-    backdrop-filter: blur(5px) !important;
-    background: rgba(10, 10, 18, 0.9) !important;
+/* Remove yellow dot bug */
+body::before {
+    display: none !important;
 }
 
+/* Remove sticky notification */
+.sticky-notification {
+    display: none !important;
+}
+
+/* Featured Project Styles */
+
+.featured-project {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 3rem auto 0;
+    max-width: 1200px;
+    position: relative;
+}
+
+.project-details {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 0 1.5rem;
+}
+
+.project-visual {
+    order: 2;
+    position: relative;
+    height: 400px; /* Fixed height for consistency */
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.project-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.3) 0%,
+        transparent 20%,
+        transparent 80%,
+        rgba(0, 0, 0, 0.3) 100%
+    );
+}
+
+.project-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    align-items: center;
+}
+
+
+.project-category {
+    background: rgba(212, 175, 55, 0.15);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.project-date {
+    opacity: 0.7;
+}
+
+.project-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.project-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+}
+
+.view-project {
+    align-self: flex-start;
+    margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .featured-project {
+        flex-direction: row;
+        align-items: center;
+        gap: 3rem;
+    }
+    
+    .project-details {
+        flex: 1;
+        padding: 0;
+    }
+    
+    .project-visual {
+        flex: 1;
+        height: 350px; /* Slightly smaller on desktop */
+    }
+}
+
+@media (min-width: 1024px) {
+    .featured-project {
+        gap: 4rem;
+    }
+    
+    .project-visual {
+        height: 400px;
+    }
+}
+
+/* Calendly Widget Styling */
+/* Calendly Widget Styling */
+.calendly-inline-widget {
+    margin: 2rem auto 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(10, 10, 18, 0.5);
+    backdrop-filter: blur(10px);
+    max-width: 800px;
+    width: 100%;
+    height: 700px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Fix for Calendly iframe */
+.calendly-inline-widget iframe {
+    background: transparent !important;
+}
+
+/* Calendly overlay styling */
+.calendly-overlay {
+    backdrop-filter: blur(5px) !important;
+    background: rgba(10, 10, 18, 0.95) !important;
+    cursor: none !important;
+}
+
+/* Calendly popup styling */
 .calendly-popup {
     border-radius: 12px !important;
     overflow: hidden !important;
     max-height: 90vh !important;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
     border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    background: var(--color-dark) !important;
+    cursor: none !important;
 }
 
+/* Close button styling */
 .calendly-popup-close {
     top: 15px !important;
     right: 15px !important;
@@ -1167,14 +1321,50 @@
     height: 16px !important;
 }
 
+/* Mobile responsiveness */
 @media (max-width: 768px) {
+    .calendly-inline-widget {
+        height: 600px;
+        cursor: none !important;
+    }
+    
     .calendly-popup {
         width: 95% !important;
         height: 90% !important;
         max-height: none !important;
+        cursor: none !important;
     }
     
     .calendly-popup-content {
         padding: 0 !important;
+        cursor: none !important;
     }
 }
+
+
+.scroll-icon {
+  width: 24px;
+  height: 40px;
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.scroll-icon::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 8px;
+  background: var(--color-primary);
+  animation: scrollPulse 2s infinite;
+}
+
+@keyframes scrollPulse {
+  0% { opacity: 1; transform: translateY(0) translateX(-50%); }
+  100% { opacity: 0; transform: translateY(10px) translateX(-50%); }
+}
+
