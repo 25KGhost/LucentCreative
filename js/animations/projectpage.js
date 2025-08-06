@@ -153,7 +153,7 @@ function initProjectsPage() {
   // Testimonial animations
   gsap.from(".testimonial-card", {
     y: 50,
-    opacity: 0,
+    opacity: 1,
     stagger: 0.2,
     duration: 1,
     ease: "back.out(1.7)",
@@ -165,18 +165,17 @@ function initProjectsPage() {
   });
 }
 
-// Replace the existing initTestimonials function with this updated version
 function initTestimonials() {
     const testimonials = gsap.utils.toArray('.testimonial-card');
     
-    testimonials.forEach((card, i) => {
+    testimonials.forEach((card) => {
         // Set initial state
         gsap.set(card, {
-            opacity: 0,
+            opacity: 1,
             y: 20
         });
 
-        // Scroll animation
+        // Create a ScrollTrigger for each card
         ScrollTrigger.create({
             trigger: card,
             start: "top 80%",
@@ -185,31 +184,19 @@ function initTestimonials() {
                     opacity: 1,
                     y: 0,
                     duration: 0.8,
-                    ease: "back.out(1.2)",
-                    delay: i * 0.1
+                    ease: "back.out(1.2)"
                 });
-                card.classList.add('active');
             },
-            once: true
-        });
-
-        // Hover effect
-        card.addEventListener('mouseenter', () => {
-            gsap.to(card, {
-                y: -5,
-                boxShadow: '0 15px 40px rgba(212, 175, 55, 0.2)',
-                duration: 0.6,
-                ease: "power2.out"
-            });
-        });
-
-        card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-                y: 0,
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
-                duration: 0.6,
-                ease: "power2.out"
-            });
+            onEnterBack: () => {
+                gsap.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "back.out(1.2)"
+                });
+            },
+            // Remove the once: true to make it trigger every time
+            markers: false // Set to true if you want to debug
         });
     });
 }
