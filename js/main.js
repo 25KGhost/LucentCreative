@@ -34,38 +34,38 @@ function initMenuAnimation() {
 function initNavScroll() {
     const navbar = document.querySelector('.main-nav');
     const floatingSocials = document.querySelector('.floating-socials');
-    const navSocials = document.querySelector('.nav-socials');
+    
+    if (!navbar || !floatingSocials) return;
 
-    if (!navbar || !floatingSocials || !navSocials) return;
-
-    let lastScroll = 0;
+    let lastScroll = window.pageYOffset;
     const scrollThreshold = 100;
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-
+        
+        // Show/hide navbar based on scroll direction
+        if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+            navbar.classList.add('hide-nav');
+        } else {
+            navbar.classList.remove('hide-nav');
+        }
+        
+        // Shrink effect
         if (currentScroll > scrollThreshold) {
             navbar.classList.add('shrink');
             floatingSocials.classList.add('visible');
-            navSocials.style.opacity = '0';
-            navSocials.style.pointerEvents = 'none';
-            navbar.style.background = 'rgba(10, 10, 18, 0.1)';
         } else {
             navbar.classList.remove('shrink');
             floatingSocials.classList.remove('visible');
-            navbar.style.background = 'transparent';
-            navSocials.style.opacity = '1';
-            navSocials.style.pointerEvents = 'all';
         }
-
-        if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
-            navbar.classList.add('hidden');
-        } else if (currentScroll < lastScroll || currentScroll <= scrollThreshold) {
-            navbar.classList.remove('hidden');
-        }
-
+        
         lastScroll = currentScroll;
     });
+}
+
+// Update menu links for projects.html
+if (window.location.pathname.includes('projects.html')) {
+    document.querySelector('.nav-links').innerHTML = '<a href="index.html">Home</a>';
 }
 
 // Floating social icons
@@ -154,134 +154,40 @@ function initCustomCursor() {
     }
 }
 
-// Calendly Integration with robust error handling
-function initCalendly() {
-    // First check if Calendly is already loaded
-    if (typeof Calendly !== 'undefined') {
-        setupCalendlyButtons();
-        return;
-    }
-
-    // Load the script if not already loaded
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    
-    script.onload = function() {
-        // Sometimes Calendly needs a moment after script load
-        setTimeout(setupCalendlyButtons, 500);
-    };
-    
-    script.onerror = function() {
-        console.error('Failed to load Calendly script');
-        resetCalendlyButtons();
-    };
-    
-    document.body.appendChild(script);
-}
-
-function setupCalendlyButtons() {
-    try {
-        const buttons = document.querySelectorAll('.calendly-button, [href="#calendly"], .cta-button[href*="calendly"]');
-        if (!buttons.length) return;
-        
-        buttons.forEach(button => {
-            // Store original text if not already stored
-            if (!button.dataset.originalText) {
-                button.dataset.originalText = button.querySelector('span')?.textContent || button.textContent;
+// Smooth scroll behavior
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
             }
-            button.addEventListener('click', handleCalendlyClick);
-            button.style.pointerEvents = 'auto';
         });
-        
-        // Initialize badge widget if needed
-        try {
-            Calendly.initBadgeWidget({
-                url: 'https://calendly.com/lucentcreative-eu/30min',
-                text: 'Book a consultation',
-                color: '#d4af37',
-                textColor: '#ffffff',
-                branding: false
-            });
-        } catch (e) {
-            console.error('Calendly badge widget error:', e);
-        }
-    } catch (e) {
-        console.error('Calendly initialization error:', e);
-        resetCalendlyButtons();
-    }
-}
-
-function handleCalendlyClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    const button = e.currentTarget;
-    const originalText = button.dataset.originalText || 
-                         button.querySelector('span')?.textContent || 
-                         button.textContent;
-    
-    // Show loading state
-    if (button.querySelector('span')) {
-        button.querySelector('span').textContent = 'Loading...';
-    } else {
-        button.textContent = 'Loading...';
-    }
-    button.style.pointerEvents = 'none';
-    
-    // Fallback timeout
-    const failSafe = setTimeout(() => {
-        resetButton(button, originalText);
-        // Fallback to new tab if Calendly not loaded
-        if (typeof Calendly === 'undefined') {
-            window.open('https://calendly.com/lucentcreative-eu/30min', '_blank');
-        }
-    }, 3000);
-    
-    try {
-        if (typeof Calendly !== 'undefined') {
-            Calendly.initPopupWidget({
-                url: 'https://calendly.com/lucentcreative-eu/30min',
-                text: 'Schedule a Consultation',
-                color: '#d4af37',
-                textColor: '#ffffff',
-                branding: false,
-                primaryColor: 'd4af37',
-                hideEventTypeDetails: false,
-                hideGdprBanner: true,
-                onModalClose: () => {
-                    clearTimeout(failSafe);
-                    resetButton(button, originalText);
-                }
-            });
-        } else {
-            window.open('https://calendly.com/lucentcreative-eu/30min', '_blank');
-            clearTimeout(failSafe);
-            resetButton(button, originalText);
-        }
-    } catch (e) {
-        console.error('Calendly popup error:', e);
-        window.open('https://calendly.com/lucentcreative-eu/30min', '_blank');
-        clearTimeout(failSafe);
-        resetButton(button, originalText);
-    }
-}
-
-function resetButton(button, originalText) {
-    if (button.querySelector('span')) {
-        button.querySelector('span').textContent = originalText;
-    } else {
-        button.textContent = originalText;
-    }
-    button.style.pointerEvents = 'auto';
-}
-
-function resetCalendlyButtons() {
-    const buttons = document.querySelectorAll('.calendly-button, [href="#calendly"], .cta-button[href*="calendly"]');
-    buttons.forEach(button => {
-        const originalText = button.dataset.originalText || 'Schedule a Consultation';
-        resetButton(button, originalText);
     });
+}
+
+// Ambient audio initialization
+function initAmbientAudio() {
+    const audio = document.getElementById('ambient-audio');
+    if (!audio) return;
+    
+    // Enable audio after first interaction
+    const enableAudio = () => {
+        audio.volume = 0.3;
+        audio.play().catch(e => console.log("Audio play prevented:", e));
+        document.body.removeEventListener('click', enableAudio);
+        document.body.removeEventListener('touchstart', enableAudio);
+    };
+    
+    document.body.addEventListener('click', enableAudio, { once: true });
+    document.body.addEventListener('touchstart', enableAudio, { once: true });
 }
 
 // Initialize everything once DOM is loaded
@@ -290,21 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavScroll();
     initFloatingSocials();
     initCustomCursor();
-    
-    // Initialize Calendly with retries
-    initCalendly();
-    
-    // Fallback retry
-    setTimeout(() => {
-        if (typeof Calendly === 'undefined') {
-            console.log('Retrying Calendly initialization...');
-            initCalendly();
-        }
-    }, 2000);
-});
-
-// Listen for Calendly ready event
-window.addEventListener('calendly.ready', function() {
-    console.log('Calendly ready event received');
-    setupCalendlyButtons();
+    initSmoothScroll();
+    initAmbientAudio();
+    initVisionSection();
 });
