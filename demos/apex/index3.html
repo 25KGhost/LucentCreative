@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DataPoint Labs | Intelligence Platform</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/lucide@latest"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"><script>tailwind.config={theme:{extend:{colors:{void:"#030305",obsidian:"#0B0B10",glass:"rgba(255, 255, 255, 0.03)",border:"rgba(255, 255, 255, 0.08)",cyan:{DEFAULT:"#00F0FF",dim:"rgba(0, 240, 255, 0.2)",glow:"rgba(0, 240, 255, 0.6)"},violet:"#7000FF"},fontFamily:{sans:["Space Grotesk","sans-serif"],mono:["Share Tech Mono","monospace"]},animation:{"pulse-fast":"pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",float:"float 6s ease-in-out infinite"},keyframes:{float:{"0%, 100%":{transform:"translateY(0)"},"50%":{transform:"translateY(-10px)"}}}}}}</script><style>:root{--mouse-x:50%;--mouse-y:50%}body{background-color:#030305;color:#e2e8f0;overflow-x:hidden}.noise-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:50;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")}.smooth-wrapper{position:relative;width:100%;overflow:hidden}.spotlight-card{background-color:rgba(11,11,16,.6);border:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;transition:transform .3s ease,border-color .3s ease}.spotlight-card::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),rgba(255,255,255,.06),transparent 40%);opacity:0;transition:opacity .3s ease;z-index:1;pointer-events:none}.spotlight-card:hover::before{opacity:1}.spotlight-card:hover{border-color:rgba(0,240,255,.3);transform:translateY(-2px);box-shadow:0 10px 40px -10px rgba(0,240,255,.1)}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#030305}::-webkit-scrollbar-thumb{background:#333;border-radius:2px}::-webkit-scrollbar-thumb:hover{background:#00f0ff}.text-glow{text-shadow:0 0 20px rgba(0,240,255,.5)}.scramble-text{font-family:'Share Tech Mono',monospace;display:inline-block}.btn-glitch{position:relative;overflow:hidden}.btn-glitch::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,240,255,.4),transparent);transition:.5s}.btn-glitch:hover::after{left:100%}.hud-corner{position:absolute;width:12px;height:12px;border:2px solid #00f0ff;transition:all .3s ease;opacity:.5}.spotlight-card:hover .hud-corner{opacity:1;width:100%;height:100%;border-width:1px;background:rgba(0,240,255,.02);z-index:0}.hc-tl{top:0;left:0;border-right:none;border-bottom:none}.hc-tr{top:0;right:0;border-left:none;border-bottom:none}.hc-bl{bottom:0;left:0;border-right:none;border-top:none}.hc-br{bottom:0;right:0;border-left:none;border-top:none}.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.215,.61,.355,1)}.reveal.active{opacity:1;transform:translateY(0)}</style></head><body class="antialiased selection:bg-cyan selection:text-black"><div class="noise-overlay"></div><canvas id="bgCanvas" class="fixed inset-0 w-full h-full z-0 pointer-events-none"></canvas><div class="fixed inset-0 pointer-events-none z-10 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(3,3,5,0.8)_100%)]"></div><div class="smooth-wrapper relative z-20"><nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-void/80 backdrop-blur-md transition-all duration-300" id="navbar"><div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between"><div class="flex items-center gap-3 group cursor-pointer"><div class="relative w-8 h-8 flex items-center justify-center border border-cyan/30 rounded-sm bg-cyan/5 overflow-hidden group-hover:border-cyan transition-colors"><div class="absolute w-full h-[1px] bg-cyan animate-scan top-0"></div><i data-lucide="database" class="w-4 h-4 text-cyan fill-current"></i></div><div class="flex flex-col"><span class="font-sans font-bold text-lg tracking-wider leading-none text-white">DATAPOINT</span><span class="font-mono text-[10px] text-cyan tracking-[0.2em] leading-none mt-1">LABS</span></div></div><div class="hidden md:flex items-center gap-12"><a href="#system" class="font-mono text-xs tracking-widest text-gray-400 hover:text-cyan transition-colors relative group">PLATFORM<span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-cyan transition-all group-hover:w-full"></span></a><a href="#protocol" class="font-mono text-xs tracking-widest text-gray-400 hover:text-cyan transition-colors relative group">ANALYTICS<span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-cyan transition-all group-hover:w-full"></span></a><a href="#demo" class="font-mono text-xs tracking-widest text-gray-400 hover:text-cyan transition-colors relative group">LIVE DATA<span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-cyan transition-all group-hover:w-full"></span></a></div><button class="btn-glitch px-6 py-2.5 bg-white text-black font-mono text-xs font-bold tracking-wider hover:bg-cyan transition-colors clip-path-slant">[ REQUEST DEMO ]</button></div></nav><header class="relative min-h-screen flex flex-col justify-center items-center pt-20 overflow-hidden"><div class="relative z-30 text-center px-6 max-w-5xl mx-auto"><div class="reveal inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-10"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-cyan"></span></span><span class="font-mono text-[10px] text-cyan tracking-widest">PIPELINE ACTIVE // 99.9% UPTIME</span></div><h1 class="text-5xl md:text-8xl font-bold tracking-tight leading-tight mb-8 mix-blend-screen"><div class="block text-white reveal" style="transition-delay:.1s">CLARIFY</div><div class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan via-white to-cyan animate-pulse-fast scramble-target reveal" style="transition-delay:.2s">YOUR DATA</div></h1><p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed reveal" style="transition-delay:.3s">Turn complex metrics into actionable insights. We built the intelligence layer for the modern enterprise, eliminating the noise so you can focus on the signal.</p><div class="flex flex-col md:flex-row items-center justify-center gap-6 reveal" style="transition-delay:.4s"><button class="group relative px-8 py-4 bg-cyan text-black font-mono font-bold text-sm tracking-widest overflow-hidden hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all duration-300"><div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 mix-blend-overlay"></div><span class="relative z-10">START ANALYZING</span></button><button class="group flex items-center gap-3 px-8 py-4 border border-white/10 text-white font-mono text-sm tracking-widest hover:border-cyan/50 hover:bg-cyan/5 transition-all duration-300"><span>READ THE DOCS</span><i data-lucide="arrow-right" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i></button></div></div><div class="absolute bottom-0 w-full border-t border-white/5 bg-obsidian/50 backdrop-blur-sm py-4 z-30"><div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-[10px] font-mono text-gray-500"><div class="flex gap-8"><span class="flex items-center gap-2"><i data-lucide="cpu" class="w-3 h-3"></i>LATENCY: 12ms</span><span class="flex items-center gap-2"><i data-lucide="shield" class="w-3 h-3"></i>SECURITY: SOC2 TYPE II</span></div><div class="hidden md:block tracking-[0.3em]">SCROLL TO PROCESS</div></div></div></header><section id="system" class="py-32 relative"><div class="max-w-7xl mx-auto px-6"><div class="flex flex-col md:flex-row justify-between items-end mb-20 reveal"><div><h2 class="text-4xl font-bold mb-4 text-white">INTELLIGENT ARCHITECTURE</h2><p class="text-gray-400 max-w-md">Modular tools designed to strip away complexity and reveal the objective.</p></div><div class="hidden md:block"><div class="h-[1px] w-32 bg-gradient-to-r from-transparent to-cyan"></div></div></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]"><div class="spotlight-card p-8 md:col-span-2 group reveal" style="transition-delay:.1s"><div class="relative z-10 h-full flex flex-col justify-between"><div class="flex justify-between items-start"><div class="p-3 bg-white/5 rounded border border-white/10 text-cyan group-hover:text-white group-hover:bg-cyan group-hover:border-cyan transition-all duration-500"><i data-lucide="layout" class="w-6 h-6"></i></div><span class="font-mono text-xs text-gray-600">MOD // 01</span></div><div class="mt-12"><h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan transition-colors">Simplified Workflows</h3><p class="text-gray-400 leading-relaxed max-w-lg">We analyzed thousands of user sessions to rebuild the analytics workflow. No searching, no guessing. Just intuitive navigation that gets you to the answer in three clicks or less.</p></div></div><div class="hud-corner hc-tl"></div><div class="hud-corner hc-tr"></div><div class="hud-corner hc-bl"></div><div class="hud-corner hc-br"></div></div><div class="spotlight-card p-8 group reveal" style="transition-delay:.2s"><div class="relative z-10 h-full flex flex-col justify-between"><div class="flex justify-between items-start"><div class="p-3 bg-white/5 rounded border border-white/10 text-cyan group-hover:text-white group-hover:bg-cyan group-hover:border-cyan transition-all duration-500"><i data-lucide="eye" class="w-6 h-6"></i></div><span class="font-mono text-xs text-gray-600">VIS // 02</span></div><div class="mt-12"><h3 class="text-xl font-bold text-white mb-4 group-hover:text-cyan transition-colors">Visual Clarity</h3><p class="text-gray-400 text-sm leading-relaxed">High-contrast data visualization engineered to highlight anomalies instantly.</p></div></div><div class="hud-corner hc-tl"></div><div class="hud-corner hc-br"></div></div><div class="spotlight-card p-8 group reveal" style="transition-delay:.3s"><div class="relative z-10 h-full flex flex-col justify-between"><div class="flex justify-between items-start"><div class="p-3 bg-white/5 rounded border border-white/10 text-cyan group-hover:text-white group-hover:bg-cyan group-hover:border-cyan transition-all duration-500"><i data-lucide="zap" class="w-6 h-6"></i></div><span class="font-mono text-xs text-gray-600">SPD // 03</span></div><div class="mt-12"><h3 class="text-xl font-bold text-white mb-4 group-hover:text-cyan transition-colors">Real-Time Sync</h3><p class="text-gray-400 text-sm leading-relaxed">Your data streams are processed in milliseconds. We eliminated the lag between event and insight.</p></div></div><div class="hud-corner hc-tl"></div><div class="hud-corner hc-br"></div></div><div class="spotlight-card p-8 md:col-span-2 group reveal" style="transition-delay:.4s"><div class="relative z-10 h-full flex flex-col justify-between"><div class="flex justify-between items-start"><div class="p-3 bg-white/5 rounded border border-white/10 text-cyan group-hover:text-white group-hover:bg-cyan group-hover:border-cyan transition-all duration-500"><i data-lucide="bar-chart-2" class="w-6 h-6"></i></div><span class="font-mono text-xs text-gray-600">DAT // 04</span></div><div class="mt-12 flex flex-col md:flex-row md:items-end gap-8"><div><h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan transition-colors">The Signal in the Static</h3><p class="text-gray-400 leading-relaxed max-w-lg">Raw data is noise. DataPoint provides context. Our dashboards prioritize variance, alerting you only when action is required.</p></div><div class="h-16 w-full md:w-48 flex items-end gap-1 opacity-50 group-hover:opacity-100 transition-opacity"><div class="w-1/6 bg-cyan h-[40%]"></div><div class="w-1/6 bg-cyan h-[60%]"></div><div class="w-1/6 bg-cyan h-[30%]"></div><div class="w-1/6 bg-white h-[80%] shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div><div class="w-1/6 bg-cyan h-[50%]"></div><div class="w-1/6 bg-cyan h-[45%]"></div></div></div></div><div class="hud-corner hc-tl"></div><div class="hud-corner hc-tr"></div><div class="hud-corner hc-bl"></div><div class="hud-corner hc-br"></div></div></div></div></section><section id="demo" class="py-32 bg-obsidian border-y border-white/5 relative overflow-hidden"><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan/5 rounded-full blur-[120px] pointer-events-none"></div><div class="max-w-6xl mx-auto px-6 relative z-10"><div class="flex justify-between items-end mb-8 reveal"><div><h2 class="text-2xl font-bold text-white">LIVE INGESTION</h2><p class="text-cyan font-mono text-xs mt-2 tracking-widest">REAL-TIME EVENT STREAM</p></div><div class="flex gap-2"><span class="px-2 py-1 bg-cyan/10 border border-cyan/30 text-[10px] text-cyan font-mono rounded">LIVE</span><span class="px-2 py-1 bg-white/5 border border-white/10 text-[10px] text-gray-400 font-mono rounded">ENCRYPTED</span></div></div><div class="relative w-full aspect-video bg-void border border-white/10 rounded-lg overflow-hidden shadow-2xl reveal shadow-cyan/5"><canvas id="simulationCanvas" class="absolute inset-0 w-full h-full"></canvas><div class="absolute inset-0 pointer-events-none p-8 flex flex-col justify-between"><div class="flex justify-between items-start"><div class="border-l-2 border-cyan pl-4"><div class="text-[10px] text-gray-500 font-mono">DATA PACKET</div><div class="text-sm font-mono text-white" id="coords">ID: 8839-XJ</div></div><div class="text-right"><div class="text-[10px] text-gray-500 font-mono">CPU LOAD</div><div class="flex items-end justify-end gap-1 mt-1"><span class="block w-1 h-3 bg-cyan"></span><span class="block w-1 h-4 bg-cyan"></span><span class="block w-1 h-2 bg-cyan"></span><span class="block w-1 h-5 bg-white shadow-[0_0_5px_white]"></span></div></div></div><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-white/5 rounded-full flex items-center justify-center"><div class="w-48 h-48 border border-cyan/20 rounded-full border-dashed animate-[spin_10s_linear_infinite]"></div><div class="absolute w-2 h-2 bg-cyan rounded-full shadow-[0_0_10px_#00F0FF]"></div></div><div class="flex justify-between items-end"><div class="text-[10px] text-gray-500 font-mono w-32">PROCESSING BATCH<br>4,200 EVENTS / SEC</div><button class="pointer-events-auto px-4 py-2 bg-white/5 border border-white/10 hover:border-cyan hover:text-cyan hover:bg-cyan/10 transition-all text-xs font-mono backdrop-blur-md">GENERATE REPORT</button></div></div><div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.3)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20"></div></div></div></section><footer class="bg-void py-20 border-t border-white/5 relative"><div class="max-w-7xl mx-auto px-6"><div class="grid md:grid-cols-4 gap-12 mb-16"><div class="md:col-span-2"><div class="flex items-center gap-2 mb-6"><i data-lucide="database" class="w-4 h-4 text-cyan fill-current"></i><span class="font-bold text-xl text-white">DATAPOINT</span></div><p class="text-gray-500 text-sm max-w-xs leading-relaxed">Engineering clarity for the world's most complex data environments.</p></div><div><h4 class="font-mono text-xs text-cyan mb-6 tracking-widest">PLATFORM</h4><ul class="space-y-4 text-sm text-gray-500 font-mono"><li><a href="#" class="hover:text-white transition-colors">INTELLIGENCE</a></li><li><a href="#" class="hover:text-white transition-colors">SECURITY</a></li><li><a href="#" class="hover:text-white transition-colors">API</a></li></ul></div><div><h4 class="font-mono text-xs text-cyan mb-6 tracking-widest">CONNECT</h4><div class="flex gap-4"><a href="#" class="w-10 h-10 border border-white/10 flex items-center justify-center text-gray-500 hover:text-cyan hover:border-cyan transition-all rounded-sm"><i data-lucide="twitter" class="w-4 h-4"></i></a><a href="#" class="w-10 h-10 border border-white/10 flex items-center justify-center text-gray-500 hover:text-cyan hover:border-cyan transition-all rounded-sm"><i data-lucide="linkedin" class="w-4 h-4"></i></a></div></div></div><div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-[10px] text-gray-600 uppercase tracking-wider"><p>© 2024 DATAPOINT LABS INC.</p><p>ENCRYPTED CONNECTION ESTABLISHED</p></div></div></footer></div><script>// Initialize Icons
+        lucide.createIcons();
+
+        // --- 1. Scramble Text Effect ---
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
+            }
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span class="text-cyan">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        // Initialize Scramble
+        setTimeout(() => {
+            const el = document.querySelector('.scramble-target');
+            if(el) {
+                const fx = new TextScramble(el);
+                fx.setText('YOUR DATA');
+            }
+        }, 500);
+
+        // --- 2. Neural Network Background Canvas ---
+        const initBgCanvas = () => {
+            const canvas = document.getElementById('bgCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            let particles = [];
+            const particleCount = 70;
+            const connectionDistance = 150;
+            
+            const resize = () => {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            };
+            
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 1.5 + 0.5;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > w) this.vx *= -1;
+                    if (this.y < 0 || this.y > h) this.vy *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+            // Mouse interaction
+            let mouse = { x: null, y: null };
+            window.addEventListener('mousemove', e => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+
+            const animate = () => {
+                ctx.clearRect(0, 0, w, h);
+                
+                particles.forEach((p, i) => {
+                    p.update();
+                    p.draw();
+                    
+                    // Connect particles
+                    for (let j = i; j < particles.length; j++) {
+                        const dx = p.x - particles[j].x;
+                        const dy = p.y - particles[j].y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        
+                        if (dist < connectionDistance) {
+                            ctx.strokeStyle = `rgba(0, 240, 255, ${1 - dist/connectionDistance * 1.5})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+
+                    // Connect to mouse
+                    if (mouse.x) {
+                        const dx = p.x - mouse.x;
+                        const dy = p.y - mouse.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 200) {
+                            ctx.strokeStyle = `rgba(0, 240, 255, ${0.2 - dist/200 * 0.2})`;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
+                    }
+                });
+                requestAnimationFrame(animate);
+            };
+            animate();
+        };
+        initBgCanvas();
+
+        // --- 3. Simulation Canvas (Radar/Orb) ---
+        const initSimCanvas = () => {
+            const canvas = document.getElementById('simulationCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+
+            const resize = () => {
+                w = canvas.width = canvas.parentElement.offsetWidth;
+                h = canvas.height = canvas.parentElement.offsetHeight;
+            };
+            window.addEventListener('resize', resize);
+            resize();
+
+            let angle = 0;
+
+            const draw = () => {
+                // Fading trail effect
+                ctx.fillStyle = 'rgba(3, 3, 5, 0.1)';
+                ctx.fillRect(0, 0, w, h);
+                
+                const cx = w / 2;
+                const cy = h / 2;
+                const radius = 80;
+
+                // Rotating Ring
+                angle += 0.02;
+                
+                ctx.save();
+                ctx.translate(cx, cy);
+                
+                // Draw oscillating sine waves
+                ctx.beginPath();
+                for(let i = 0; i < 360; i+= 5) {
+                    const rad = i * Math.PI / 180;
+                    const r = radius + Math.sin(angle * 2 + i * 0.05) * 20;
+                    const x = Math.cos(rad + angle) * r;
+                    const y = Math.sin(rad + angle) * r;
+                    
+                    if(i===0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
+                ctx.stroke();
+
+                // Draw active nodes
+                for(let i = 0; i < 4; i++) {
+                    const offsetAngle = angle + (i * Math.PI / 2);
+                    const x = Math.cos(offsetAngle) * (radius + 30);
+                    const y = Math.sin(offsetAngle) * (radius + 30);
+                    
+                    ctx.fillStyle = '#00F0FF';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI*2);
+                    ctx.fill();
+                    
+                    // Connect to center
+                    ctx.beginPath();
+                    ctx.moveTo(0,0);
+                    ctx.lineTo(x,y);
+                    ctx.strokeStyle = 'rgba(0,240,255,0.1)';
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+                
+                // Update coordinate text randomly
+                if(Math.random() > 0.95) {
+                    const id = Math.floor(Math.random() * 9000) + 1000;
+                    document.getElementById('coords').innerText = `ID: ${id}-XJ`;
+                }
+
+                requestAnimationFrame(draw);
+            };
+            draw();
+        };
+        initSimCanvas();
+
+        // --- 4. Spotlight & Reveal Animations ---
+        
+        // Mouse Spotlight logic
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.spotlight-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Scroll Reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));</script></body></html>

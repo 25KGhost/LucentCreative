@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en" class="scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Harbor Wealth | Modern Private Banking</title><script src="https://cdn.tailwindcss.com"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Space+Mono:ital,wght@0,400;0.700;1,400&display=swap" rel="stylesheet"><script>tailwind.config={theme:{extend:{colors:{nova:{black:"#050505",charcoal:"#0F0F0F",steel:"#2A2A2A",platinum:"#E5E5E5",accent:"#D4D4D8"}},fontFamily:{sans:["Inter","sans-serif"],mono:["Space Mono","monospace"]},letterSpacing:{tighter:"-0.05em",tight:"-0.025em",widest:"0.25em"}}}}</script><style>body{background-color:#050505;color:#e5e5e5;overflow-x:hidden;font-family:Inter,sans-serif}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#050505}::-webkit-scrollbar-thumb{background:#333}::-webkit-scrollbar-thumb:hover{background:#555}.fade-in-up{opacity:0;transform:translateY(50px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}.fade-in-up.is-visible{opacity:1;transform:translateY(0)}.fade-in{opacity:0;transition:opacity 1s ease-out}.fade-in.is-visible{opacity:1}.delay-200{transition-delay:.2s}.delay-400{transition-delay:.4s}.delay-800{transition-delay:.8s}.navbar-animate{transform:translateY(-100px);opacity:0;transition:transform 1s cubic-bezier(.22,1,.36,1),opacity 1s cubic-bezier(.22,1,.36,1)}.navbar-animate.is-visible{transform:translateY(0);opacity:1}@keyframes arrow-bounce{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}.arrow-animate{animation:arrow-bounce 1.5s infinite}</style></head><body><canvas id="background-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas><nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-6 mix-blend-difference text-white flex justify-between items-center border-b border-white/10 bg-nova-black/50 backdrop-blur-sm navbar-animate"><div class="flex items-center gap-4"><div class="w-8 h-8 border border-white flex items-center justify-center rotate-45"><div class="w-2 h-2 bg-white"></div></div><span class="text-xl font-semibold tracking-widest font-mono uppercase">Harbor</span></div><div class="hidden md:flex gap-12 text-xs font-mono tracking-widest uppercase text-gray-400"><a href="#philosophy" class="hover:text-white transition-colors">Philosophy</a><a href="#services" class="hover:text-white transition-colors">Services</a><a href="#vision" class="hover:text-white transition-colors">Vision</a></div><button class="hidden md:block px-6 py-2 border border-white/30 text-xs font-mono tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300">Client Login</button></nav><main class="relative z-10"><section id="hero" class="relative min-h-screen flex flex-col justify-center items-center px-6 md:px-24 pt-20 overflow-hidden border-b border-white/10"><div class="z-10 max-w-5xl w-full flex flex-col items-center text-center"><div id="hero-meta" class="flex items-center justify-center gap-4 mb-8 fade-in"><div class="h-[1px] w-12 bg-nova-accent"></div><span class="font-mono text-nova-accent text-xs tracking-[0.2em] uppercase">Secure Your Legacy</span><div class="h-[1px] w-12 bg-nova-accent"></div></div><h1 id="hero-title" class="text-6xl md:text-9xl font-light tracking-tighter leading-[0.9] text-white mb-12 fade-in-up">Wealth,<br><span class="text-zinc-600">Simplified.</span></h1><div id="hero-copy" class="max-w-xl mx-auto fade-in delay-800"><p class="text-lg md:text-xl font-light text-gray-400 leading-relaxed mb-8">Navigate your financial future with absolute certainty. We combine institutional-grade security with a seamless digital experience.</p><button class="group flex items-center justify-center gap-4 text-white border-b border-white pb-1 hover:opacity-70 transition-opacity mx-auto"><span class="font-mono text-sm tracking-widest uppercase">Explore the Platform</span><span class="arrow-animate"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button></div></div><div class="absolute bottom-0 right-24 w-px h-64 bg-gradient-to-t from-white/20 to-transparent"></div><div class="absolute bottom-0 right-0 w-px h-32 bg-gradient-to-t from-white/20 to-transparent"></div><div class="absolute bottom-0 left-24 w-px h-48 bg-gradient-to-t from-white/20 to-transparent"></div></section><section id="philosophy" class="py-32 px-6 md:px-24 border-b border-white/10 bg-nova-black relative"><div class="grid grid-cols-1 md:grid-cols-12 gap-12"><div class="md:col-span-4"><h2 class="text-xs font-mono text-gray-500 tracking-widest uppercase mb-4 sticky top-32">01 / The Philosophy</h2></div><div class="md:col-span-8 space-y-24"><div class="philosophy-text fade-in-up"><h3 class="text-3xl md:text-5xl font-light leading-tight mb-8">Modern banking,<br>minus the friction.</h3><p class="text-gray-400 text-lg leading-relaxed max-w-2xl">Harbor Wealth was built on the premise that managing significant capital shouldn't feel like a burden. We've stripped away the bureaucracy of traditional private banking and replaced it with intelligent, responsive infrastructure.</p></div><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="p-8 border border-white/10 hover:border-white/30 transition-colors duration-500 group bg-nova-charcoal/30 fade-in-up delay-200"><div class="mb-6 text-gray-500 group-hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h4 class="text-xl font-medium mb-4 text-white">Protection</h4><p class="text-gray-400 font-light leading-relaxed text-sm">Multi-layered asset security protocols that adapt to emerging threats.</p></div><div class="p-8 border border-white/10 hover:border-white/30 transition-colors duration-500 group bg-nova-charcoal/30 fade-in-up delay-400"><div class="mb-6 text-gray-500 group-hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h4 class="text-xl font-medium mb-4 text-white">Clarity</h4><p class="text-gray-400 font-light leading-relaxed text-sm">Real-time visualization of your entire portfolio, accessible anywhere.</p></div></div></div></div></section><section id="services" class="py-32 px-6 md:px-24 border-b border-white/10 bg-nova-black"><div class="mb-20"><h2 class="text-xs font-mono text-gray-500 tracking-widest uppercase mb-4">02 / Services</h2><h3 class="text-4xl md:text-6xl font-light">Harbor Private Client.</h3></div><div id="service-list" class="border-t border-white/20"></div></section><section id="trust" class="py-40 px-6 md:px-24 bg-zinc-900 relative overflow-hidden"><div class="absolute inset-0 opacity-10"><div class="absolute top-0 left-1/2 w-[1px] h-full bg-white transform -translate-x-1/2"></div><div class="absolute top-1/2 left-0 w-full h-[1px] bg-white transform -translate-y-1/2"></div><div class="absolute top-1/2 left-1/2 w-[400px] h-[400px] border border-white rounded-full transform -translate-x-1/2 -translate-y-1/2"></div></div><div class="relative z-10 max-w-4xl mx-auto text-center trust-content fade-in-up"><div class="inline-block mb-8 p-2 border border-white/20 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg></div><h3 class="text-3xl md:text-5xl font-light leading-tight mb-10">"Harbor has fundamentally changed how we interact with our assets.<span class="text-gray-500">It is banking designed for the 21st century.</span>"</h3><div class="flex flex-col items-center gap-2"><span class="text-sm font-bold tracking-widest uppercase text-white">Elena M.</span><span class="text-xs font-mono text-gray-500">Managing Director, Oakhaven Partners</span></div></div></section></main><footer class="bg-nova-black pt-24 pb-12 px-6 md:px-24 border-t border-white/10"><div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24"><div><h2 class="text-6xl md:text-8xl font-light tracking-tighter mb-8 fade-in-up delay-200">Drop<br>Anchor<br>Here.</h2></div><div class="flex flex-col justify-end items-start md:items-end"><button class="px-10 py-4 bg-white text-black font-mono text-sm tracking-widest uppercase hover:bg-gray-200 transition-colors fade-in-up delay-400">Open Account</button></div></div><div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/10 pt-12 text-sm text-gray-500 font-mono"><div class="flex flex-col gap-4"><span class="text-white uppercase tracking-widest text-xs">HQ</span><span>One World Trade<br>New York, NY 10007</span></div><div class="flex flex-col gap-4"><span class="text-white uppercase tracking-widest text-xs">Contact</span><span>+1 (888) HARBOR-W<br>concierge@harborwealth.com</span></div><div class="flex flex-col gap-4"><span class="text-white uppercase tracking-widest text-xs">Social</span><a href="#" class="hover:text-white">LinkedIn</a><a href="#" class="hover:text-white">Twitter / X</a></div><div class="flex flex-col gap-4 justify-end md:text-right"><span>© 2024 Harbor Wealth.</span><span>Member SIPC.</span></div></div></footer><script>// --- DATA ---
+        const servicesData = [
+            { id: '01', title: "Bespoke Portfolios", detail: "Personalized investment strategies aligned with your timeline." },
+            { id: '02', title: "Trust & Estate", detail: "Intergenerational planning integrated directly into your dashboard." },
+            { id: '03', title: "Tax Efficiency", detail: "Automated loss harvesting and smart asset location." },
+            { id: '04', title: "Private Banking", detail: "Lending, cash management, and concierge financial services." }
+        ];
+
+        // --- PARTICLE CANVAS LOGIC ---
+        function initializeParticleCanvas() {
+            const canvas = document.getElementById('background-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let animationFrameId;
+            let w, h;
+            
+            const particles = [];
+            const particleCount = 40;
+            const connectionDistance = 150;
+            const mouse = { x: null, y: null };
+
+            const resize = () => {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+                // Re-initialize particles on resize for better placement
+                if (particles.length === 0) {
+                     for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                }
+            };
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3;
+                    this.size = Math.random() * 1.5;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > w) this.vx *= -1;
+                    if (this.y < 0 || this.y > h) this.vy *= -1;
+
+                    // Mouse repulsion
+                    if (mouse.x != null) {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distance = Math.sqrt(dx*dx + dy*dy);
+                        if (distance < 200) {
+                            const forceDirectionX = dx / distance;
+                            const forceDirectionY = dy / distance;
+                            const force = (200 - distance) / 200;
+                            const directionX = forceDirectionX * force * 0.5;
+                            const directionY = forceDirectionY * force * 0.5;
+                            this.x -= directionX;
+                            this.y -= directionY;
+                        }
+                    }
+                }
+
+                draw() {
+                    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            const animate = () => {
+                ctx.clearRect(0, 0, w, h);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    for (let j = i; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx*dx + dy*dy);
+
+                        if (distance < connectionDistance) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(255,255,255,${0.05 * (1 - distance/connectionDistance)})`;
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                animationFrameId = requestAnimationFrame(animate);
+            };
+
+            window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            
+            // Initial call
+            resize();
+            animate();
+        }
+
+        // --- INTERSECTION OBSERVER ANIMATION LOGIC ---
+        function setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            // Target elements for fade-in-up
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+            // Target elements for simple fade-in
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+            // Target elements for navbar (initial load animation)
+            document.querySelectorAll('.navbar-animate').forEach(el => observer.observe(el));
+        }
+
+        // --- DYNAMIC CONTENT INJECTION ---
+        function renderServices() {
+            const container = document.getElementById('service-list');
+            if (!container) return;
+
+            container.innerHTML = servicesData.map((s, index) => {
+                // Determine animation delay
+                const delayClass = index === 0 ? 'delay-200' : index === 1 ? 'delay-400' : index === 2 ? 'delay-600' : 'delay-800';
+
+                return `
+                    <div class="group grid grid-cols-1 md:grid-cols-12 py-10 border-b border-white/10 items-baseline hover:bg-white/5 transition-colors duration-300 cursor-pointer service-row fade-in-up ${delayClass}">
+                        <div class="md:col-span-1 text-xs font-mono text-gray-500">${s.id}</div>
+                        <div class="md:col-span-5 text-2xl md:text-3xl font-light text-white mb-4 md:mb-0 group-hover:translate-x-2 transition-transform duration-500">${s.title}</div>
+                        <div class="md:col-span-5 text-gray-400 font-light text-sm md:text-base">${s.detail}</div>
+                        <div class="md:col-span-1 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // --- INITIALIZATION ---
+        window.addEventListener('load', () => {
+            initializeParticleCanvas();
+            renderServices();
+            setupIntersectionObserver();
+        });</script></body></html>
