@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savor | Digital Excellence for Restaurants</title>
+    <link rel="shortcut icon" href="./assets/favicon.ico">
+    <link rel="icon" href="./assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon-96x96.png">
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+    <link rel="manifest" href="./assets/site.webmanifest">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#111111',
+                        appleGray: '#F5F5F7',
+                        cream: '#FBFBFD',
+                        gold: '#FFD277',
+                        goldDark: '#B3914D',
+                        coral: '#FF6F61',
+                        teal: '#40C0B0'
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #111111;
+            color: #FBFBFD;
+            -webkit-font-smoothing: antialiased;
+            letter-spacing: -0.01em;
+        }
+
+        .glass {
+            background: rgba(251, 251, 253, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(251, 251, 253, 0.08);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 30px rgba(255, 210, 119, 0.3);
+        }
+
+        .highlight-line {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+        .highlight-line::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 15%;
+            width: 100%;
+            height: 30%;
+            background-color: #B3914D;
+            z-index: -1;
+            opacity: 0.8;
+            border-radius: 2px;
+        }
+
+        #cursor-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(255,210,119,0.1) 0%, rgba(17,17,17,0) 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Custom scrollbar for modal */
+        .modal-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background-color: rgba(17, 17, 17, 0.2);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="selection:bg-gold selection:text-charcoal relative">
+
+    <div id="cursor-glow"></div>
+
+    <nav class="fixed w-full z-40 top-0 py-6 px-8" id="navbar">
+        <div class="max-w-6xl mx-auto flex justify-between items-center glass px-8 py-3 rounded-full">
+            <div class="text-xl font-bold tracking-tighter">Savor.</div>
+            <div class="hidden md:flex space-x-8 text-[13px] font-medium opacity-80">
+                <a href="#work" class="hover:opacity-100 transition-opacity">Work</a>
+                <a href="#about" class="hover:opacity-100 transition-opacity">About</a>
+                <a href="#process" class="hover:opacity-100 transition-opacity">Process</a>
+                <a href="#pricing" class="hover:opacity-100 transition-opacity">Pricing</a>
+                <a href="#faq" class="hover:opacity-100 transition-opacity">FAQ</a>
+            </div>
+            <button onclick="openModal()" class="px-5 py-2 rounded-full bg-cream text-charcoal text-[13px] font-bold hover:bg-gold transition-all duration-300">
+                Get your website
+            </button>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-8 text-center relative z-10">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 reveal tracking-tighter leading-[1.1]">
+                Votre restaurant<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold to-coral text-glow"> digital.</span>
+            </h1>
+            <p class="text-xl md:text-2xl opacity-60 font-medium max-w-2xl mx-auto mb-10 reveal" style="transition-delay: 100ms;">
+                Fluide. Premium. Parfait.
+            </p>
+            <div class="flex flex-col items-center gap-4 reveal" style="transition-delay: 200ms;">
+                <span class="text-sm tracking-widest uppercase opacity-40 font-bold">L'expérience Savor</span>
+                <p class="text-lg font-medium italic opacity-80">"Pensé pour convertir. Conçu pour durer."</p>
+            </div>
+        </div>
+        
+        <div class="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-coral/10 rounded-full blur-[100px] -z-10 animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] -z-10" style="animation-delay: 2s;"></div>
+    </section>
+
+    <section id="work" class="py-32 bg-white text-charcoal rounded-t-[3rem]">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="mb-20 reveal">
+                <span class="text-sm font-bold uppercase tracking-widest opacity-40 mb-2 block">Portfolio / Selected Tastings</span>
+                <h2 class="text-5xl md:text-6xl font-bold tracking-tight">Nos plus belles tables digitales.</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="reveal group">
+                    <a href="project/index.html" class="block">
+                        <div class="aspect-[16/10] bg-appleGray rounded-[2.5rem] overflow-hidden mb-8 transition-all duration-700 group-hover:shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1200" alt="Bistro Noir" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                        </div>
+                        <div class="px-4">
+                            <h3 class="text-2xl font-bold mb-2 group-hover:opacity-70 transition-opacity">Project 1 — Bistro Noir</h3>
+                            <p class="text-lg font-medium opacity-60 mb-4">Menu Starter + Admin Panel</p>
+                            <p class="opacity-50 max-w-md">Un site single-page avec gestion de menu intégrée, galerie et système de réservation. Optimisé pour la performance, bla tqal.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="reveal group" style="transition-delay: 150ms;">
+                    <a href="project/index.html" class="block">
+                        <div class="aspect-[16/10] bg-appleGray rounded-[2.5rem] overflow-hidden mb-8 transition-all duration-700 group-hover:shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=1200" alt="Lumina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                        </div>
+                        <div class="px-4">
+                            <h3 class="text-2xl font-bold mb-2 group-hover:opacity-70 transition-opacity">Project 2 — Lumina</h3>
+                            <p class="text-lg font-medium opacity-60 mb-4">Full-Service Restaurant Website</p>
+                            <p class="opacity-50 max-w-md">L'expérience complète : multi-pages, dashboard d'analytics, newsletter et système de backup. L'interface li tli9 b smitkom.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-20 text-center reveal">
+                <a href="project/index.html" class="text-xl font-bold hover:text-coral transition-colors inline-flex items-center group">
+                    View all projects <span class="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-40 bg-charcoal relative overflow-hidden flex items-center justify-center">
+        <div class="max-w-5xl mx-auto px-8 text-center relative z-10 reveal">
+            <span class="text-sm font-bold uppercase tracking-widest opacity-40 mb-8 block">About</span>
+            <h2 class="text-3xl md:text-5xl font-medium leading-tight text-cream">
+                Savor aide votre resto à vraiment fonctionner, pas juste à être joli.<br><br>
+                On crée des sites qui gèrent menus, photos et réservations tout seuls, en temps réel. Fluides, premium, et parfaits sur mobile.
+            </h2>
+            <p class="mt-12 text-3xl font-medium tracking-tight text-cream">
+                Machi juste un site, c'est <span class="highlight-line font-bold">votre image qui parle.</span>
+            </p>
+        </div>
+    </section>
+
+    <section id="process" class="py-32 bg-white text-charcoal">
+        <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-5xl font-bold mb-20 tracking-tight reveal"><span class="highlight-line">Processus</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300">
+                    <div class="text-3xl font-bold text-charcoal/20 mb-6">01</div>
+                    <h3 class="text-xl font-bold mb-3">Découverte</h3>
+                    <p class="opacity-60 leading-relaxed font-medium">On échange pour comprendre votre resto, vos menus et votre style.</p>
+                </div>
+                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300" style="transition-delay: 100ms;">
+                    <div class="text-3xl font-bold text-charcoal/20 mb-6">02</div>
+                    <h3 class="text-xl font-bold mb-3">Design sur-mesure</h3>
+                    <p class="opacity-60 leading-relaxed font-medium">Maquettes minimalistes et interactives, adaptées à votre identité.</p>
+                </div>
+                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300" style="transition-delay: 200ms;">
+                    <div class="text-3xl font-bold text-charcoal/20 mb-6">03</div>
+                    <h3 class="text-xl font-bold mb-3">Développement</h3>
+                    <p class="opacity-60 leading-relaxed font-medium">Menus, galeries, réservations, newsletter, tout fluide et rapide.</p>
+                </div>
+                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300">
+                    <div class="text-3xl font-bold text-charcoal/20 mb-6">04</div>
+                    <h3 class="text-xl font-bold mb-3">Tests & Ajustements</h3>
+                    <p class="opacity-60 leading-relaxed font-medium">Chaque fonction vérifiée et optimisée selon vos retours.</p>
+                </div>
+                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300" style="transition-delay: 100ms;">
+                    <div class="text-3xl font-bold text-charcoal/20 mb-6">05</div>
+                    <h3 class="text-xl font-bold mb-3">Lancement & Formation</h3>
+                    <p class="opacity-60 leading-relaxed font-medium">Site en ligne + formation complète de l'admin panel.</p>
+                </div>
+                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300" style="transition-delay: 200ms;">
+                    <div class="text-3xl font-bold text-charcoal/20 mb-6">06</div>
+                    <h3 class="text-xl font-bold mb-3">Support continu</h3>
+                    <p class="opacity-60 leading-relaxed font-medium">Corrections et assistance incluses pour un démarrage mlih.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-32 bg-appleGray text-charcoal">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-5xl font-bold tracking-tight mb-4">Pricing / Plans (DZD)</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white rounded-[2.5rem] p-12 shadow-sm reveal flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2">Menu Starter</h3>
+                    <p class="opacity-50 mb-8 font-medium">Pour les petits restos & cafés branchés.</p>
+                    <div class="text-4xl font-bold mb-10 tracking-tighter">22,000 DZD</div>
+                    <ul class="space-y-4 mb-12 flex-grow opacity-80 font-medium text-sm">
+                        <li>• Single-page (Khedma nqiya)</li>
+                        <li>• Admin access : gérez vos plats et photos</li>
+                        <li>• Réservations simples & rapides</li>
+                        <li>• Mobile-optimized & Fast loading</li>
+                        <li>• 1-2 séances de formation (Tutorials)</li>
+                        <li>• 1 mois de support garanti</li>
+                    </ul>
+                    <button onclick="openModal('starter')" class="w-full py-4 rounded-full bg-charcoal text-white font-bold hover:bg-black transition-colors">Select Plan</button>
+                </div>
+                <div class="bg-charcoal text-cream rounded-[2.5rem] p-12 shadow-2xl reveal flex flex-col relative overflow-hidden" style="transition-delay: 150ms;">
+                    <div class="absolute top-6 right-8 bg-gold text-charcoal text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Recommended</div>
+                    <h3 class="text-2xl font-bold mb-2">Full Service</h3>
+                    <p class="opacity-50 mb-8 font-medium">Pour le Fine Dining & les adresses d'exception.</p>
+                    <div class="text-4xl font-bold mb-10 tracking-tighter text-gold">55,000 DZD</div>
+                    <ul class="space-y-4 mb-12 flex-grow opacity-90 font-medium text-sm">
+                        <li>• Multi-page Architecture (6 pages)</li>
+                        <li>• Full Admin Panel + Analytics Dashboard</li>
+                        <li>• Newsletter System (VIP invites & Events)</li>
+                        <li>• Backup system (Data dialkom f l-amane)</li>
+                        <li>• 2-4 séances de consulting & formation</li>
+                        <li>• Support garanti + micro-fixes inclus</li>
+                    </ul>
+                    <button onclick="openModal('full')" class="w-full py-4 rounded-full bg-cream text-charcoal font-bold hover:bg-gold transition-colors">Select Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-32 bg-white text-charcoal">
+        <div class="max-w-3xl mx-auto px-8">
+            <h2 class="text-4xl font-bold mb-12 tracking-tight reveal text-center">FAQ</h2>
+            <div class="space-y-4 reveal">
+                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
+                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
+                        Q1 : Combien de temps prend un projet ?
+                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
+                    </summary>
+                    <p class="mt-4 opacity-60 font-medium leading-relaxed">Menu Starter : ~1 semaine | Full Service : 10–14 jours.</p>
+                </details>
+                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
+                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
+                        Q2 : Puis-je mettre à jour mes menus ou photos moi-même ?
+                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
+                    </summary>
+                    <p class="mt-4 opacity-60 font-medium leading-relaxed">Oui, chaque plan inclut un admin panel simple et fonctionnel pour gérer vos contenus en temps réel.</p>
+                </details>
+                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
+                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
+                        Q3 : Et la newsletter ?
+                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
+                    </summary>
+                    <p class="mt-4 opacity-60 font-medium leading-relaxed">Full Service inclut un système automatique pour envoyer vos événements. Data dialkom sécurisée.</p>
+                </details>
+                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
+                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
+                        Q4 : Et si je rencontre un problème après le lancement ?
+                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
+                    </summary>
+                    <p class="mt-4 opacity-60 font-medium leading-relaxed">1 mois de support est inclus pour tous les plans. Hna hnaya pour vous aider.</p>
+                </details>
+                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
+                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
+                        Q5 : Les sites sont-ils mobiles-friendly ?
+                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
+                    </summary>
+                    <p class="mt-4 opacity-60 font-medium leading-relaxed">Oui, tous les sites sont optimisés pour mobile avec des animations ultra-smooth.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-40 bg-charcoal text-center">
+        <div class="max-w-4xl mx-auto px-8 reveal">
+            <h2 class="text-5xl md:text-7xl font-bold mb-8 tracking-tighter">Ready to go digital?<br>On passe en cuisine ?</h2>
+            <p class="text-xl opacity-60 mb-12 font-medium">Créons ensemble un système aussi fonctionnel et raffiné que vos assiettes.<br>Yallah, let's build something great.</p>
+            <button onclick="openModal()" class="inline-block px-10 py-5 rounded-full bg-cream text-charcoal text-lg font-bold hover:bg-gold hover:scale-105 transition-all">
+                Get your own website →
+            </button>
+        </div>
+    </section>
+
+    <footer class="py-20 bg-charcoal border-t border-white/5 flex flex-col items-center justify-center space-y-10 relative">
+        <div class="text-3xl font-bold tracking-tighter text-white select-none">Savor.</div>
+        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 text-[12px] font-medium opacity-60 text-white uppercase tracking-widest">
+            <span>Lucent Savor | Part of Lucent Creative</span>
+            <span class="hidden md:inline">•</span>
+            <a href="#" class="hover:opacity-100 hover:text-gold transition-colors">Lucent Creative Legal</a>
+        </div>
+        <div class="flex space-x-8">
+            <a href="https://lucentcreative.space/" target="_blank" class="text-white opacity-50 hover:opacity-100 hover:text-gold transition-all hover:-translate-y-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 0c2.5 2.5 4 6 4 10s-1.5 7.5-4 10m0-20C9.5 4.5 8 8 8 12s1.5 7.5 4 10m-9-10h18"/></svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="text-white opacity-50 hover:opacity-100 hover:text-gold transition-all hover:-translate-y-1">
+               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+            </a>
+            <a href="mailto:hello@lucentcreative.space" class="text-white opacity-50 hover:opacity-100 hover:text-gold transition-all hover:-translate-y-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div id="cta-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-charcoal/60 backdrop-blur-md opacity-0 transition-opacity duration-300 py-10">
+        <div id="modal-content" class="bg-white text-charcoal p-8 md:p-12 rounded-[2.5rem] max-w-lg w-full mx-4 transform scale-95 transition-transform duration-300 relative max-h-[90vh] overflow-y-auto modal-scroll">
+            <button onclick="closeModal()" class="absolute top-6 right-6 w-10 h-10 bg-appleGray rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors z-10">
+                <span class="font-bold text-xl leading-none">&times;</span>
+            </button>
+            
+            <h3 class="text-3xl font-bold mb-2 tracking-tight">Let's build it.</h3>
+            <p class="opacity-60 font-medium mb-6">Remplissez ce formulaire et on vous recontacte rapidement.</p>
+
+            <div id="form-errors" class="hidden mb-6 p-4 rounded-xl bg-coral/10 text-coral font-medium text-sm border border-coral/20"></div>
+
+            <form id="contact-form" class="space-y-5">
+                
+                <!-- Honeypot — invisible to humans, bots fill it and get silently dropped -->
+                <input type="text" name="_honey" id="bot-field" style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;" tabindex="-1" autocomplete="off">
+
+                <div>
+                    <label for="user_name" class="block text-sm font-bold opacity-80 mb-2">Nom Complet <span class="text-coral">*</span></label>
+                    <input type="text" id="user_name" name="user_name" placeholder="John Doe" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium">
+                    <p class="text-xs opacity-50 mt-1 font-medium">La personne en charge du projet.</p>
+                </div>
+                
+                <div>
+                    <label for="restaurant_name" class="block text-sm font-bold opacity-80 mb-2">Nom du Restaurant <span class="text-coral">*</span></label>
+                    <input type="text" id="restaurant_name" name="restaurant_name" placeholder="Bistro Noir" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="user_email" class="block text-sm font-bold opacity-80 mb-2">Email</label>
+                        <input type="email" id="user_email" name="user_email" placeholder="hello@resto.com" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium">
+                    </div>
+                    <div>
+                        <label for="user_phone" class="block text-sm font-bold opacity-80 mb-2">Numéro de tél.</label>
+                        <input type="tel" id="user_phone" name="user_phone" placeholder="0555..." class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium">
+                    </div>
+                </div>
+                <p class="text-xs opacity-50 mt-0 font-medium -translate-y-2">Renseignez au moins l'un des deux (les deux recommandés) <span class="text-coral">*</span></p>
+
+                <div>
+                    <label for="plan-select" class="block text-sm font-bold opacity-80 mb-2">Plan Choisi</label>
+                    <select id="plan-select" name="selected_plan" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium appearance-none cursor-pointer">
+                        <option value="none">Je ne sais pas encore, conseillez-moi</option>
+                        <option value="starter">Menu Starter (22k DZD)</option>
+                        <option value="full">Full Service (55k DZD)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="message" class="block text-sm font-bold opacity-80 mb-2">Parlez-nous de votre projet (Optionnel)</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Quel est le style de votre restaurant ? Avez-vous déjà un logo ?" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium resize-none"></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full mt-4 py-4 rounded-full bg-charcoal text-white font-bold hover:bg-black hover:scale-[1.02] transition-all flex justify-center items-center">
+                    <span>Envoyer la demande</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ─── Cursor Glow ───────────────────────────────────────────────────────────
+        const cursor = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // ─── Scroll Reveal ─────────────────────────────────────────────────────────
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ─── Modal Logic ───────────────────────────────────────────────────────────
+        function openModal(plan = 'none') {
+            const modal = document.getElementById('cta-modal');
+            const modalContent = document.getElementById('modal-content');
+            const planSelect = document.getElementById('plan-select');
+
+            if (plan !== 'none') {
+                planSelect.value = plan;
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('cta-modal');
+            const modalContent = document.getElementById('modal-content');
+            const errorContainer = document.getElementById('form-errors');
+
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                errorContainer.classList.add('hidden');
+                errorContainer.innerHTML = '';
+            }, 300);
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('cta-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ─── Form Validation & Submission ──────────────────────────────────────────
+        const contactForm = document.getElementById('contact-form');
+        const errorContainer = document.getElementById('form-errors');
+        const submitBtn = document.getElementById('submit-btn');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Reset error UI
+            errorContainer.innerHTML = '';
+            errorContainer.classList.add('hidden');
+
+            // 1. Honeypot bot check
+            if (document.getElementById('bot-field').value !== '') {
+                console.warn('Spam detected. Dropping request.');
+                return;
+            }
+
+            // 2. Get values
+            const name       = document.getElementById('user_name').value.trim();
+            const restaurant = document.getElementById('restaurant_name').value.trim();
+            const email      = document.getElementById('user_email').value.trim();
+            const phone      = document.getElementById('user_phone').value.trim();
+            const plan       = document.getElementById('plan-select').value;
+            const message    = document.getElementById('message').value.trim();
+
+            // 3. Validation
+            let errors = [];
+
+            if (!name)       errors.push('• Le nom complet est requis.');
+            if (!restaurant) errors.push('• Le nom du restaurant est requis.');
+            if (!email && !phone) errors.push('• Veuillez renseigner un email ou un numéro de téléphone.');
+
+            if (email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) errors.push("• L'adresse email n'est pas valide.");
+            }
+
+            if (errors.length > 0) {
+                errorContainer.innerHTML = errors.join('<br>');
+                errorContainer.classList.remove('hidden');
+                document.getElementById('modal-content').scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // 4. Lock the button
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = `<span class="opacity-80">Envoi en cours...</span>`;
+            submitBtn.disabled = true;
+
+            // 5. Send to our secure Vercel serverless function
+            fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_name:       name,
+                    restaurant_name: restaurant,
+                    user_email:      email,
+                    user_phone:      phone,
+                    selected_plan:   plan,
+                    message:         message,
+                }),
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // Success state
+                    submitBtn.innerHTML = `<span>Envoyé ! ✓</span>`;
+                    submitBtn.classList.replace('bg-charcoal', 'bg-teal');
+
+                    setTimeout(() => {
+                        contactForm.reset();
+                        closeModal();
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.classList.replace('bg-teal', 'bg-charcoal');
+                        submitBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(data.error || 'Unknown error');
+                }
+            })
+            .catch(err => {
+                console.error('Submission error:', err);
+                errorContainer.innerHTML = "• Une erreur s'est produite. Veuillez réessayer.";
+                errorContainer.classList.remove('hidden');
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                document.getElementById('modal-content').scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
