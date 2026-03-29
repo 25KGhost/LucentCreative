@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savor | Selected Tastings</title>
-    <link rel="shortcut icon" href="../assets/favicon.ico">
-<link rel="icon" href="../assets/favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="96x96" href="../assets/favicon-96x96.png">
-<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
-<link rel="manifest" href="../assets/site.webmanifest">
+    <link rel="shortcut icon" href="/Savor/assets/favicon.ico">
+    <link rel="icon" href="/Savor/assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/Savor/assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/Savor/assets/favicon-96x96.png">
+    <link rel="apple-touch-icon" href="/Savor/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/Savor/assets/site.webmanifest">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -35,11 +35,9 @@
             color: #111111;
             -webkit-font-smoothing: antialiased;
         }
-        
         .project-card {
             transition: opacity 0.4s ease, transform 0.4s ease;
         }
-        
         .filter-btn {
             transition: all 0.3s ease;
         }
@@ -49,8 +47,6 @@
             box-shadow: 0 4px 14px rgba(0,0,0,0.1);
             transform: scale(1.05);
         }
-
-        /* Modal Overlay */
         #project-modal {
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -60,7 +56,7 @@
 <body>
 
     <nav class="w-full py-6 px-8 flex justify-between items-center max-w-7xl mx-auto relative z-20">
-        <a href="../index.html" class="flex items-center text-sm font-bold opacity-60 hover:opacity-100 hover:-translate-x-1 transition-all">
+        <a href="/Savor/index.html" class="flex items-center text-sm font-bold opacity-60 hover:opacity-100 hover:-translate-x-1 transition-all">
             <span class="mr-2">←</span> Back to Savor
         </a>
         <div class="text-xl font-bold tracking-tighter">Savor.</div>
@@ -79,7 +75,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative" id="projects-container">
-            
+
             <div class="project-card group" data-category="starter">
                 <div class="aspect-[4/3] bg-appleGray rounded-[2rem] overflow-hidden mb-6 relative">
                     <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
@@ -99,14 +95,14 @@
 
             <div class="project-card group" data-category="full">
                 <div class="aspect-[4/3] bg-appleGray rounded-[2rem] overflow-hidden mb-6 relative">
-                    <img src="../assets/p3.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                    <img src="/Savor/assets/p3.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
                     <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                         <button onclick="openProject('lumina')" class="bg-white text-charcoal px-6 py-3 rounded-full font-bold text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">See more</button>
                     </div>
                 </div>
                 <div class="flex justify-between items-start">
                     <div>
-                        <h3 class="text-2xl font-bold mb-1">OASIS NOIR </h3>
+                        <h3 class="text-2xl font-bold mb-1">OASIS NOIR</h3>
                         <p class="opacity-60 font-medium text-sm">Oran, Algeria</p>
                     </div>
                     <span class="px-3 py-1 bg-appleGray rounded-full text-xs font-bold tracking-widest uppercase text-[#B3914D]">Full Service</span>
@@ -126,7 +122,7 @@
                 </p>
                 <div class="flex flex-col items-center">
                     <div class="w-16 h-16 rounded-full bg-appleGray mb-4 overflow-hidden shadow-sm">
-                        <img src="../assets/avatar-placeholder.jpg" alt="Client Avatar" onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80'" class="w-full h-full object-cover">
+                        <img src="/Savor/assets/avatar-placeholder.jpg" alt="Client Avatar" onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80'" class="w-full h-full object-cover">
                     </div>
                     <div class="font-bold text-lg">Sofiane</div>
                     <div class="text-sm opacity-50 font-medium">Gérant, Oasis Noir</div>
@@ -139,7 +135,7 @@
         <div class="max-w-3xl mx-auto">
             <h2 class="text-4xl md:text-6xl font-bold tracking-tighter mb-6">Ready for your digital star?</h2>
             <p class="text-xl opacity-60 font-medium mb-10">Stop losing guests to outdated menus. Let's craft an experience they'll actually savor.</p>
-            <a href="../index.html#contact" class="inline-block px-10 py-5 rounded-full bg-charcoal text-white text-sm font-bold hover:bg-black hover:scale-105 transition-all">
+            <a href="/Savor/index.html#contact" class="inline-block px-10 py-5 rounded-full bg-charcoal text-white text-sm font-bold hover:bg-black hover:scale-105 transition-all">
                 Start your project
             </a>
         </div>
@@ -155,87 +151,69 @@
     <div id="project-modal" class="fixed inset-0 z-50 hidden bg-white/90 items-center justify-center opacity-0 transition-opacity duration-300 overflow-y-auto">
         <div class="min-h-screen w-full py-20 px-8">
             <div class="max-w-4xl mx-auto relative bg-white rounded-[3rem] shadow-2xl p-10 md:p-16 transform scale-95 transition-transform duration-500" id="modal-content">
-                
                 <button onclick="closeProject()" class="absolute top-8 right-8 w-12 h-12 bg-appleGray rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors z-10">
                     <span class="font-bold text-2xl leading-none">&times;</span>
                 </button>
-
                 <div class="mb-10">
                     <span id="modal-location" class="text-xs font-bold tracking-widest uppercase opacity-40 mb-2 block">Location</span>
                     <h2 id="modal-title" class="text-4xl md:text-6xl font-bold tracking-tighter mb-6">Project Title</h2>
                     <p id="modal-desc" class="text-xl font-medium opacity-70 leading-relaxed max-w-2xl">Full description goes here.</p>
                 </div>
-
-                <div id="modal-gallery" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    </div>
-
+                <div id="modal-gallery" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Data structure for the "See More" modal loading images from assets
         const projectData = {
-           'bistro': {
-    title: 'Bistro Noir',
-    location: 'Alger, Algérie',
-    description: "Une page unique pour le menu, simple et élégante. Contraste marqué et typographie soignée pour refléter l'ambiance du lieu. Réservations directes via WhatsApp intégrées.",
-    images: [
-        '../assets/p1.webp',
-        '../assets/p2.webp'
-    ]
-},
-'lumina': {
-    title: 'Oasis Noir',
-    location: 'Oran, Algérie',
-    description: "Tout le nécessaire en ligne. Cartographie des tables, galeries de plats dynamiques mises à jour facilement, et newsletter VIP automatique pour les dégustations exclusives.",
-    images: [
-        '../assets/p3.webp',
-        '../assets/p4.webp'
-    ]
-},
+            'bistro': {
+                title: 'Bistro Noir',
+                location: 'Alger, Algérie',
+                description: "Une page unique pour le menu, simple et élégante. Contraste marqué et typographie soignée pour refléter l'ambiance du lieu. Réservations directes via WhatsApp intégrées.",
+                images: [
+                    '/Savor/assets/p1.webp',
+                    '/Savor/assets/p2.webp'
+                ]
+            },
+            'lumina': {
+                title: 'Oasis Noir',
+                location: 'Oran, Algérie',
+                description: "Tout le nécessaire en ligne. Cartographie des tables, galeries de plats dynamiques mises à jour facilement, et newsletter VIP automatique pour les dégustations exclusives.",
+                images: [
+                    '/Savor/assets/p3.webp',
+                    '/Savor/assets/p4.webp'
+                ]
+            },
         };
 
-        // Flawless Filter Function
         function filterProjects(category, btnElement) {
-            // Update Active Button
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
-
             const cards = document.querySelectorAll('.project-card');
-            
             cards.forEach(card => {
                 if (category === 'all' || card.dataset.category === category) {
-                    // Show process
                     card.style.display = 'block';
-                    // Slight delay to allow display to apply before fading in
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'scale(1)';
                     }, 10);
                 } else {
-                    // Hide process
                     card.style.opacity = '0';
                     card.style.transform = 'scale(0.95)';
-                    // Wait for transition to finish before removing from layout
                     setTimeout(() => {
-                        if(!btnElement.classList.contains('active')) return; // safety check
+                        if (!btnElement.classList.contains('active')) return;
                         card.style.display = 'none';
-                    }, 400); 
+                    }, 400);
                 }
             });
         }
 
-        // Modal Logic
         function openProject(id) {
             const data = projectData[id];
-            if(!data) return;
-
+            if (!data) return;
             document.getElementById('modal-title').textContent = data.title;
             document.getElementById('modal-location').textContent = data.location;
             document.getElementById('modal-desc').textContent = data.description;
-
-            // Build Gallery
             const gallery = document.getElementById('modal-gallery');
             gallery.innerHTML = '';
             data.images.forEach(imgSrc => {
@@ -244,13 +222,10 @@
                 div.innerHTML = `<img src="${imgSrc}" onerror="this.src='https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover">`;
                 gallery.appendChild(div);
             });
-
             const modal = document.getElementById('project-modal');
             const content = document.getElementById('modal-content');
-            
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 content.classList.remove('scale-95');
@@ -261,11 +236,9 @@
         function closeProject() {
             const modal = document.getElementById('project-modal');
             const content = document.getElementById('modal-content');
-
             modal.classList.add('opacity-0');
             content.classList.remove('scale-100');
             content.classList.add('scale-95');
-
             setTimeout(() => {
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
