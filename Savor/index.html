@@ -1,566 +1,1800 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savor | Digital Excellence for Restaurants</title>
-    <link rel="shortcut icon" href="/Savor/assets/favicon.ico">
-    <link rel="icon" href="/Savor/assets/favicon.ico" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="/Savor/assets/favicon.svg">
-    <link rel="icon" type="image/png" sizes="96x96" href="/Savor/assets/favicon-96x96.png">
-    <link rel="apple-touch-icon" href="/Savor/assets/apple-touch-icon.png">
-    <link rel="manifest" href="/Savor/assets/site.webmanifest">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        charcoal: '#111111',
-                        appleGray: '#F5F5F7',
-                        cream: '#FBFBFD',
-                        gold: '#FFD277',
-                        goldDark: '#B3914D',
-                        coral: '#FF6F61',
-                        teal: '#40C0B0'
-                    },
-                    fontFamily: {
-                        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #111111;
-            color: #FBFBFD;
-            -webkit-font-smoothing: antialiased;
-            letter-spacing: -0.01em;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Savor — Agency OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<!-- Supabase only used for Realtime (anon key fetched from proxy) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;
+  --surface:#111118;
+  --surface2:#18181f;
+  --surface3:#1f1f28;
+  --border:rgba(255,255,255,0.05);
+  --border-md:rgba(255,255,255,0.09);
+  --border-bright:rgba(255,255,255,0.16);
+  --text:#eeeef2;
+  --text2:#8888a0;
+  --text3:#44445a;
+  --accent:#e8642c;
+  --accent2:#ff8c5a;
+  --accent-light:rgba(232,100,44,0.1);
+  --accent-glow:rgba(232,100,44,0.25);
+  --green:#22c55e;
+  --green-light:rgba(34,197,94,0.1);
+  --amber:#f59e0b;
+  --amber-light:rgba(245,158,11,0.1);
+  --red:#ef4444;
+  --red-light:rgba(239,68,68,0.1);
+  --purple:#818cf8;
+  --purple-light:rgba(129,140,248,0.1);
+  --blue:#38bdf8;
+  --font:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --r:12px;--rs:8px;
+  --sidebar:224px;
+  --transition:.15s cubic-bezier(.4,0,.2,1);
+}
+html{height:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-        .glass {
-            background: rgba(251, 251, 253, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(251, 251, 253, 0.08);
-        }
+/* ── AUTH ── */
+#auth-screen{
+  position:fixed;inset:0;background:var(--bg);z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(232,100,44,0.12), transparent),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(129,140,248,0.05), transparent);
+}
+.auth-wrap{width:100%;max-width:380px;padding:16px}
+.auth-box{
+  background:var(--surface);
+  border:1px solid var(--border-md);
+  border-radius:18px;padding:36px 32px;
+  box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 0 1px rgba(232,100,44,0.04);
+}
+.auth-logo{font-size:26px;font-weight:700;letter-spacing:-1px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.auth-logo-dot{color:var(--accent)}
+.auth-sub{font-size:12.5px;color:var(--text3);margin-bottom:28px;letter-spacing:.2px}
+.auth-tabs{display:flex;gap:2px;background:var(--surface2);padding:3px;border-radius:8px;margin-bottom:22px}
+.auth-tab{flex:1;text-align:center;padding:7px;font-size:12.5px;font-weight:600;border-radius:6px;cursor:pointer;color:var(--text3);transition:all var(--transition);letter-spacing:.1px}
+.auth-tab.active{background:var(--surface3);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.auth-field{margin-bottom:12px}
+.auth-field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.auth-field input{
+  width:100%;padding:10px 13px;
+  background:var(--surface2);
+  border:1px solid var(--border-md);
+  border-radius:8px;font-size:13.5px;font-family:var(--font);
+  color:var(--text);outline:none;
+  transition:border-color var(--transition),box-shadow var(--transition);
+}
+.auth-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
+.auth-field input::placeholder{color:var(--text3)}
+.auth-btn{
+  width:100%;padding:11px;background:var(--accent);color:#fff;
+  border:none;border-radius:8px;font-size:14px;font-weight:600;
+  cursor:pointer;font-family:var(--font);
+  transition:all var(--transition);margin-top:6px;
+  letter-spacing:.1px;
+}
+.auth-btn:hover:not(:disabled){background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px var(--accent-glow)}
+.auth-btn:active:not(:disabled){transform:translateY(0)}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed}
+.auth-msg{font-size:12.5px;margin-top:10px;text-align:center;min-height:18px;line-height:1.5}
+.auth-msg.err{color:var(--red)}
+.auth-msg.ok{color:var(--green)}
+.pass-strength{height:3px;border-radius:2px;margin-top:5px;transition:all .3s;background:var(--surface3)}
+.pass-strength.weak{background:var(--red);width:30%}
+.pass-strength.fair{background:var(--amber);width:60%}
+.pass-strength.strong{background:var(--green);width:100%}
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* ── USERNAME SETUP ── */
+#username-screen{position:fixed;inset:0;background:var(--bg);z-index:999;display:none;align-items:center;justify-content:center;background-image:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(232,100,44,0.1),transparent)}
+#username-screen.show{display:flex}
+.uname-box{background:var(--surface);border:1px solid var(--border-md);border-radius:18px;padding:36px 32px;width:100%;max-width:380px;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.uname-box h2{font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-.3px}
+.uname-box p{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6}
 
-        .text-glow {
-            text-shadow: 0 0 30px rgba(255, 210, 119, 0.3);
-        }
+/* ── APP LAYOUT ── */
+.app{display:flex;min-height:100vh}
+.sidebar{
+  width:var(--sidebar);min-width:var(--sidebar);
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.sb-logo{padding:20px 18px 14px;border-bottom:1px solid var(--border)}
+.logo-name{font-size:20px;font-weight:700;letter-spacing:-.5px}
+.logo-name span{color:var(--accent)}
+.logo-tag{font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.sb-user{padding:12px 14px;border-bottom:1px solid var(--border)}
+.role-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.r-founder{background:var(--accent-light);color:var(--accent)}
+.r-partner{background:var(--green-light);color:var(--green)}
+.sb-uname{font-size:13.5px;font-weight:600;letter-spacing:-.2px}
+.sb-email{font-size:10.5px;color:var(--text3);margin-top:1px}
+.sb-signout{font-size:11px;color:var(--text3);cursor:pointer;margin-top:7px;display:inline-flex;align-items:center;gap:4px;transition:color var(--transition)}
+.sb-signout:hover{color:var(--red)}
+nav{padding:8px;flex:1}
+.nav-section{font-size:9.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;padding:10px 10px 4px}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all var(--transition);margin-bottom:1px;user-select:none;position:relative}
+.ni:hover{background:var(--surface2);color:var(--text)}
+.ni.active{background:var(--accent-light);color:var(--accent)}
+.ni i{font-size:16px;width:18px;text-align:center;flex-shrink:0}
+.nb{margin-left:auto;background:var(--red);color:#fff;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
+.sb-footer{padding:10px 14px;border-top:1px solid var(--border)}
+.sb-version{font-size:10px;color:var(--text3)}
 
-        .highlight-line {
-            position: relative;
-            display: inline-block;
-            z-index: 1;
-        }
-        .highlight-line::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 15%;
-            width: 100%;
-            height: 30%;
-            background-color: #B3914D;
-            z-index: -1;
-            opacity: 0.8;
-            border-radius: 2px;
-        }
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;min-width:0;background:var(--bg)}
+.page{display:none;padding:28px 32px;max-width:1160px;animation:fadeIn .2s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-        #cursor-glow {
-            position: fixed;
-            top: 0; left: 0;
-            width: 350px; height: 350px;
-            background: radial-gradient(circle, rgba(255,210,119,0.1) 0%, rgba(17,17,17,0) 70%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
-            transition: width 0.3s, height 0.3s;
-        }
+/* ── PAGE HEADER ── */
+.ph{margin-bottom:24px}
+.ph-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ptitle{font-size:24px;font-weight:700;letter-spacing:-.6px}
+.psub{font-size:13px;color:var(--text2);margin-top:3px}
 
-        details > summary {
-            list-style: none;
-        }
-        details > summary::-webkit-details-marker {
-            display: none;
-        }
+/* ── STAT CARDS ── */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:18px}
+.sc{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px 18px;
+  position:relative;overflow:hidden;
+  transition:border-color var(--transition);
+}
+.sc:hover{border-color:var(--border-md)}
+.sc::after{content:'';position:absolute;top:0;right:0;width:50px;height:50px;border-radius:50%;background:var(--accent-light);transform:translate(18px,-18px);opacity:.5}
+.sc-label{font-size:10.5px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;position:relative}
+.sc-val{font-size:28px;font-weight:700;letter-spacing:-1.2px;margin-top:3px;line-height:1;position:relative}
+.sc-delta{font-size:11.5px;margin-top:4px;font-weight:500;position:relative}
+.up{color:var(--green)}.dn{color:var(--red)}
 
-        /* Custom scrollbar for modal */
-        .modal-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .modal-scroll::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .modal-scroll::-webkit-scrollbar-thumb {
-            background-color: rgba(17, 17, 17, 0.2);
-            border-radius: 20px;
-        }
-    </style>
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.card-sm{padding:13px 15px}
+.stitle{font-size:10.5px;font-weight:700;margin-bottom:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* ── TABLE ── */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:9px 13px;font-size:9.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;border-bottom:1px solid var(--border)}
+td{padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.015)}
+
+/* ── PILLS ── */
+.pill{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap;letter-spacing:.2px}
+.p-new{background:var(--surface3);color:var(--text2)}
+.p-called{background:var(--purple-light);color:var(--purple)}
+.p-interested{background:var(--green-light);color:var(--green)}
+.p-followup{background:var(--amber-light);color:var(--amber)}
+.p-whatsapp{background:rgba(34,197,94,0.15);color:#4ade80}
+.p-closed{background:var(--green-light);color:var(--green)}
+.p-lost{background:var(--red-light);color:var(--red)}
+.p-founder{background:var(--accent-light);color:var(--accent)}
+.p-partner{background:var(--green-light);color:var(--green)}
+.p-pending{background:var(--surface3);color:var(--text2)}
+.p-paid{background:var(--green-light);color:var(--green)}
+.p-partial{background:var(--amber-light);color:var(--amber)}
+.p-inprog{background:var(--purple-light);color:var(--purple)}
+.p-deliv{background:var(--green-light);color:var(--green)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition);font-family:var(--font);white-space:nowrap;letter-spacing:.1px}
+.btn-p{background:var(--accent);color:#fff}
+.btn-p:hover{background:var(--accent2);box-shadow:0 2px 12px var(--accent-glow)}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border-md)}
+.btn-s:hover{background:var(--surface3)}
+.btn-d{background:var(--red-light);color:var(--red);border:1px solid rgba(239,68,68,0.15)}
+.btn-d:hover{background:rgba(239,68,68,0.18)}
+.btn-xs{padding:4px 9px;font-size:11.5px;border-radius:5px}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ── FORM ── */
+input,select,textarea{width:100%;padding:9px 12px;border:1px solid var(--border-md);border-radius:var(--rs);font-size:13.5px;font-family:var(--font);color:var(--text);background:var(--surface2);outline:none;transition:border-color var(--transition),box-shadow var(--transition)}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
+select option{background:var(--surface2)}
+textarea{resize:vertical;min-height:80px}
+label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.field{margin-bottom:13px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.frow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+
+/* ── MODAL ── */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.mo.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border-md);border-radius:16px;padding:26px;width:92%;max-width:540px;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,.8)}
+.modal-lg{max-width:660px}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.mtitle{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.xbtn{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text2);font-family:var(--font);transition:all var(--transition)}
+.xbtn:hover{background:var(--surface3);color:var(--text)}
+
+/* ── FOLLOWUP CARDS ── */
+.fup{border-left:3px solid var(--amber);padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:0 var(--rs) var(--rs) 0;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;gap:10px;transition:border-color var(--transition)}
+.fup:hover{border-color:var(--border-md)}
+.fup.urg{border-left-color:var(--red)}
+.fup.upc{border-left-color:var(--blue)}
+.fup-name{font-size:13.5px;font-weight:600}
+.fup-sub{font-size:11.5px;color:var(--text2);margin-top:2px}
+
+/* ── PROGRESS BARS ── */
+.pbar{background:var(--surface2);border-radius:20px;height:5px;overflow:hidden;margin-top:5px}
+.pfill{height:100%;border-radius:20px;background:var(--accent);transition:width .7s cubic-bezier(.4,0,.2,1)}
+.barlabel{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;align-items:center}
+.barlabel span:last-child{font-weight:700;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:11px}
+.barwrap{margin-bottom:13px}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:2px;background:var(--surface2);padding:3px;border-radius:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{flex:1;text-align:center;padding:6px 5px;font-size:11.5px;font-weight:600;border-radius:6px;cursor:pointer;color:var(--text2);transition:all var(--transition);white-space:nowrap;min-width:55px}
+.tab.active{background:var(--surface3);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--surface2);color:var(--text);border:1px solid var(--border-md);padding:10px 20px;border-radius:20px;font-size:12.5px;font-weight:600;z-index:9999;opacity:0;transition:all .25s;pointer-events:none;box-shadow:0 8px 28px rgba(0,0,0,.5);white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.err{background:var(--red-light);color:var(--red);border-color:rgba(239,68,68,.25)}
+#toast.ok{background:var(--green-light);color:var(--green);border-color:rgba(34,197,94,.25)}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:40px 20px;color:var(--text3)}
+.empty i{font-size:28px;display:block;margin-bottom:8px;opacity:.3}
+.empty p{font-size:13px}
+
+/* ── GOAL RINGS ── */
+.goal-rings{display:flex;gap:14px;flex-wrap:wrap}
+.goal-ring-wrap{display:flex;flex-direction:column;align-items:center;gap:5px}
+.goal-ring{position:relative;width:76px;height:76px}
+.goal-ring svg{transform:rotate(-90deg);width:76px;height:76px}
+.goal-ring circle{fill:none;stroke-width:5.5;stroke-linecap:round}
+.ring-bg{stroke:var(--surface2)}
+.ring-fill{stroke:var(--accent)}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.ring-center div:first-child{font-size:18px;font-weight:700;line-height:1}
+.ring-center div:last-child{font-size:9px;color:var(--text3)}
+.ring-sublabel{font-size:11px;color:var(--text2);font-weight:500}
+
+/* ── CALENDAR ── */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-dow{text-align:center;font-size:10px;font-weight:700;color:var(--text3);padding:4px;text-transform:uppercase;letter-spacing:.4px}
+.cal-day{min-height:70px;background:var(--surface2);border-radius:7px;padding:6px;border:1px solid transparent;cursor:default;transition:border-color var(--transition)}
+.cal-day.today{border-color:var(--accent)!important}
+.cal-day.has-data{border-color:var(--border-md)}
+.cal-day.other-month{background:transparent}
+.cal-day-num{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:3px}
+.cal-day.today .cal-day-num{color:var(--accent);font-weight:700}
+.cal-calls{font-size:9.5px;font-weight:600;line-height:1.5;font-family:var(--mono)}
+
+/* ── INSTAGRAM PASTE ── */
+.paste-area{width:100%;min-height:160px;padding:13px;background:var(--surface2);border:2px dashed var(--border-md);border-radius:10px;font-family:var(--mono);font-size:12.5px;color:var(--text);resize:vertical;outline:none;transition:border-color var(--transition)}
+.paste-area:focus{border-color:var(--accent);border-style:solid}
+.paste-preview{display:none;margin-top:14px;background:var(--surface2);border:1px solid var(--border-md);border-radius:10px;padding:14px}
+.paste-preview.show{display:block}
+.parse-field{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.parse-field label{min-width:82px;margin:0;font-size:10.5px}
+.parse-field input{flex:1}
+
+/* ── SETTINGS ── */
+.settings-section{margin-bottom:26px}
+.settings-section h3{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);gap:14px}
+.settings-row:last-child{border-bottom:none}
+.settings-label{font-size:13.5px;font-weight:500}
+.settings-desc{font-size:11.5px;color:var(--text2);margin-top:2px}
+.settings-control{flex-shrink:0}
+
+/* ── SEARCHBAR ── */
+.searchbar{position:relative;flex:1;max-width:320px}
+.searchbar input{padding-left:34px}
+.searchbar i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px;pointer-events:none}
+
+/* ── LOADING / SPINNER ── */
+.loading{display:flex;align-items:center;justify-content:center;padding:50px;gap:10px;color:var(--text2);font-size:13.5px}
+.spinner{width:18px;height:18px;border:2px solid var(--border-md);border-top-color:var(--accent);border-radius:50%;animation:spin .65s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:18px 0}
+
+/* ── MOBILE ── */
+@media(max-width:700px){
+  .sidebar{display:none}
+  .page{padding:14px}
+  .g2,.g3,.frow,.frow3{grid-template-columns:1fr}
+  .sg{grid-template-columns:1fr 1fr}
+  .ptitle{font-size:20px}
+  .cal-day{min-height:50px;padding:4px}
+  .goal-rings{gap:8px}
+}
+
+/* ── SCROLLBARS ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:10px}
+
+/* Honeypot hidden field */
+.hp-field{opacity:0;position:absolute;top:0;left:0;height:0;width:0;z-index:-1;pointer-events:none}
+</style>
 </head>
-<body class="selection:bg-gold selection:text-charcoal relative">
+<body>
 
-    <div id="cursor-glow"></div>
+<!-- ═══ AUTH SCREEN ═══ -->
+<div id="auth-screen">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <div class="auth-logo">Savor<span class="auth-logo-dot">.</span></div>
+      <div class="auth-sub">Agency OS — restricted access</div>
 
-    <nav class="fixed w-full z-40 top-0 py-6 px-8" id="navbar">
-        <div class="max-w-6xl mx-auto flex justify-between items-center glass px-8 py-3 rounded-full">
-            <div class="text-xl font-bold tracking-tighter">Savor.</div>
-            <div class="hidden md:flex space-x-8 text-[13px] font-medium opacity-80">
-                <a href="#work" class="hover:opacity-100 transition-opacity">Work</a>
-                <a href="#about" class="hover:opacity-100 transition-opacity">About</a>
-                <a href="#process" class="hover:opacity-100 transition-opacity">Process</a>
-                <a href="#pricing" class="hover:opacity-100 transition-opacity">Pricing</a>
-                <a href="#faq" class="hover:opacity-100 transition-opacity">FAQ</a>
-            </div>
-            <button onclick="openModal()" class="px-5 py-2 rounded-full bg-cream text-charcoal text-[13px] font-bold hover:bg-gold transition-all duration-300">
-                Get your website
-            </button>
+      <div class="auth-tabs" id="auth-tabs">
+        <div class="auth-tab active" onclick="authTab('signin')">Sign in</div>
+        <div class="auth-tab" onclick="authTab('signup')">Sign up</div>
+        <div class="auth-tab" onclick="authTab('forgot')">Forgot</div>
+      </div>
+
+      <!-- SIGN IN -->
+      <div id="form-signin">
+        <!-- Honeypot for bots -->
+        <input class="hp-field" name="website" tabindex="-1" autocomplete="off" id="hp-si">
+        <div class="auth-field">
+          <label>Email</label>
+          <input id="si-email" type="email" placeholder="your@gmail.com" autocomplete="email" maxlength="120" spellcheck="false">
         </div>
-    </nav>
-
-    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-8 text-center relative z-10">
-            <h1 class="text-6xl md:text-8xl font-bold mb-6 reveal tracking-tighter leading-[1.1]">
-                Votre restaurant<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold to-coral text-glow"> digital.</span>
-            </h1>
-            <p class="text-xl md:text-2xl opacity-60 font-medium max-w-2xl mx-auto mb-10 reveal" style="transition-delay: 100ms;">
-                Fluide. Premium. Parfait.
-            </p>
-            <div class="flex flex-col items-center gap-4 reveal" style="transition-delay: 200ms;">
-                <span class="text-sm tracking-widest uppercase opacity-40 font-bold">L'expérience Savor</span>
-                <p class="text-lg font-medium italic opacity-80">"Pensé pour convertir. Conçu pour durer."</p>
-            </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <input id="si-pass" type="password" placeholder="••••••••" autocomplete="current-password" maxlength="128">
         </div>
-        
-        <div class="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-coral/10 rounded-full blur-[100px] -z-10 animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] -z-10" style="animation-delay: 2s;"></div>
-    </section>
+        <button class="auth-btn" id="si-btn" onclick="doSignIn()">Sign in →</button>
+        <div class="auth-msg" id="si-msg"></div>
+      </div>
 
-    <section id="work" class="py-32 bg-white text-charcoal rounded-t-[3rem]">
-        <div class="max-w-7xl mx-auto px-8">
-            <div class="mb-20 reveal">
-                <span class="text-sm font-bold uppercase tracking-widest opacity-40 mb-2 block">Portfolio / Selected Tastings</span>
-                <h2 class="text-5xl md:text-6xl font-bold tracking-tight">Nos plus belles tables digitales.</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="reveal group">
-                    <a href="/Savor/project/" class="block">
-                        <div class="aspect-[16/10] bg-appleGray rounded-[2.5rem] overflow-hidden mb-8 transition-all duration-700 group-hover:shadow-2xl">
-                            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1200" alt="Bistro Noir" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
-                        </div>
-                        <div class="px-4">
-                            <h3 class="text-2xl font-bold mb-2 group-hover:opacity-70 transition-opacity">Project 1 — Bistro Noir</h3>
-                            <p class="text-lg font-medium opacity-60 mb-4">Menu Starter + Admin Panel</p>
-                            <p class="opacity-50 max-w-md">Un site single-page avec gestion de menu intégrée, galerie et système de réservation. Optimisé pour la meilleur performance. </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="reveal group" style="transition-delay: 150ms;">
-                    <a href="/Savor/project/" class="block">
-                        <div class="aspect-[16/10] bg-appleGray rounded-[2.5rem] overflow-hidden mb-8 transition-all duration-700 group-hover:shadow-2xl">
-                            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=1200" alt="Lumina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
-                        </div>
-                        <div class="px-4">
-                            <h3 class="text-2xl font-bold mb-2 group-hover:opacity-70 transition-opacity">Project 2 — Oasis Noir</h3>
-                            <p class="text-lg font-medium opacity-60 mb-4">Full-Service Restaurant Website</p>
-                            <p class="opacity-50 max-w-md">L'expérience complète : multi-pages, dashboard d'analytics, newsletter et système de backup. </p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="mt-20 text-center reveal">
-                <a href="/Savor/project/" class="text-xl font-bold hover:text-coral transition-colors inline-flex items-center group">
-                    View all projects <span class="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
-                </a>
-            </div>
+      <!-- SIGN UP -->
+      <div id="form-signup" style="display:none">
+        <input class="hp-field" name="website2" tabindex="-1" autocomplete="off" id="hp-su">
+        <div class="auth-field">
+          <label>Email</label>
+          <input id="su-email" type="email" placeholder="your approved email" autocomplete="email" maxlength="120" spellcheck="false">
         </div>
-    </section>
-
-    <section id="about" class="py-40 bg-charcoal relative overflow-hidden flex items-center justify-center">
-        <div class="max-w-5xl mx-auto px-8 text-center relative z-10 reveal">
-            <span class="text-sm font-bold uppercase tracking-widest opacity-40 mb-8 block">About</span>
-            <h2 class="text-3xl md:text-5xl font-medium leading-tight text-cream">
-                Savor aide votre resto à vraiment fonctionner, pas juste à être joli.<br><br>
-                On crée des sites qui gèrent menus, photos et réservations tout seuls, en temps réel. Fluides, premium, et parfaits sur mobile.
-            </h2>
-            <p class="mt-12 text-3xl font-medium tracking-tight text-cream">
-                Machi juste un site, c'est <span class="highlight-line font-bold">votre image qui parle.</span>
-            </p>
+        <div class="auth-field">
+          <label>Password</label>
+          <input id="su-pass" type="password" placeholder="min 8 characters" autocomplete="new-password" maxlength="128" oninput="checkPassStrength(this.value)">
+          <div class="pass-strength" id="pass-strength"></div>
         </div>
-    </section>
-
-    <section id="process" class="py-32 bg-white text-charcoal">
-        <div class="max-w-7xl mx-auto px-8">
-            <h2 class="text-5xl font-bold mb-20 tracking-tight reveal"><span class="highlight-line">Processus</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300">
-                    <div class="text-3xl font-bold text-charcoal/20 mb-6">01</div>
-                    <h3 class="text-xl font-bold mb-3">Découverte</h3>
-                    <p class="opacity-60 leading-relaxed font-medium">On échange pour comprendre votre resto, vos menus et votre style.</p>
-                </div>
-                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300" style="transition-delay: 100ms;">
-                    <div class="text-3xl font-bold text-charcoal/20 mb-6">02</div>
-                    <h3 class="text-xl font-bold mb-3">Design sur-mesure</h3>
-                    <p class="opacity-60 leading-relaxed font-medium">Maquettes minimalistes et interactives, adaptées à votre identité.</p>
-                </div>
-                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300" style="transition-delay: 200ms;">
-                    <div class="text-3xl font-bold text-charcoal/20 mb-6">03</div>
-                    <h3 class="text-xl font-bold mb-3">Développement</h3>
-                    <p class="opacity-60 leading-relaxed font-medium">Menus, galeries, réservations, newsletter, tout fluide et rapide.</p>
-                </div>
-                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300">
-                    <div class="text-3xl font-bold text-charcoal/20 mb-6">04</div>
-                    <h3 class="text-xl font-bold mb-3">Tests & Ajustements</h3>
-                    <p class="opacity-60 leading-relaxed font-medium">Chaque fonction vérifiée et optimisée selon vos retours.</p>
-                </div>
-                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300" style="transition-delay: 100ms;">
-                    <div class="text-3xl font-bold text-charcoal/20 mb-6">05</div>
-                    <h3 class="text-xl font-bold mb-3">Lancement & Formation</h3>
-                    <p class="opacity-60 leading-relaxed font-medium">Site en ligne + formation complète de l'admin panel.</p>
-                </div>
-                <div class="reveal bg-appleGray p-10 rounded-[2rem] hover:bg-gray-100 transition-colors duration-300" style="transition-delay: 200ms;">
-                    <div class="text-3xl font-bold text-charcoal/20 mb-6">06</div>
-                    <h3 class="text-xl font-bold mb-3">Support continu</h3>
-                    <p class="opacity-60 leading-relaxed font-medium">Corrections et assistance incluses pour un démarrage mlih.</p>
-                </div>
-            </div>
+        <div class="auth-field">
+          <label>Confirm password</label>
+          <input id="su-pass2" type="password" placeholder="repeat password" autocomplete="new-password" maxlength="128">
         </div>
-    </section>
+        <button class="auth-btn" id="su-btn" onclick="doSignUp()">Create account →</button>
+        <div class="auth-msg" id="su-msg"></div>
+      </div>
 
-    <section id="pricing" class="py-32 bg-appleGray text-charcoal">
-        <div class="max-w-7xl mx-auto px-8">
-            <div class="text-center mb-20 reveal">
-                <h2 class="text-5xl font-bold tracking-tight mb-4">Pricing / Plans (DZD)</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="bg-white rounded-[2.5rem] p-12 shadow-sm reveal flex flex-col">
-                    <h3 class="text-2xl font-bold mb-2">Menu Starter</h3>
-                    <p class="opacity-50 mb-8 font-medium">Pour les petits restos & cafés branchés.</p>
-                    <div class="text-4xl font-bold mb-10 tracking-tighter">22,000 DZD</div>
-                    <ul class="space-y-4 mb-12 flex-grow opacity-80 font-medium text-sm">
-                        <li>• Single-page </li>
-                        <li>• Admin access : gérez vos plats et photos</li>
-                        <li>• Réservations simples & rapides</li>
-                        <li>• Mobile-optimized & Fast loading</li>
-                        <li>• 1-2 séances de formation (Tutorials)</li>
-                        <li>• 1 mois de support garanti</li>
-                    </ul>
-                    <button onclick="openModal('starter')" class="w-full py-4 rounded-full bg-charcoal text-white font-bold hover:bg-black transition-colors">Select Plan</button>
-                </div>
-                <div class="bg-charcoal text-cream rounded-[2.5rem] p-12 shadow-2xl reveal flex flex-col relative overflow-hidden" style="transition-delay: 150ms;">
-                    <div class="absolute top-6 right-8 bg-gold text-charcoal text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Recommended</div>
-                    <h3 class="text-2xl font-bold mb-2">Full Service</h3>
-                    <p class="opacity-50 mb-8 font-medium">Pour le Fine Dining & les adresses d'exception.</p>
-                    <div class="text-4xl font-bold mb-10 tracking-tighter text-gold">55,000 DZD</div>
-                    <ul class="space-y-4 mb-12 flex-grow opacity-90 font-medium text-sm">
-                        <li>• Multi-page Architecture (6 pages)</li>
-                        <li>• Full Admin Panel + Analytics Dashboard</li>
-                        <li>• Newsletter System (VIP invites & Events)</li>
-                        <li>• Backup system </li>
-                        <li>• 2-4 séances de consulting & formation</li>
-                        <li>• Support garanti + micro-fixes inclus</li>
-                    </ul>
-                    <button onclick="openModal('full')" class="w-full py-4 rounded-full bg-cream text-charcoal font-bold hover:bg-gold transition-colors">Select Plan</button>
-                </div>
-            </div>
+      <!-- FORGOT -->
+      <div id="form-forgot" style="display:none">
+        <div style="background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+          We'll send a password reset link to your email.
         </div>
-    </section>
-
-    <section id="faq" class="py-32 bg-white text-charcoal">
-        <div class="max-w-3xl mx-auto px-8">
-            <h2 class="text-4xl font-bold mb-12 tracking-tight reveal text-center">FAQ</h2>
-            <div class="space-y-4 reveal">
-                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
-                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
-                        Q1 : Combien de temps prend un projet ?
-                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
-                    </summary>
-                    <p class="mt-4 opacity-60 font-medium leading-relaxed">Menu Starter : ~1 semaine | Full Service : 10–14 jours.</p>
-                </details>
-                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
-                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
-                        Q2 : Puis-je mettre à jour mes menus ou photos moi-même ?
-                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
-                    </summary>
-                    <p class="mt-4 opacity-60 font-medium leading-relaxed">Oui, chaque plan inclut un admin panel simple et fonctionnel pour gérer vos contenus en temps réel.</p>
-                </details>
-                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
-                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
-                        Q3 : Et la newsletter ?
-                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
-                    </summary>
-                    <p class="mt-4 opacity-60 font-medium leading-relaxed">Full Service inclut un système automatique pour envoyer vos événements. Data dialkom sécurisée.</p>
-                </details>
-                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
-                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
-                        Q4 : Et si je rencontre un problème après le lancement ?
-                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
-                    </summary>
-                    <p class="mt-4 opacity-60 font-medium leading-relaxed">1 mois de support est inclus pour tous les plans. Hna hnaya pour vous aider.</p>
-                </details>
-                <details class="group border border-gray-200 rounded-2xl p-6 bg-appleGray/50 cursor-pointer transition-all duration-300 open:bg-white open:shadow-md">
-                    <summary class="flex justify-between items-center font-bold text-lg outline-none">
-                        Q5 : Les sites sont-ils mobiles-friendly ?
-                        <span class="transition-transform duration-300 group-open:rotate-180 opacity-40">↓</span>
-                    </summary>
-                    <p class="mt-4 opacity-60 font-medium leading-relaxed">Oui, tous les sites sont optimisés pour mobile avec des animations ultra-smooth.</p>
-                </details>
-            </div>
+        <div class="auth-field">
+          <label>Your email</label>
+          <input id="fg-email" type="email" placeholder="your@gmail.com" maxlength="120" spellcheck="false">
         </div>
-    </section>
+        <button class="auth-btn" id="fg-btn" onclick="doForgot()">Send reset link →</button>
+        <div class="auth-msg" id="fg-msg"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <section id="contact" class="py-40 bg-charcoal text-center">
-        <div class="max-w-4xl mx-auto px-8 reveal">
-            <h2 class="text-5xl md:text-7xl font-bold mb-8 tracking-tighter">Ready to go digital?<br>On passe en cuisine ?</h2>
-            <p class="text-xl opacity-60 mb-12 font-medium">Créons ensemble un système aussi fonctionnel et raffiné que vos assiettes.<br>Yallah, let's build something great.</p>
-            <button onclick="openModal()" class="inline-block px-10 py-5 rounded-full bg-cream text-charcoal text-lg font-bold hover:bg-gold hover:scale-105 transition-all">
-                Get your own website →
-            </button>
+<!-- ═══ USERNAME SETUP ═══ -->
+<div id="username-screen">
+  <div class="uname-box">
+    <h2>Pick a username 👋</h2>
+    <p>This shows in the dashboard. You can always change it later in Settings.</p>
+    <div class="field">
+      <label>Username</label>
+      <input id="uname-input" placeholder="e.g. Anis" maxlength="28" autocomplete="off">
+    </div>
+    <button class="auth-btn" onclick="saveUsername()">Let's go →</button>
+    <div class="auth-msg" id="uname-msg"></div>
+  </div>
+</div>
+
+<!-- ═══ MAIN APP ═══ -->
+<div class="app" id="app" style="display:none">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-logo">
+    <div class="logo-name">Savor<span>.</span></div>
+    <div class="logo-tag">Agency OS</div>
+  </div>
+  <div class="sb-user">
+    <div id="role-pill" class="role-pill r-founder"><i class="ti ti-shield-check"></i> Founder</div>
+    <div class="sb-uname" id="sb-name">—</div>
+    <div class="sb-email" id="sb-email"></div>
+    <div class="sb-signout" onclick="doSignOut()"><i class="ti ti-logout" style="font-size:12px"></i> Sign out</div>
+  </div>
+  <nav>
+    <div class="nav-section">Workspace</div>
+    <div class="ni active" onclick="go('overview',this)"><i class="ti ti-layout-dashboard"></i>Overview</div>
+    <div class="ni" onclick="go('activity',this)"><i class="ti ti-pencil"></i>Log Activity</div>
+    <div class="nav-section">Pipeline</div>
+    <div class="ni" onclick="go('leads',this)"><i class="ti ti-users"></i>Leads<span class="nb" id="fu-badge" style="display:none">0</span></div>
+    <div class="ni" onclick="go('followups',this)"><i class="ti ti-bell"></i>Follow-ups</div>
+    <div class="ni" onclick="go('clients',this)"><i class="ti ti-trophy"></i>Closed Deals</div>
+    <div class="nav-section">Tools</div>
+    <div class="ni" onclick="go('scraper',this)"><i class="ti ti-brand-instagram"></i>Paste & Add</div>
+    <div class="ni" id="nav-analytics" onclick="go('analytics',this)"><i class="ti ti-chart-bar"></i>Analytics</div>
+    <div class="ni" onclick="go('settings',this)"><i class="ti ti-settings"></i>Settings</div>
+  </nav>
+  <div class="sb-footer">
+    <div class="sb-version">Savor OS v3.0</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div class="page active" id="page-overview">
+  <div class="ph">
+    <div class="ph-row">
+      <div>
+        <div class="ptitle">Good <span id="greet-time">morning</span>, <span id="greet-name">—</span> 👋</div>
+        <div class="psub" id="ov-sub">Full agency overview</div>
+      </div>
+      <div id="ov-date" style="font-size:12.5px;color:var(--text2);margin-top:4px"></div>
+    </div>
+  </div>
+
+  <!-- Daily goal rings -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="stitle">Today's progress</div>
+    <div class="goal-rings" id="daily-rings"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="sg" id="ov-stats"></div>
+
+  <!-- Weekly progress + Today's FUs -->
+  <div class="g2">
+    <div class="card">
+      <div class="stitle">Weekly targets</div>
+      <div id="ov-targets"></div>
+    </div>
+    <div class="card">
+      <div class="stitle">Follow-ups due today</div>
+      <div id="ov-today-fu"></div>
+    </div>
+  </div>
+
+  <!-- Partner card (founder only) -->
+  <div id="ov-partner-card" class="card" style="margin-top:14px;display:none">
+    <div class="stitle">Partner snapshot</div>
+    <div class="sg" id="ov-partner-stats"></div>
+  </div>
+</div>
+
+<!-- ══ ACTIVITY ══ -->
+<div class="page" id="page-activity">
+  <div class="ph">
+    <div class="ph-row">
+      <div><div class="ptitle">Log Activity</div><div class="psub" id="act-date"></div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="stitle">Today's numbers</div>
+        <div class="frow3">
+          <div class="field"><label>📞 Calls</label><input type="number" id="a-calls" min="0" placeholder="0" inputmode="numeric"></div>
+          <div class="field"><label>🔁 Follow-ups</label><input type="number" id="a-fu" min="0" placeholder="0" inputmode="numeric"></div>
+          <div class="field"><label>👤 Leads</label><input type="number" id="a-leads" min="0" placeholder="0" inputmode="numeric"></div>
         </div>
-    </section>
+        <div class="field"><label>Notes</label><textarea id="a-notes" placeholder="What happened today? Highlights, blockers…" style="min-height:64px"></textarea></div>
+        <button class="btn btn-p" onclick="saveAct()"><i class="ti ti-check"></i>Save today's log</button>
+      </div>
+      <div class="card">
+        <div class="stitle">Today vs goals</div>
+        <div id="act-goal-bars"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="stitle">Recent history</div>
+      <div id="act-log"></div>
+    </div>
+  </div>
+</div>
 
-    <footer class="py-20 bg-charcoal border-t border-white/5 flex flex-col items-center justify-center space-y-10 relative">
-        <div class="text-3xl font-bold tracking-tighter text-white select-none">Savor.</div>
-        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 text-[12px] font-medium opacity-60 text-white uppercase tracking-widest">
-            <span>Lucent Savor | Part of Lucent Creative</span>
-            <span class="hidden md:inline">•</span>
-            <a href="#" class="hover:opacity-100 hover:text-gold transition-colors">Lucent Creative Legal</a>
+<!-- ══ LEADS ══ -->
+<div class="page" id="page-leads">
+  <div class="ph">
+    <div class="ph-row">
+      <div><div class="ptitle">Leads</div><div class="psub" id="leads-count">—</div></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div class="searchbar"><i class="ti ti-search"></i><input id="lead-search" placeholder="Search…" oninput="filterSearch()" maxlength="80"></div>
+        <button class="btn btn-p btn-sm" onclick="openLead()"><i class="ti ti-plus"></i>Add lead</button>
+      </div>
+    </div>
+  </div>
+  <div class="tabs" id="lead-tabs">
+    <div class="tab active" onclick="filterL('all',this)">All</div>
+    <div class="tab" onclick="filterL('Not contacted',this)">New</div>
+    <div class="tab" onclick="filterL('Called',this)">Called</div>
+    <div class="tab" onclick="filterL('Interested',this)">Interested</div>
+    <div class="tab" onclick="filterL('Follow-up scheduled',this)">Follow-up</div>
+    <div class="tab" onclick="filterL('In WhatsApp stage',this)">WhatsApp</div>
+    <div class="tab" onclick="filterL('Closed',this)">Closed</div>
+    <div class="tab" onclick="filterL('Lost',this)">Lost</div>
+  </div>
+  <div class="card">
+    <div class="tw">
+      <table>
+        <thead><tr>
+          <th>Business</th><th>Contact / Phone</th><th>Followers</th>
+          <th>Status</th><th>Next action</th><th>Notes</th><th></th>
+        </tr></thead>
+        <tbody id="leads-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOLLOW-UPS ══ -->
+<div class="page" id="page-followups">
+  <div class="ph"><div class="ptitle">Follow-ups</div><div class="psub">Your follow-up pipeline</div></div>
+  <div class="g2">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="stitle" style="color:var(--red)">⚠ Overdue</div>
+        <div id="fu-overdue"></div>
+      </div>
+      <div class="card">
+        <div class="stitle" style="color:var(--accent)">📅 Due today</div>
+        <div id="fu-today"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="stitle" style="color:var(--blue)">🗓 Upcoming</div>
+      <div id="fu-upcoming"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CLOSED DEALS ══ -->
+<div class="page" id="page-clients">
+  <div class="ph">
+    <div class="ph-row">
+      <div><div class="ptitle">Closed Deals</div><div class="psub">Revenue tracker</div></div>
+      <button class="btn btn-p btn-sm" onclick="openClient()"><i class="ti ti-plus"></i>Add deal</button>
+    </div>
+  </div>
+  <div class="sg" id="cl-stats"></div>
+  <div class="card">
+    <div class="tw">
+      <table>
+        <thead><tr>
+          <th>Client</th><th>Date</th><th>By</th><th>Revenue</th><th>Delivery</th><th>Payment</th><th></th>
+        </tr></thead>
+        <tbody id="cl-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ANALYTICS ══ -->
+<div class="page" id="page-analytics">
+  <div class="ph"><div class="ptitle">Analytics</div><div class="psub">Full agency performance</div></div>
+  <div class="sg" id="an-stats"></div>
+  <div class="g2" style="margin-bottom:14px">
+    <div class="card">
+      <div class="stitle">Conversion funnel</div>
+      <div id="an-funnel"></div>
+    </div>
+    <div class="card">
+      <div class="stitle">Revenue split</div>
+      <div id="an-revenue"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="stitle">Calls this week</div>
+    <div style="height:180px"><canvas id="callsC"></canvas></div>
+  </div>
+  <!-- Calendar -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div class="stitle" style="margin-bottom:0">Activity calendar</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="btn btn-s btn-xs" onclick="calPrev()"><i class="ti ti-chevron-left"></i></button>
+        <span style="font-size:13px;font-weight:600;min-width:110px;text-align:center" id="cal-month-label"></span>
+        <button class="btn btn-s btn-xs" onclick="calNext()"><i class="ti ti-chevron-right"></i></button>
+      </div>
+    </div>
+    <div class="cal-grid" id="cal-dow-row" style="margin-bottom:4px"></div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div style="margin-top:10px;display:flex;gap:14px;font-size:11px;color:var(--text2)">
+      <span><span style="color:var(--accent);font-weight:700">F:</span> Founder calls/leads</span>
+      <span><span style="color:var(--purple);font-weight:700">P:</span> Partner calls/leads</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PASTE & ADD ══ -->
+<div class="page" id="page-scraper">
+  <div class="ph"><div class="ptitle">Paste & Add</div><div class="psub">Paste any Instagram profile page — we'll extract what matters</div></div>
+  <div class="g2">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="stitle">Paste profile text</div>
+        <textarea class="paste-area" id="ig-paste"
+          placeholder="Select all (Ctrl+A) on the Instagram profile page, copy (Ctrl+C), then paste here…"
+          oninput="parseIG()" maxlength="8000"></textarea>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-p btn-sm" onclick="confirmParsed()" id="confirm-parse-btn" style="display:none">
+            <i class="ti ti-user-plus"></i>Add as lead
+          </button>
+          <button class="btn btn-s btn-sm" onclick="clearPaste()"><i class="ti ti-trash"></i>Clear</button>
         </div>
-        <div class="flex space-x-8">
-            <a href="https://lucentcreative.space/" target="_blank" class="text-white opacity-50 hover:opacity-100 hover:text-gold transition-all hover:-translate-y-1">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 0c2.5 2.5 4 6 4 10s-1.5 7.5-4 10m0-20C9.5 4.5 8 8 8 12s1.5 7.5 4 10m-9-10h18"/></svg>
-            </a>
-            <a href="https://instagram.com" target="_blank" class="text-white opacity-50 hover:opacity-100 hover:text-gold transition-all hover:-translate-y-1">
-               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
-            </a>
-            <a href="mailto:hello@lucentcreative.space" class="text-white opacity-50 hover:opacity-100 hover:text-gold transition-all hover:-translate-y-1">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            </a>
+        <div class="paste-preview" id="paste-preview">
+          <div style="font-size:11.5px;font-weight:700;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:5px">
+            <i class="ti ti-check"></i> Extracted — review before saving
+          </div>
+          <div class="parse-field"><label>Business</label><input id="pp-name" placeholder="—"></div>
+          <div class="parse-field"><label>Instagram</label><input id="pp-ig" placeholder="—"></div>
+          <div class="parse-field"><label>Followers</label><input id="pp-followers" type="number" placeholder="—"></div>
+          <div class="parse-field"><label>Phone</label><input id="pp-phone" placeholder="—"></div>
+          <div class="parse-field"><label>Location</label><input id="pp-location" placeholder="—"></div>
+          <div class="parse-field"><label>Bio / notes</label><input id="pp-bio" placeholder="—"></div>
         </div>
-    </footer>
-
-    <!-- Contact Modal -->
-    <div id="cta-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-charcoal/60 backdrop-blur-md opacity-0 transition-opacity duration-300 py-10">
-        <div id="modal-content" class="bg-white text-charcoal p-8 md:p-12 rounded-[2.5rem] max-w-lg w-full mx-4 transform scale-95 transition-transform duration-300 relative max-h-[90vh] overflow-y-auto modal-scroll">
-            <button onclick="closeModal()" class="absolute top-6 right-6 w-10 h-10 bg-appleGray rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors z-10">
-                <span class="font-bold text-xl leading-none">&times;</span>
-            </button>
-            
-            <h3 class="text-3xl font-bold mb-2 tracking-tight">Let's build it.</h3>
-            <p class="opacity-60 font-medium mb-6">Remplissez ce formulaire et on vous recontacte rapidement.</p>
-
-            <div id="form-errors" class="hidden mb-6 p-4 rounded-xl bg-coral/10 text-coral font-medium text-sm border border-coral/20"></div>
-
-            <form id="contact-form" class="space-y-5">
-                
-                <!-- Honeypot — invisible to humans, bots fill it and get silently dropped -->
-                <input type="text" name="_honey" id="bot-field" style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;" tabindex="-1" autocomplete="off">
-
-                <div>
-                    <label for="user_name" class="block text-sm font-bold opacity-80 mb-2">Nom Complet <span class="text-coral">*</span></label>
-                    <input type="text" id="user_name" name="user_name" placeholder="John Doe" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium">
-                    <p class="text-xs opacity-50 mt-1 font-medium">La personne en charge du projet.</p>
-                </div>
-                
-                <div>
-                    <label for="restaurant_name" class="block text-sm font-bold opacity-80 mb-2">Nom du Restaurant <span class="text-coral">*</span></label>
-                    <input type="text" id="restaurant_name" name="restaurant_name" placeholder="Bistro Noir" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium">
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="user_email" class="block text-sm font-bold opacity-80 mb-2">Email</label>
-                        <input type="email" id="user_email" name="user_email" placeholder="hello@resto.com" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium">
-                    </div>
-                    <div>
-                        <label for="user_phone" class="block text-sm font-bold opacity-80 mb-2">Numéro de tél.</label>
-                        <input type="tel" id="user_phone" name="user_phone" placeholder="0555..." class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium">
-                    </div>
-                </div>
-                <p class="text-xs opacity-50 mt-0 font-medium -translate-y-2">Renseignez au moins l'un des deux (les deux recommandés) <span class="text-coral">*</span></p>
-
-                <div>
-                    <label for="plan-select" class="block text-sm font-bold opacity-80 mb-2">Plan Choisi</label>
-                    <select id="plan-select" name="selected_plan" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium appearance-none cursor-pointer">
-                        <option value="none">Je ne sais pas encore, conseillez-moi</option>
-                        <option value="starter">Menu Starter (22k DZD)</option>
-                        <option value="full">Full Service (55k DZD)</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="message" class="block text-sm font-bold opacity-80 mb-2">Parlez-nous de votre projet (Optionnel)</label>
-                    <textarea id="message" name="message" rows="3" placeholder="Quel est le style de votre restaurant ? Avez-vous déjà un logo ?" class="w-full bg-appleGray rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-charcoal/20 transition-all font-medium resize-none"></textarea>
-                </div>
-
-                <button type="submit" id="submit-btn" class="w-full mt-4 py-4 rounded-full bg-charcoal text-white font-bold hover:bg-black hover:scale-[1.02] transition-all flex justify-center items-center">
-                    <span>Envoyer la demande</span>
-                </button>
-            </form>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="stitle">How to paste</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.9">
+          <div style="margin-bottom:8px;padding:9px 12px;background:var(--surface2);border-radius:8px"><span style="color:var(--accent);font-weight:700;margin-right:8px">1.</span>Open the restaurant's Instagram profile</div>
+          <div style="margin-bottom:8px;padding:9px 12px;background:var(--surface2);border-radius:8px"><span style="color:var(--accent);font-weight:700;margin-right:8px">2.</span>Press <kbd style="background:var(--surface3);padding:2px 7px;border-radius:4px;font-family:var(--mono);font-size:11px">Ctrl+A</kbd> — select all</div>
+          <div style="margin-bottom:8px;padding:9px 12px;background:var(--surface2);border-radius:8px"><span style="color:var(--accent);font-weight:700;margin-right:8px">3.</span>Press <kbd style="background:var(--surface3);padding:2px 7px;border-radius:4px;font-family:var(--mono);font-size:11px">Ctrl+C</kbd> — copy</div>
+          <div style="padding:9px 12px;background:var(--surface2);border-radius:8px"><span style="color:var(--accent);font-weight:700;margin-right:8px">4.</span>Paste here — we'll pull the name, handle, followers, phone, location</div>
         </div>
+      </div>
+      <div class="card">
+        <div class="stitle">Recently added via paste</div>
+        <div id="recent-pasted"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SETTINGS ══ -->
+<div class="page" id="page-settings">
+  <div class="ph"><div class="ptitle">Settings</div><div class="psub">Personalise your workspace</div></div>
+  <div style="max-width:580px">
+
+    <div class="settings-section">
+      <h3>Profile</h3>
+      <div class="field"><label>Display name</label><input id="set-username" placeholder="Your username" maxlength="28"></div>
+      <button class="btn btn-p btn-sm" onclick="saveSettings()"><i class="ti ti-check"></i>Save username</button>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // ─── Cursor Glow ───────────────────────────────────────────────────────────
-        const cursor = document.getElementById('cursor-glow');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
+    <div class="settings-section">
+      <h3>Daily goals</h3>
+      <div class="frow3">
+        <div class="field"><label>Calls / day</label><input type="number" id="set-goal-calls" min="1" max="999" placeholder="20" inputmode="numeric"></div>
+        <div class="field"><label>Leads / day</label><input type="number" id="set-goal-leads" min="1" max="999" placeholder="8" inputmode="numeric"></div>
+        <div class="field"><label>Follow-ups</label><input type="number" id="set-goal-fu" min="1" max="999" placeholder="5" inputmode="numeric"></div>
+      </div>
+      <button class="btn btn-p btn-sm" onclick="saveGoals()"><i class="ti ti-target"></i>Save goals</button>
+    </div>
 
-        // ─── Scroll Reveal ─────────────────────────────────────────────────────────
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    <div class="settings-section" id="weekly-targets-section" style="display:none">
+      <h3>Weekly targets <span style="font-size:9.5px;background:var(--accent-light);color:var(--accent);padding:2px 7px;border-radius:10px;margin-left:5px;font-weight:700">Founder only</span></h3>
+      <div class="frow">
+        <div class="field"><label>Calls target</label><input type="number" id="set-wt-calls" placeholder="100" inputmode="numeric"></div>
+        <div class="field"><label>Leads target</label><input type="number" id="set-wt-leads" placeholder="40" inputmode="numeric"></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label>Follow-ups target</label><input type="number" id="set-wt-fu" placeholder="30" inputmode="numeric"></div>
+        <div class="field"><label>Clients target</label><input type="number" id="set-wt-clients" placeholder="3" inputmode="numeric"></div>
+      </div>
+      <button class="btn btn-p btn-sm" onclick="saveWeeklyTargets()"><i class="ti ti-target"></i>Save weekly targets</button>
+    </div>
 
-        // ─── Modal Logic ───────────────────────────────────────────────────────────
-        function openModal(plan = 'none') {
-            const modal = document.getElementById('cta-modal');
-            const modalContent = document.getElementById('modal-content');
-            const planSelect = document.getElementById('plan-select');
+    <div class="settings-section">
+      <h3>Change password</h3>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.6">
+        Use the <strong>Forgot password</strong> option on the login screen — a reset link will be sent to your email.
+      </div>
+    </div>
 
-            if (plan !== 'none') {
-                planSelect.value = plan;
-            }
+    <div class="settings-section">
+      <h3>Access</h3>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:12.5px;color:var(--text2);line-height:1.7">
+        This app is restricted to its two configured users. Access is managed server-side — contact the Founder to make changes.
+      </div>
+    </div>
 
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ══ LEAD MODAL ══ -->
+<div class="mo" id="m-lead">
+  <div class="modal modal-lg">
+    <div class="mh">
+      <div class="mtitle" id="m-lead-title">Add lead</div>
+      <button class="xbtn" onclick="closeLead()">✕</button>
+    </div>
+    <div class="frow">
+      <div class="field"><label>Business name *</label><input id="l-name" placeholder="Restaurant name" maxlength="120"></div>
+      <div class="field"><label>Contact name</label><input id="l-contact" placeholder="Owner / manager" maxlength="80"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><label>Phone / WhatsApp</label><input id="l-phone" placeholder="+213…" maxlength="30" inputmode="tel"></div>
+      <div class="field"><label>Instagram handle</label><input id="l-ig" placeholder="username" maxlength="60"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><label>Followers</label><input type="number" id="l-followers" placeholder="0" min="0" inputmode="numeric"></div>
+      <div class="field"><label>Location</label><input id="l-location" placeholder="City / area" maxlength="80"></div>
+    </div>
+    <div class="frow">
+      <div class="field">
+        <label>Status</label>
+        <select id="l-status">
+          <option>Not contacted</option>
+          <option>Called</option>
+          <option>Interested</option>
+          <option>Follow-up scheduled</option>
+          <option>In WhatsApp stage</option>
+          <option>Closed</option>
+          <option>Lost</option>
+        </select>
+      </div>
+      <div class="field"><label>Next action date</label><input type="date" id="l-date"></div>
+    </div>
+    <div class="field" id="l-assign-wrap" style="display:none">
+      <label>Assign to</label>
+      <select id="l-assign"></select>
+    </div>
+    <div class="field"><label>Notes</label><textarea id="l-notes" placeholder="Interest level, objections, context…" maxlength="1000"></textarea></div>
+    <input type="hidden" id="l-id">
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-p" onclick="saveLead()" style="flex:1;justify-content:center"><i class="ti ti-check"></i>Save lead</button>
+      <button class="btn btn-d btn-sm" id="del-lead-btn" onclick="deleteLead()" style="display:none"><i class="ti ti-trash"></i>Delete</button>
+      <button class="btn btn-s" onclick="closeLead()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CLIENT MODAL ══ -->
+<div class="mo" id="m-client">
+  <div class="modal">
+    <div class="mh">
+      <div class="mtitle" id="m-client-title">Add closed deal</div>
+      <button class="xbtn" onclick="closeClient()">✕</button>
+    </div>
+    <div class="frow">
+      <div class="field"><label>Client name *</label><input id="c-name" placeholder="Business name" maxlength="120"></div>
+      <div class="field"><label>Date closed</label><input type="date" id="c-date"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><label>Closed by</label><select id="c-by"></select></div>
+      <div class="field"><label>Revenue (DZD)</label><input type="number" id="c-rev" placeholder="0" min="0" inputmode="numeric"></div>
+    </div>
+    <div class="frow">
+      <div class="field"><label>Delivery</label>
+        <select id="c-del"><option>Pending</option><option>In progress</option><option>Delivered</option></select>
+      </div>
+      <div class="field"><label>Payment</label>
+        <select id="c-pay"><option>Unpaid</option><option>Partial</option><option>Paid</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Notes</label><textarea id="c-notes" placeholder="Package, terms…" style="min-height:60px" maxlength="500"></textarea></div>
+    <input type="hidden" id="c-id">
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-p" onclick="saveClient()" style="flex:1;justify-content:center"><i class="ti ti-check"></i>Save deal</button>
+      <button class="btn btn-d btn-sm" id="del-client-btn" onclick="deleteClient()" style="display:none"><i class="ti ti-trash"></i>Delete</button>
+      <button class="btn btn-s" onclick="closeClient()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// SECURITY UTILS
+// ═══════════════════════════════════════════════════════
+function sanitize(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+}
+
+// Rate limiting: max N calls per window
+const _rateLimits = {};
+function rateLimit(key, maxCalls = 5, windowMs = 60000) {
+  const now = Date.now();
+  if (!_rateLimits[key]) _rateLimits[key] = [];
+  _rateLimits[key] = _rateLimits[key].filter(t => now - t < windowMs);
+  if (_rateLimits[key].length >= maxCalls) return false;
+  _rateLimits[key].push(now);
+  return true;
+}
+
+// Check honeypot field
+function isBot(hpId) {
+  return document.getElementById(hpId)?.value?.length > 0;
+}
+
+// ═══════════════════════════════════════════════════════
+// PROXY API — all server calls go through here
+// ═══════════════════════════════════════════════════════
+const API = '/api/proxy';
+let _token = sessionStorage.getItem('_st') || null;
+
+async function proxyCall(action, payload = {}) {
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, payload, token: _token }),
+    });
+    return await res.json();
+  } catch (e) {
+    return { error: 'Network error. Check your connection.' };
+  }
+}
+
+// DB helper — builds Supabase REST calls via proxy
+async function dbCall(table, { method = 'GET', params = '', body = null } = {}) {
+  return proxyCall('db', {
+    path: `/rest/v1/${table}`,
+    method,
+    params,
+    body,
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let ME = null;
+let ALL_PROFILES = [];
+let LEADS = [];
+let CLIENTS = [];
+let LOGS = {};
+let WEEKLY = null;
+let _sbClient = null; // only for realtime
+const TODAY = new Date().toISOString().split('T')[0];
+let CURRENT_FILTER = 'all';
+let CURRENT_SEARCH = '';
+let callsChart = null;
+let calDate = new Date();
+const DEFAULT_GOALS = { calls: 20, leads: 8, followups: 5 };
+
+// ═══════════════════════════════════════════════════════
+// AUTH TABS
+// ═══════════════════════════════════════════════════════
+function authTab(t) {
+  ['signin', 'signup', 'forgot'].forEach((x, i) => {
+    document.getElementById('form-' + x).style.display = x === t ? '' : 'none';
+    document.querySelectorAll('.auth-tab')[i].classList.toggle('active', x === t);
+  });
+}
+
+function checkPassStrength(val) {
+  const el = document.getElementById('pass-strength');
+  if (!val) { el.className = 'pass-strength'; return; }
+  const strong = val.length >= 10 && /[A-Z]/.test(val) && /[0-9]/.test(val);
+  const fair = val.length >= 8;
+  el.className = 'pass-strength ' + (strong ? 'strong' : fair ? 'fair' : 'weak');
+}
+
+function setBtn(id, loading, label) {
+  const b = document.getElementById(id);
+  if (!b) return;
+  b.disabled = loading;
+  if (label) b.textContent = loading ? 'Please wait…' : label;
+}
+
+function authMsg(form, msg, type = 'err') {
+  const el = document.getElementById(form + '-msg');
+  if (el) { el.className = 'auth-msg ' + type; el.textContent = msg; }
+}
+
+// ═══════════════════════════════════════════════════════
+// SIGN IN
+// ═══════════════════════════════════════════════════════
+async function doSignIn() {
+  if (isBot('hp-si')) return;
+  const email = document.getElementById('si-email').value.trim().toLowerCase();
+  const pass = document.getElementById('si-pass').value;
+
+  if (!isValidEmail(email)) { authMsg('si', 'Please enter a valid email.'); return; }
+  if (!pass) { authMsg('si', 'Please enter your password.'); return; }
+  if (!rateLimit('signin', 5, 60000)) { authMsg('si', 'Too many attempts. Wait a minute.'); return; }
+
+  setBtn('si-btn', true, 'Sign in →');
+  const data = await proxyCall('sign_in', { email, password: pass });
+  setBtn('si-btn', false, 'Sign in →');
+
+  if (data.error) { authMsg('si', data.error); return; }
+
+  _token = data.access_token;
+  sessionStorage.setItem('_st', _token);
+  await onSession(data);
+}
+
+// ═══════════════════════════════════════════════════════
+// SIGN UP
+// ═══════════════════════════════════════════════════════
+async function doSignUp() {
+  if (isBot('hp-su')) return;
+  const email = document.getElementById('su-email').value.trim().toLowerCase();
+  const pass = document.getElementById('su-pass').value;
+  const pass2 = document.getElementById('su-pass2').value;
+
+  if (!isValidEmail(email)) { authMsg('su', 'Please enter a valid email.'); return; }
+  if (pass.length < 8) { authMsg('su', 'Password must be at least 8 characters.'); return; }
+  if (pass !== pass2) { authMsg('su', 'Passwords do not match.'); return; }
+  if (!rateLimit('signup', 3, 120000)) { authMsg('su', 'Too many attempts. Try again later.'); return; }
+
+  setBtn('su-btn', true, 'Create account →');
+  const data = await proxyCall('sign_up', { email, password: pass });
+  setBtn('su-btn', false, 'Create account →');
+
+  if (data.error) { authMsg('su', data.error); return; }
+  authMsg('su', '✓ Check your email for a confirmation link.', 'ok');
+}
+
+// ═══════════════════════════════════════════════════════
+// FORGOT PASSWORD
+// ═══════════════════════════════════════════════════════
+async function doForgot() {
+  const email = document.getElementById('fg-email').value.trim().toLowerCase();
+  if (!isValidEmail(email)) { authMsg('fg', 'Please enter a valid email.'); return; }
+  if (!rateLimit('forgot', 3, 300000)) { authMsg('fg', 'Too many reset requests. Wait 5 minutes.'); return; }
+
+  setBtn('fg-btn', true, 'Send reset link →');
+  await proxyCall('forgot_password', { email });
+  setBtn('fg-btn', false, 'Send reset link →');
+  // Always show success (no email enumeration)
+  authMsg('fg', '✓ If that email is registered, you\'ll get a reset link shortly.', 'ok');
+}
+
+// ═══════════════════════════════════════════════════════
+// SIGN OUT
+// ═══════════════════════════════════════════════════════
+async function doSignOut() {
+  await proxyCall('sign_out');
+  sessionStorage.removeItem('_st');
+  _token = null;
+  window.location.reload();
+}
+
+// ═══════════════════════════════════════════════════════
+// SESSION CHECK ON LOAD
+// ═══════════════════════════════════════════════════════
+async function checkSession() {
+  if (!_token) { showAuth(); return; }
+  const data = await proxyCall('get_user');
+  if (data.error || !data.id) {
+    sessionStorage.removeItem('_st');
+    _token = null;
+    showAuth();
+    return;
+  }
+  await onSession(data);
+}
+
+function showAuth() {
+  document.getElementById('auth-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════════
+// AFTER SESSION VALIDATED
+// ═══════════════════════════════════════════════════════
+async function onSession(userData) {
+  document.getElementById('auth-screen').style.display = 'none';
+
+  // Load profile from DB
+  const prof = await dbCall(`profiles?id=eq.${userData.id}&select=*`);
+  const profData = Array.isArray(prof) ? prof[0] : null;
+
+  if (!profData) {
+    // New user — create profile using role from proxy
+    const role = userData._role || 'partner';
+    await dbCall('profiles', {
+      method: 'POST',
+      params: 'on_conflict=id',
+      body: {
+        id: userData.id,
+        email: userData.email,
+        role,
+        daily_call_goal: DEFAULT_GOALS.calls,
+        daily_lead_goal: DEFAULT_GOALS.leads,
+        daily_followup_goal: DEFAULT_GOALS.followups,
+      },
+    });
+    // Reload
+    const newProf = await dbCall(`profiles?id=eq.${userData.id}&select=*`);
+    ME = Array.isArray(newProf) ? newProf[0] : null;
+  } else {
+    ME = profData;
+  }
+
+  if (!ME) { showAuth(); return; }
+
+  if (!ME.username) {
+    document.getElementById('username-screen').classList.add('show');
+    return;
+  }
+  await bootApp();
+}
+
+// ═══════════════════════════════════════════════════════
+// USERNAME SETUP
+// ═══════════════════════════════════════════════════════
+async function saveUsername() {
+  const uname = document.getElementById('uname-input').value.trim();
+  if (!uname) { document.getElementById('uname-msg').textContent = 'Please enter a username.'; return; }
+  if (uname.length < 2) { document.getElementById('uname-msg').textContent = 'Too short.'; return; }
+
+  const res = await dbCall(`profiles?id=eq.${ME.id}`, {
+    method: 'PATCH',
+    body: { username: sanitize(uname) },
+  });
+  if (res && res.error) { document.getElementById('uname-msg').textContent = res.message || 'Error saving.'; return; }
+  ME.username = uname;
+  document.getElementById('username-screen').classList.remove('show');
+  await bootApp();
+}
+
+// ═══════════════════════════════════════════════════════
+// BOOT APP
+// ═══════════════════════════════════════════════════════
+async function bootApp() {
+  await Promise.all([loadAllProfiles(), loadLeads(), loadClients(), loadLogs(), loadWeeklyTargets()]);
+  renderSidebar();
+  renderAll();
+  document.getElementById('app').style.display = 'flex';
+  loadSettings();
+  setupRealtime();
+}
+
+// ═══════════════════════════════════════════════════════
+// REALTIME — init Supabase client only for subscriptions
+// ═══════════════════════════════════════════════════════
+async function setupRealtime() {
+  const creds = await proxyCall('rt_token');
+  if (!creds.url || !creds.key) return;
+  _sbClient = window.supabase.createClient(creds.url, creds.key);
+  _sbClient.channel('savor-sync')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, async () => { await loadLeads(); renderLeads(); updateBadge(); })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'clients' }, async () => { await loadClients(); renderClients(); })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'daily_logs' }, async () => { await loadLogs(); renderOverview(); })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'weekly_targets' }, async () => { await loadWeeklyTargets(); renderOverview(); })
+    .subscribe();
+}
+
+// ═══════════════════════════════════════════════════════
+// DATA LOADERS
+// ═══════════════════════════════════════════════════════
+async function loadAllProfiles() {
+  const d = await dbCall('profiles?select=*');
+  ALL_PROFILES = Array.isArray(d) ? d : [];
+}
+async function loadLeads() {
+  const d = await dbCall('leads?select=*&order=created_at.desc');
+  LEADS = Array.isArray(d) ? d : [];
+}
+async function loadClients() {
+  const d = await dbCall('clients?select=*&order=date_closed.desc');
+  CLIENTS = Array.isArray(d) ? d : [];
+}
+async function loadLogs() {
+  const d = await dbCall('daily_logs?select=*');
+  LOGS = {};
+  (Array.isArray(d) ? d : []).forEach(l => {
+    if (!LOGS[l.user_id]) LOGS[l.user_id] = [];
+    LOGS[l.user_id].push(l);
+  });
+}
+async function loadWeeklyTargets() {
+  const ws = getWeekStart();
+  const d = await dbCall(`weekly_targets?week_start=eq.${ws}&select=*&limit=1`);
+  WEEKLY = Array.isArray(d) && d[0] ? d[0] : { calls_target: 100, leads_target: 40, followups_target: 30, clients_target: 3 };
+}
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+function v(id) { return document.getElementById(id)?.value || ''; }
+function sv(id, val) { const el = document.getElementById(id); if (el) el.value = val ?? ''; }
+function getWeekStart() { const d = new Date(); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.toISOString().split('T')[0]; }
+function isFounder() { return ME?.role === 'founder'; }
+function profileName(id) { return ALL_PROFILES.find(p => p.id === id)?.username || '—'; }
+function myLeads() { return isFounder() ? LEADS : LEADS.filter(l => l.assigned_to === ME?.id); }
+function myClients() { return isFounder() ? CLIENTS : CLIENTS.filter(c => c.closed_by === ME?.id); }
+function weekLogs(userId) { const ws = new Date(getWeekStart()); return (LOGS[userId] || []).filter(l => new Date(l.log_date) >= ws); }
+function todayLog(userId = ME?.id) { return (LOGS[userId] || []).find(l => l.log_date === TODAY); }
+function sum(arr, f) { return arr.reduce((a, b) => a + (parseInt(b[f]) || 0), 0); }
+
+function bar(label, val, target, color = 'var(--accent)') {
+  const p = Math.min(100, Math.round((val / Math.max(1, target)) * 100));
+  const done = p >= 100;
+  return `<div class="barwrap">
+    <div class="barlabel"><span>${label}</span><span style="color:${done ? 'var(--green)' : ''}">${val} / ${target}${done ? ' ✓' : ''}</span></div>
+    <div class="pbar"><div class="pfill" style="width:${p}%;background:${done ? 'var(--green)' : color}"></div></div>
+  </div>`;
+}
+
+function pillFor(s) {
+  const m = { 'Not contacted': 'p-new', 'Called': 'p-called', 'Interested': 'p-interested', 'Follow-up scheduled': 'p-followup', 'In WhatsApp stage': 'p-whatsapp', 'Closed': 'p-closed', 'Lost': 'p-lost' };
+  return m[s] || 'p-new';
+}
+
+// ═══════════════════════════════════════════════════════
+// SIDEBAR + NAVIGATION
+// ═══════════════════════════════════════════════════════
+function renderSidebar() {
+  document.getElementById('role-pill').className = 'role-pill ' + (isFounder() ? 'r-founder' : 'r-partner');
+  document.getElementById('role-pill').innerHTML = `<i class="ti ${isFounder() ? 'ti-shield-check' : 'ti-user'}"></i> ${isFounder() ? 'Founder' : 'Partner'}`;
+  document.getElementById('sb-name').textContent = ME?.username || '—';
+  document.getElementById('sb-email').textContent = ME?.email || '';
+  document.getElementById('nav-analytics').style.display = isFounder() ? '' : 'none';
+  const now = new Date(); const h = now.getHours();
+  document.getElementById('greet-time').textContent = h < 12 ? 'morning' : h < 18 ? 'afternoon' : 'evening';
+  document.getElementById('greet-name').textContent = ME?.username || '—';
+  document.getElementById('ov-date').textContent = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function go(page, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  if (el) el.classList.add('active');
+  const rmap = { overview: renderOverview, activity: renderActivity, leads: renderLeads, followups: renderFollowups, clients: renderClients, analytics: renderAnalytics, scraper: renderScraper, settings: loadSettings };
+  if (rmap[page]) rmap[page]();
+}
+
+// ═══════════════════════════════════════════════════════
+// GOAL RINGS
+// ═══════════════════════════════════════════════════════
+function ring(label, val, goal, color = 'var(--accent)') {
+  const r = 32; const circ = 2 * Math.PI * r; const pct = Math.min(1, val / Math.max(1, goal));
+  const offset = circ * (1 - pct);
+  return `<div class="goal-ring-wrap">
+    <div class="goal-ring">
+      <svg viewBox="0 0 76 76">
+        <circle class="ring-bg" cx="38" cy="38" r="${r}" stroke-dasharray="${circ}" stroke-dashoffset="0"/>
+        <circle class="ring-fill" cx="38" cy="38" r="${r}" stroke="${color}" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" style="transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="ring-center"><div>${val}</div><div>${goal}</div></div>
+    </div>
+    <div class="ring-sublabel">${label}</div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// OVERVIEW
+// ═══════════════════════════════════════════════════════
+function renderOverview() {
+  if (!ME) return;
+  const isF = isFounder();
+  document.getElementById('ov-sub').textContent = isF ? 'Full agency overview — all performance data' : 'Your personal performance snapshot';
+
+  const tl = todayLog();
+  const tCalls = tl?.calls || 0, tFU = tl?.followups || 0, tLeads = tl?.leads_contacted || 0;
+  const gCalls = ME.daily_call_goal || 20, gLeads = ME.daily_lead_goal || 8, gFU = ME.daily_followup_goal || 5;
+  document.getElementById('daily-rings').innerHTML =
+    ring('Calls', tCalls, gCalls, 'var(--accent)') +
+    ring('Leads', tLeads, gLeads, 'var(--purple)') +
+    ring('Follow-ups', tFU, gFU, 'var(--amber)');
+
+  const ml = myLeads(), mc = myClients();
+  const allLogs = Object.values(LOGS).flat();
+  const thisWeekAll = allLogs.filter(l => new Date(l.log_date) >= new Date(getWeekStart()));
+  const myWeek = weekLogs(ME.id);
+  const calls = isF ? sum(thisWeekAll, 'calls') : sum(myWeek, 'calls');
+  const fus = isF ? sum(thisWeekAll, 'followups') : sum(myWeek, 'followups');
+  const closed = mc.length;
+  const rev = mc.reduce((a, b) => a + (parseInt(b.revenue) || 0), 0);
+
+  document.getElementById('ov-stats').innerHTML = isF ? `
+    <div class="sc"><div class="sc-label">Total calls</div><div class="sc-val">${calls}</div><div class="sc-delta up">↑ this week</div></div>
+    <div class="sc"><div class="sc-label">Follow-ups</div><div class="sc-val">${fus}</div></div>
+    <div class="sc"><div class="sc-label">Active leads</div><div class="sc-val">${ml.length}</div></div>
+    <div class="sc"><div class="sc-label">Clients closed</div><div class="sc-val">${closed}</div></div>
+    <div class="sc"><div class="sc-label">Conv. rate</div><div class="sc-val">${ml.length > 0 ? Math.round((closed / ml.length) * 100) : 0}%</div></div>
+    <div class="sc"><div class="sc-label">Revenue</div><div class="sc-val" style="font-size:18px">${rev.toLocaleString()}</div><div class="sc-delta" style="color:var(--text3)">DZD</div></div>
+  ` : `
+    <div class="sc"><div class="sc-label">Calls (week)</div><div class="sc-val">${calls}</div></div>
+    <div class="sc"><div class="sc-label">Follow-ups</div><div class="sc-val">${fus}</div></div>
+    <div class="sc"><div class="sc-label">My leads</div><div class="sc-val">${ml.length}</div></div>
+    <div class="sc"><div class="sc-label">Interested</div><div class="sc-val">${ml.filter(l => l.status === 'Interested').length}</div></div>
+  `;
+
+  document.getElementById('ov-targets').innerHTML =
+    bar('Calls', calls, WEEKLY?.calls_target || 100) +
+    bar('Leads', ml.length, WEEKLY?.leads_target || 40, 'var(--purple)') +
+    bar('Follow-ups', fus, WEEKLY?.followups_target || 30, 'var(--amber)') +
+    bar('Clients', closed, WEEKLY?.clients_target || 3, 'var(--green)');
+
+  const todayFU = ml.filter(l => l.next_action_date === TODAY && l.status === 'Follow-up scheduled');
+  document.getElementById('ov-today-fu').innerHTML = todayFU.length ?
+    todayFU.map(l => `<div class="fup"><div><div class="fup-name">${sanitize(l.name)}</div><div class="fup-sub">${sanitize(l.contact || '—')}</div></div><button class="btn btn-s btn-xs" onclick="openLead('${l.id}')"><i class="ti ti-edit"></i></button></div>`).join('') :
+    '<div class="empty" style="padding:16px 0"><p>No follow-ups due today 👍</p></div>';
+
+  const pc = document.getElementById('ov-partner-card');
+  if (!isF) { pc.style.display = 'none'; updateBadge(); return; }
+  pc.style.display = '';
+  const partnerProf = ALL_PROFILES.find(p => p.role === 'partner');
+  if (partnerProf) {
+    const pw = weekLogs(partnerProf.id);
+    const pCalls = sum(pw, 'calls');
+    const pInt = LEADS.filter(l => l.status === 'Interested' && l.assigned_to === partnerProf.id).length;
+    const pClosed = CLIENTS.filter(c => c.closed_by === partnerProf.id).length;
+    const ptl = todayLog(partnerProf.id);
+    document.getElementById('ov-partner-stats').innerHTML = `
+      <div class="sc"><div class="sc-label">Partner calls (week)</div><div class="sc-val">${pCalls}</div></div>
+      <div class="sc"><div class="sc-label">Today's calls</div><div class="sc-val">${ptl?.calls || 0}<span style="font-size:13px;color:var(--text2);font-weight:400"> / ${partnerProf.daily_call_goal || 20}</span></div></div>
+      <div class="sc"><div class="sc-label">Interested leads</div><div class="sc-val">${pInt}</div></div>
+      <div class="sc"><div class="sc-label">Deals closed</div><div class="sc-val">${pClosed}</div></div>
+    `;
+  }
+  updateBadge();
+}
+
+// ═══════════════════════════════════════════════════════
+// ACTIVITY
+// ═══════════════════════════════════════════════════════
+function renderActivity() {
+  document.getElementById('act-date').textContent = 'Today — ' + new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+  const tl = todayLog();
+  sv('a-calls', tl?.calls || ''); sv('a-fu', tl?.followups || ''); sv('a-leads', tl?.leads_contacted || '');
+  document.getElementById('a-notes').value = tl?.notes || '';
+
+  const gCalls = ME.daily_call_goal || 20, gLeads = ME.daily_lead_goal || 8, gFU = ME.daily_followup_goal || 5;
+  document.getElementById('act-goal-bars').innerHTML =
+    bar('Calls', tl?.calls || 0, gCalls) +
+    bar('Leads', tl?.leads_contacted || 0, gLeads, 'var(--purple)') +
+    bar('Follow-ups', tl?.followups || 0, gFU, 'var(--amber)');
+
+  const myLogs = (LOGS[ME.id] || []).slice().sort((a, b) => b.log_date.localeCompare(a.log_date)).slice(0, 10);
+  document.getElementById('act-log').innerHTML = myLogs.length ? myLogs.map(l => `
+    <div class="card card-sm" style="margin-bottom:8px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;flex-wrap:wrap;gap:4px">
+        <strong style="font-size:12.5px;font-family:var(--mono)">${l.log_date}</strong>
+        <div style="font-size:12px;color:var(--text2)">📞 ${l.calls} &nbsp;🔁 ${l.followups} &nbsp;👤 ${l.leads_contacted}</div>
+      </div>
+      ${l.notes ? `<div style="font-size:12.5px;color:var(--text2);margin-top:4px">${sanitize(l.notes)}</div>` : ''}
+    </div>`).join('') :
+    '<div class="empty" style="padding:16px 0"><p>No logs yet — start logging!</p></div>';
+}
+
+async function saveAct() {
+  if (!ME || !_token) return;
+  if (!rateLimit('saveact', 20, 60000)) { toast('Slow down!', true); return; }
+  const payload = {
+    user_id: ME.id, log_date: TODAY,
+    calls: parseInt(v('a-calls')) || 0,
+    followups: parseInt(v('a-fu')) || 0,
+    leads_contacted: parseInt(v('a-leads')) || 0,
+    notes: sanitize(v('a-notes')),
+  };
+  const existing = todayLog();
+  let res;
+  if (existing) {
+    res = await dbCall(`daily_logs?id=eq.${existing.id}`, { method: 'PATCH', body: payload });
+  } else {
+    res = await dbCall('daily_logs', { method: 'POST', body: payload });
+  }
+  if (res && res.error) { toast(res.message || 'Error saving', true); return; }
+  await loadLogs(); renderActivity(); renderOverview(); toast('Activity saved! 💪', false, 'ok');
+}
+
+// ═══════════════════════════════════════════════════════
+// LEADS
+// ═══════════════════════════════════════════════════════
+function renderLeads() {
+  const ml = myLeads();
+  let fl = CURRENT_FILTER === 'all' ? ml : ml.filter(l => l.status === CURRENT_FILTER);
+  if (CURRENT_SEARCH) { const q = CURRENT_SEARCH.toLowerCase(); fl = fl.filter(l => (l.name + l.contact + l.phone + l.instagram + l.location).toLowerCase().includes(q)); }
+  document.getElementById('leads-count').textContent = `${fl.length} lead${fl.length !== 1 ? 's' : ''}`;
+  const tbody = document.getElementById('leads-body');
+  if (!fl.length) { tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><i class="ti ti-users"></i><p>No leads found</p></div></td></tr>`; return; }
+  tbody.innerHTML = fl.map(l => `<tr onclick="openLead('${l.id}')" style="cursor:pointer">
+    <td>
+      <div style="font-weight:600;font-size:13.5px">${sanitize(l.name)}</div>
+      ${l.instagram ? `<div style="font-size:11px;color:var(--text3);margin-top:2px;font-family:var(--mono)">@${sanitize(l.instagram.replace('@', ''))}</div>` : ''}
+    </td>
+    <td>
+      <div style="font-size:13px">${sanitize(l.contact || '—')}</div>
+      <div style="font-size:11px;color:var(--text3);font-family:var(--mono)">${sanitize(l.phone || '—')}</div>
+    </td>
+    <td style="font-size:12.5px;color:var(--text2);font-variant-numeric:tabular-nums">${l.followers ? l.followers.toLocaleString() : '—'}</td>
+    <td><span class="pill ${pillFor(l.status)}">${l.status}</span></td>
+    <td style="font-size:12px;color:var(--text2);font-family:var(--mono)">${l.next_action_date || '—'}</td>
+    <td style="font-size:12px;color:var(--text2);max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${sanitize(l.notes || '—')}</td>
+    <td><button class="btn btn-s btn-xs" onclick="event.stopPropagation();openLead('${l.id}')"><i class="ti ti-edit"></i></button></td>
+  </tr>`).join('');
+}
+
+function filterL(f, el) { CURRENT_FILTER = f; document.querySelectorAll('#lead-tabs .tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); renderLeads(); }
+function filterSearch() { CURRENT_SEARCH = v('lead-search'); renderLeads(); }
+function updateBadge() {
+  const n = myLeads().filter(l => l.status === 'Follow-up scheduled' && l.next_action_date <= TODAY).length;
+  const b = document.getElementById('fu-badge'); b.textContent = n; b.style.display = n > 0 ? '' : 'none';
+}
+
+// ═══════════════════════════════════════════════════════
+// LEAD MODAL
+// ═══════════════════════════════════════════════════════
+function openLead(id = '') {
+  const m = document.getElementById('m-lead');
+  const sel = document.getElementById('l-assign');
+  sel.innerHTML = ALL_PROFILES.map(p => `<option value="${p.id}">${sanitize(p.username || p.email)} (${p.role})</option>`).join('');
+
+  if (!id) {
+    ['l-name', 'l-contact', 'l-phone', 'l-ig', 'l-followers', 'l-location', 'l-notes'].forEach(x => sv(x, ''));
+    document.getElementById('l-status').value = 'Not contacted';
+    document.getElementById('l-date').value = '';
+    document.getElementById('l-id').value = '';
+    document.getElementById('m-lead-title').textContent = 'Add lead';
+    document.getElementById('del-lead-btn').style.display = 'none';
+    const partnerProf = ALL_PROFILES.find(p => p.role === 'partner');
+    if (partnerProf) sel.value = partnerProf.id;
+    document.getElementById('l-assign-wrap').style.display = isFounder() ? '' : 'none';
+  } else {
+    const l = LEADS.find(x => x.id === id); if (!l) return;
+    sv('l-name', l.name); sv('l-contact', l.contact); sv('l-phone', l.phone); sv('l-ig', l.instagram);
+    sv('l-followers', l.followers); sv('l-location', l.location); sv('l-notes', l.notes);
+    document.getElementById('l-status').value = l.status;
+    document.getElementById('l-date').value = l.next_action_date || '';
+    document.getElementById('l-id').value = id;
+    if (l.assigned_to) sel.value = l.assigned_to;
+    document.getElementById('m-lead-title').textContent = 'Edit lead';
+    document.getElementById('del-lead-btn').style.display = '';
+    document.getElementById('l-assign-wrap').style.display = isFounder() ? '' : 'none';
+  }
+  m.classList.add('open');
+  setTimeout(() => document.getElementById('l-name').focus(), 80);
+}
+
+function closeLead() { document.getElementById('m-lead').classList.remove('open'); }
+
+async function saveLead() {
+  if (!ME || !_token) return;
+  const id = v('l-id');
+  const name = v('l-name').trim();
+  if (!name) { toast('Business name is required', true); return; }
+
+  const payload = {
+    name: sanitize(name), contact: sanitize(v('l-contact')), phone: sanitize(v('l-phone')),
+    instagram: sanitize(v('l-ig').replace('@', '')), followers: parseInt(v('l-followers')) || null,
+    location: sanitize(v('l-location')),
+    status: v('l-status'), next_action_date: v('l-date') || null, notes: sanitize(v('l-notes')),
+    assigned_to: isFounder() ? v('l-assign') : ME.id,
+    created_by: ME.id,
+  };
+  let res;
+  if (id) { res = await dbCall(`leads?id=eq.${id}`, { method: 'PATCH', body: payload }); }
+  else { res = await dbCall('leads', { method: 'POST', body: payload }); }
+  if (res && res.error) { toast(res.message || 'Error saving', true); return; }
+  await loadLeads(); closeLead(); renderLeads(); updateBadge(); toast('Lead saved ✓', false, 'ok');
+}
+
+async function deleteLead() {
+  const id = v('l-id'); if (!id || !_token) return;
+  if (!confirm('Delete this lead? This cannot be undone.')) return;
+  await dbCall(`leads?id=eq.${id}`, { method: 'DELETE' });
+  await loadLeads(); closeLead(); renderLeads(); updateBadge(); toast('Lead deleted');
+}
+
+// ═══════════════════════════════════════════════════════
+// FOLLOW-UPS
+// ═══════════════════════════════════════════════════════
+function renderFollowups() {
+  const ml = myLeads().filter(l => l.status === 'Follow-up scheduled' && l.next_action_date);
+  const card = (l, cls) => `<div class="fup ${cls}"><div><div class="fup-name">${sanitize(l.name)}</div><div class="fup-sub">${sanitize(l.contact || '—')} · ${l.next_action_date}</div></div><button class="btn btn-s btn-xs" onclick="openLead('${l.id}')"><i class="ti ti-edit"></i></button></div>`;
+  const empty = cls => `<div style="font-size:13px;color:var(--text3);padding:10px 0">All clear ${cls}</div>`;
+  document.getElementById('fu-overdue').innerHTML = ml.filter(l => l.next_action_date < TODAY).map(l => card(l, 'urg')).join('') || empty('👌');
+  document.getElementById('fu-today').innerHTML = ml.filter(l => l.next_action_date === TODAY).map(l => card(l, '')).join('') || '<div style="font-size:13px;color:var(--text3);padding:10px 0">None today</div>';
+  document.getElementById('fu-upcoming').innerHTML = ml.filter(l => l.next_action_date > TODAY).map(l => card(l, 'upc')).join('') || '<div style="font-size:13px;color:var(--text3);padding:10px 0">Nothing upcoming</div>';
+}
+
+// ═══════════════════════════════════════════════════════
+// CLIENTS
+// ═══════════════════════════════════════════════════════
+function renderClients() {
+  const mc = myClients();
+  const rev = mc.reduce((a, b) => a + (parseInt(b.revenue) || 0), 0);
+  document.getElementById('cl-stats').innerHTML = `
+    <div class="sc"><div class="sc-label">Total deals</div><div class="sc-val">${mc.length}</div></div>
+    <div class="sc"><div class="sc-label">Revenue</div><div class="sc-val" style="font-size:17px">${rev.toLocaleString()}</div><div class="sc-delta" style="color:var(--text3)">DZD</div></div>
+    <div class="sc"><div class="sc-label">Paid</div><div class="sc-val">${mc.filter(c => c.payment_status === 'Paid').length}</div></div>
+    <div class="sc"><div class="sc-label">In progress</div><div class="sc-val">${mc.filter(c => c.delivery_status === 'In progress').length}</div></div>
+  `;
+  const tbody = document.getElementById('cl-body');
+  if (!mc.length) { tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><i class="ti ti-trophy"></i><p>No closed deals yet — go get 'em!</p></div></td></tr>`; return; }
+  const founderProf = ALL_PROFILES.find(p => p.role === 'founder');
+  tbody.innerHTML = mc.map(c => `<tr onclick="openClient('${c.id}')" style="cursor:pointer">
+    <td><strong style="font-size:13.5px">${sanitize(c.name)}</strong>${c.notes ? `<div style="font-size:11px;color:var(--text3);margin-top:2px">${sanitize(c.notes)}</div>` : ''}</td>
+    <td style="font-size:12.5px;color:var(--text2);font-family:var(--mono)">${c.date_closed || '—'}</td>
+    <td><span class="pill ${c.closed_by === founderProf?.id ? 'p-founder' : 'p-partner'}">${profileName(c.closed_by)}</span></td>
+    <td style="font-size:14px;font-weight:700;font-variant-numeric:tabular-nums">${parseInt(c.revenue || 0).toLocaleString()} <span style="font-size:11px;color:var(--text2);font-weight:400">DZD</span></td>
+    <td><span class="pill ${c.delivery_status === 'Delivered' ? 'p-deliv' : c.delivery_status === 'In progress' ? 'p-inprog' : 'p-pending'}">${c.delivery_status}</span></td>
+    <td><span class="pill ${c.payment_status === 'Paid' ? 'p-paid' : c.payment_status === 'Partial' ? 'p-partial' : 'p-pending'}">${c.payment_status}</span></td>
+    <td><button class="btn btn-s btn-xs" onclick="event.stopPropagation();openClient('${c.id}')"><i class="ti ti-edit"></i></button></td>
+  </tr>`).join('');
+}
+
+function openClient(id = '') {
+  const m = document.getElementById('m-client');
+  const sel = document.getElementById('c-by');
+  sel.innerHTML = ALL_PROFILES.map(p => `<option value="${p.id}">${sanitize(p.username || p.email)} (${p.role})</option>`).join('');
+  if (!id) {
+    ['c-name', 'c-rev', 'c-notes'].forEach(x => sv(x, ''));
+    document.getElementById('c-date').value = TODAY;
+    document.getElementById('c-del').value = 'Pending';
+    document.getElementById('c-pay').value = 'Unpaid';
+    document.getElementById('c-id').value = '';
+    document.getElementById('m-client-title').textContent = 'Add closed deal';
+    document.getElementById('del-client-btn').style.display = 'none';
+    sel.value = ME.id;
+  } else {
+    const c = CLIENTS.find(x => x.id === id); if (!c) return;
+    sv('c-name', c.name); sv('c-rev', c.revenue); sv('c-notes', c.notes);
+    document.getElementById('c-date').value = c.date_closed || TODAY;
+    document.getElementById('c-del').value = c.delivery_status;
+    document.getElementById('c-pay').value = c.payment_status;
+    document.getElementById('c-id').value = id;
+    if (c.closed_by) sel.value = c.closed_by;
+    document.getElementById('m-client-title').textContent = 'Edit deal';
+    document.getElementById('del-client-btn').style.display = '';
+  }
+  m.classList.add('open');
+}
+function closeClient() { document.getElementById('m-client').classList.remove('open'); }
+
+async function saveClient() {
+  if (!ME || !_token) return;
+  const id = v('c-id');
+  const name = v('c-name').trim();
+  if (!name) { toast('Client name is required', true); return; }
+  const payload = { name: sanitize(name), date_closed: v('c-date'), closed_by: v('c-by'), revenue: parseInt(v('c-rev')) || 0, delivery_status: v('c-del'), payment_status: v('c-pay'), notes: sanitize(v('c-notes')) };
+  let res;
+  if (id) { res = await dbCall(`clients?id=eq.${id}`, { method: 'PATCH', body: payload }); }
+  else { res = await dbCall('clients', { method: 'POST', body: payload }); }
+  if (res && res.error) { toast(res.message || 'Error', true); return; }
+  await loadClients(); closeClient(); renderClients(); toast('Deal saved ✓', false, 'ok');
+}
+
+async function deleteClient() {
+  const id = v('c-id'); if (!id || !_token) return;
+  if (!confirm('Delete this deal?')) return;
+  await dbCall(`clients?id=eq.${id}`, { method: 'DELETE' });
+  await loadClients(); closeClient(); renderClients(); toast('Deal deleted');
+}
+
+// ═══════════════════════════════════════════════════════
+// ANALYTICS
+// ═══════════════════════════════════════════════════════
+function renderAnalytics() {
+  const founderProf = ALL_PROFILES.find(p => p.role === 'founder');
+  const partnerProf = ALL_PROFILES.find(p => p.role === 'partner');
+  const fw = founderProf ? weekLogs(founderProf.id) : [];
+  const pw = partnerProf ? weekLogs(partnerProf.id) : [];
+  const all = [...fw, ...pw];
+  const tc = sum(all, 'calls');
+  const tl = LEADS.length, closed = CLIENTS.length;
+  const rev = CLIENTS.reduce((a, b) => a + (parseInt(b.revenue) || 0), 0);
+  const fRev = CLIENTS.filter(c => c.closed_by === founderProf?.id).reduce((a, b) => a + (parseInt(b.revenue) || 0), 0);
+  const pRev = CLIENTS.filter(c => c.closed_by === partnerProf?.id).reduce((a, b) => a + (parseInt(b.revenue) || 0), 0);
+  const conv = tl > 0 ? Math.round((closed / tl) * 100) : 0;
+  const fClosed = CLIENTS.filter(c => c.closed_by === founderProf?.id).length;
+  const pCalls = sum(pw, 'calls');
+  const pInt = LEADS.filter(l => l.status === 'Interested' && l.assigned_to === partnerProf?.id).length;
+  const pIR = pCalls > 0 ? Math.round((pInt / pCalls) * 100) : 0;
+  const fCR = closed > 0 ? Math.round((fClosed / closed) * 100) : 0;
+
+  document.getElementById('an-stats').innerHTML = `
+    <div class="sc"><div class="sc-label">Total calls</div><div class="sc-val">${tc}</div></div>
+    <div class="sc"><div class="sc-label">Agency revenue</div><div class="sc-val" style="font-size:17px">${rev.toLocaleString()}</div><div class="sc-delta" style="color:var(--text3)">DZD</div></div>
+    <div class="sc"><div class="sc-label">Conv. rate</div><div class="sc-val">${conv}%</div></div>
+    <div class="sc"><div class="sc-label">Deals closed</div><div class="sc-val">${closed}</div></div>
+  `;
+
+  document.getElementById('an-funnel').innerHTML =
+    bar('Cold calls → Interested (partner)', pInt, Math.max(1, pCalls), 'var(--purple)') +
+    bar('Leads → Closed (agency)', closed, Math.max(1, tl)) +
+    `<div style="margin-top:10px;font-size:12px;color:var(--text2)">Partner interest rate: <strong style="color:var(--text)">${pIR}%</strong> &nbsp;·&nbsp; Founder close rate: <strong style="color:var(--text)">${fCR}%</strong></div>`;
+
+  document.getElementById('an-revenue').innerHTML = `
+    <div class="g2" style="margin-bottom:14px">
+      <div><div style="font-size:10.5px;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Founder</div><div style="font-size:22px;font-weight:700">${fRev.toLocaleString()} <span style="font-size:11px;color:var(--text2)">DZD</span></div></div>
+      <div><div style="font-size:10.5px;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Partner</div><div style="font-size:22px;font-weight:700">${pRev.toLocaleString()} <span style="font-size:11px;color:var(--text2)">DZD</span></div></div>
+    </div>
+    ${bar('Calls target (week)', tc, WEEKLY?.calls_target || 100)}
+    ${bar('Leads target (week)', tl, WEEKLY?.leads_target || 40, 'var(--purple)')}
+    ${bar('Clients target (week)', closed, WEEKLY?.clients_target || 3, 'var(--green)')}
+  `;
+
+  // Chart
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const ws = new Date(getWeekStart());
+  const dayLogs = logs => days.map((_, i) => { const d = new Date(ws); d.setDate(d.getDate() + i); const ds = d.toISOString().split('T')[0]; const l = (logs || []).find(x => x.log_date === ds); return l ? l.calls : 0; });
+
+  if (callsChart) { callsChart.destroy(); callsChart = null; }
+  const ctx = document.getElementById('callsC');
+  if (ctx) {
+    callsChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: days, datasets: [
+          { label: 'Partner', data: dayLogs(pw), backgroundColor: 'rgba(129,140,248,0.75)', borderRadius: 5 },
+          { label: 'Founder', data: dayLogs(fw), backgroundColor: 'rgba(232,100,44,0.75)', borderRadius: 5 },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: true, labels: { color: '#8888a0', font: { size: 11, family: 'Inter' }, boxWidth: 10, padding: 14 } } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#8888a0', font: { size: 11 } } },
+          y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#8888a0', font: { size: 11 } }, beginAtZero: true }
         }
+      }
+    });
+  }
+  renderCalendar();
+}
 
-        function closeModal() {
-            const modal = document.getElementById('cta-modal');
-            const modalContent = document.getElementById('modal-content');
-            const errorContainer = document.getElementById('form-errors');
+// ═══════════════════════════════════════════════════════
+// CALENDAR
+// ═══════════════════════════════════════════════════════
+function renderCalendar() {
+  const y = calDate.getFullYear(), m = calDate.getMonth();
+  document.getElementById('cal-month-label').textContent = calDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  const dows = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  document.getElementById('cal-dow-row').innerHTML = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
 
-            modal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
+  const first = new Date(y, m, 1);
+  const startDow = (first.getDay() + 6) % 7;
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  const founderProf = ALL_PROFILES.find(p => p.role === 'founder');
+  const partnerProf = ALL_PROFILES.find(p => p.role === 'partner');
 
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                errorContainer.classList.add('hidden');
-                errorContainer.innerHTML = '';
-            }, 300);
-        }
+  let cells = '';
+  for (let i = 0; i < startDow; i++) cells += `<div class="cal-day other-month"></div>`;
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    const isToday = ds === TODAY;
+    const fLog = founderProf ? (LOGS[founderProf.id] || []).find(l => l.log_date === ds) : null;
+    const pLog = partnerProf ? (LOGS[partnerProf.id] || []).find(l => l.log_date === ds) : null;
+    const hasData = !!(fLog || pLog);
+    cells += `<div class="cal-day${isToday ? ' today' : ''}${hasData ? ' has-data' : ''}" title="${ds}">
+      <div class="cal-day-num">${d}</div>
+      ${fLog ? `<div class="cal-calls" style="color:var(--accent)">F: ${fLog.calls}c ${fLog.leads_contacted}l</div>` : ''}
+      ${pLog ? `<div class="cal-calls" style="color:var(--purple)">P: ${pLog.calls}c ${pLog.leads_contacted}l</div>` : ''}
+    </div>`;
+  }
+  document.getElementById('cal-grid').innerHTML = cells;
+}
 
-        // Close modal on backdrop click
-        document.getElementById('cta-modal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
+function calPrev() { calDate.setMonth(calDate.getMonth() - 1); renderCalendar(); }
+function calNext() { calDate.setMonth(calDate.getMonth() + 1); renderCalendar(); }
 
-        // ─── Form Validation & Submission ──────────────────────────────────────────
-        const contactForm = document.getElementById('contact-form');
-        const errorContainer = document.getElementById('form-errors');
-        const submitBtn = document.getElementById('submit-btn');
+// ═══════════════════════════════════════════════════════
+// INSTAGRAM PASTE PARSER
+// ═══════════════════════════════════════════════════════
+function parseIG() {
+  const raw = document.getElementById('ig-paste').value.trim();
+  if (!raw) { document.getElementById('paste-preview').classList.remove('show'); document.getElementById('confirm-parse-btn').style.display = 'none'; return; }
 
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+  let handle = '', name = '', followers = '', phone = '', location = '', bio = '';
 
-            // Reset error UI
-            errorContainer.innerHTML = '';
-            errorContainer.classList.add('hidden');
+  // Handle
+  for (let i = 0; i < Math.min(6, lines.length); i++) {
+    const l = lines[i];
+    if (l.startsWith('@') || (/^[a-z0-9_.]{3,40}$/i.test(l) && !l.includes(' '))) { handle = l.replace('@', ''); break; }
+  }
 
-            // 1. Honeypot bot check
-            if (document.getElementById('bot-field').value !== '') {
-                console.warn('Spam detected. Dropping request.');
-                return;
-            }
+  // Name (first line with capitals + length, skipping handle)
+  for (let i = 0; i < Math.min(10, lines.length); i++) {
+    const l = lines[i];
+    const clean = l.replace(/[\u{1F300}-\u{1FAFF}]/gu, '').trim();
+    if (clean !== handle && /[A-ZÀ-Ö\u00C0-\u024F]/.test(clean) && clean.length > 2 && clean.length < 80 && !clean.match(/^\d/) && !clean.match(/(suiv|publications|Meta|blog|about)/i)) {
+      name = clean.trim(); break;
+    }
+  }
 
-            // 2. Get values
-            const name       = document.getElementById('user_name').value.trim();
-            const restaurant = document.getElementById('restaurant_name').value.trim();
-            const email      = document.getElementById('user_email').value.trim();
-            const phone      = document.getElementById('user_phone').value.trim();
-            const plan       = document.getElementById('plan-select').value;
-            const message    = document.getElementById('message').value.trim();
+  // Followers
+  for (const l of lines) {
+    const m1 = l.match(/(\d[\d\s,.]*)[\s]*[kK]\s*(followers|abonnés|suiveurs|abonné)/i);
+    if (m1) { followers = Math.round(parseFloat(m1[1].replace(/[\s,]/g, '').replace(',', '.')) * 1000); break; }
+    const m2 = l.match(/(\d[\d\s,.]+)\s*(followers|abonnés|suiveurs|abonné)/i);
+    if (m2) { followers = parseInt(m2[1].replace(/[\s,]/g, '')); break; }
+    const m3 = l.match(/([\d,.]+\s*[kK])\s*(followers|abonnés)/i);
+    if (m3) { followers = parseKNum(m3[1]); break; }
+  }
 
-            // 3. Validation
-            let errors = [];
+  // Phone (DZ format)
+  for (const l of lines) {
+    const m = l.match(/(\+213[\s\-]?[0-9\s\-]{8,}|0[567]\d{8})/);
+    if (m) { phone = m[0].replace(/[\s\-]/g, ''); break; }
+  }
 
-            if (!name)       errors.push('• Le nom complet est requis.');
-            if (!restaurant) errors.push('• Le nom du restaurant est requis.');
-            if (!email && !phone) errors.push('• Veuillez renseigner un email ou un numéro de téléphone.');
+  // Location
+  for (const l of lines) {
+    if (l.includes('📍')) { location = l.replace('📍', '').replace(/[^\w\s,\-]/gu, '').trim(); break; }
+    if (/Blida|Alger|Oran|Constantine|Annaba|Tlemcen|Sétif|Batna|Béjaïa/i.test(l)) { location = l.replace(/[\u{1F300}-\u{1FAFF}]/gu, '').trim(); break; }
+  }
 
-            if (email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) errors.push("• L'adresse email n'est pas valide.");
-            }
+  // Bio
+  for (const l of lines) {
+    const clean = l.replace(/[\u{1F300}-\u{1FAFF}📞📍🛵]/gu, '').trim();
+    if (clean.length > 20 && !clean.match(/^\d/) && clean !== name && !clean.match(/(instagram|Meta|blog|about|suiv|publication|livraison|Français|English)/i)) {
+      bio = clean; break;
+    }
+  }
 
-            if (errors.length > 0) {
-                errorContainer.innerHTML = errors.join('<br>');
-                errorContainer.classList.remove('hidden');
-                document.getElementById('modal-content').scrollTo({ top: 0, behavior: 'smooth' });
-                return;
-            }
+  sv('pp-name', name); sv('pp-ig', handle); sv('pp-followers', followers || ''); sv('pp-phone', phone); sv('pp-location', location); sv('pp-bio', bio);
+  document.getElementById('paste-preview').classList.add('show');
+  document.getElementById('confirm-parse-btn').style.display = '';
+}
 
-            // 4. Lock the button
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = `<span class="opacity-80">Envoi en cours...</span>`;
-            submitBtn.disabled = true;
+function parseKNum(s) {
+  const n = parseFloat(s.replace(',', '.').replace(/\s/g, ''));
+  return s.toLowerCase().includes('k') ? Math.round(n * 1000) : Math.round(n);
+}
 
-            // 5. Send to our secure Vercel serverless function
-            fetch('/api/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    user_name:       name,
-                    restaurant_name: restaurant,
-                    user_email:      email,
-                    user_phone:      phone,
-                    selected_plan:   plan,
-                    message:         message,
-                }),
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    // Success state
-                    submitBtn.innerHTML = `<span>Envoyé ! ✓</span>`;
-                    submitBtn.classList.replace('bg-charcoal', 'bg-teal');
+async function confirmParsed() {
+  if (!ME || !_token) return;
+  const name = v('pp-name').trim() || 'Unnamed';
+  const partnerProf = ALL_PROFILES.find(p => p.role === 'partner');
+  const payload = {
+    name: sanitize(name),
+    instagram: sanitize(v('pp-ig').replace('@', '')),
+    followers: parseInt(v('pp-followers')) || null,
+    phone: sanitize(v('pp-phone')),
+    location: sanitize(v('pp-location')),
+    notes: sanitize(v('pp-bio')),
+    status: 'Not contacted',
+    assigned_to: partnerProf?.id || ME.id,
+    created_by: ME.id,
+  };
+  const res = await dbCall('leads', { method: 'POST', body: payload });
+  if (res && res.error) { toast(res.message || 'Error adding lead', true); return; }
+  await loadLeads();
+  clearPaste();
+  toast(`Lead added: ${name} ✓`, false, 'ok');
+  renderScraper();
+}
 
-                    setTimeout(() => {
-                        contactForm.reset();
-                        closeModal();
-                        submitBtn.innerHTML = originalBtnText;
-                        submitBtn.classList.replace('bg-teal', 'bg-charcoal');
-                        submitBtn.disabled = false;
-                    }, 2000);
-                } else {
-                    throw new Error(data.error || 'Unknown error');
-                }
-            })
-            .catch(err => {
-                console.error('Submission error:', err);
-                errorContainer.innerHTML = "• Une erreur s'est produite. Veuillez réessayer.";
-                errorContainer.classList.remove('hidden');
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-                document.getElementById('modal-content').scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-    </script>
+function clearPaste() {
+  document.getElementById('ig-paste').value = '';
+  document.getElementById('paste-preview').classList.remove('show');
+  document.getElementById('confirm-parse-btn').style.display = 'none';
+}
+
+function renderScraper() {
+  const recent = LEADS.filter(l => l.instagram).slice(0, 6);
+  document.getElementById('recent-pasted').innerHTML = recent.length ?
+    recent.map(l => `<div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <div>
+        <div style="font-size:13px;font-weight:600">${sanitize(l.name)}</div>
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono)">@${sanitize(l.instagram)} · ${l.followers ? l.followers.toLocaleString() + ' followers' : ''}</div>
+      </div>
+      <span class="pill ${pillFor(l.status)}">${l.status}</span>
+    </div>`).join('') :
+    '<div style="font-size:13px;color:var(--text3);padding:8px 0">No Instagram leads yet</div>';
+}
+
+// ═══════════════════════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════════════════════
+function loadSettings() {
+  if (!ME) return;
+  sv('set-username', ME.username || '');
+  sv('set-goal-calls', ME.daily_call_goal || 20);
+  sv('set-goal-leads', ME.daily_lead_goal || 8);
+  sv('set-goal-fu', ME.daily_followup_goal || 5);
+  sv('set-wt-calls', WEEKLY?.calls_target || 100);
+  sv('set-wt-leads', WEEKLY?.leads_target || 40);
+  sv('set-wt-fu', WEEKLY?.followups_target || 30);
+  sv('set-wt-clients', WEEKLY?.clients_target || 3);
+  document.getElementById('weekly-targets-section').style.display = isFounder() ? '' : 'none';
+}
+
+async function saveSettings() {
+  if (!ME || !_token) return;
+  const uname = v('set-username').trim();
+  if (!uname || uname.length < 2) { toast('Username too short', true); return; }
+  const res = await dbCall(`profiles?id=eq.${ME.id}`, { method: 'PATCH', body: { username: sanitize(uname) } });
+  if (res && res.error) { toast(res.message || 'Error', true); return; }
+  ME.username = uname; renderSidebar(); toast('Username updated ✓', false, 'ok');
+}
+
+async function saveGoals() {
+  if (!ME || !_token) return;
+  const payload = { daily_call_goal: parseInt(v('set-goal-calls')) || 20, daily_lead_goal: parseInt(v('set-goal-leads')) || 8, daily_followup_goal: parseInt(v('set-goal-fu')) || 5 };
+  const res = await dbCall(`profiles?id=eq.${ME.id}`, { method: 'PATCH', body: payload });
+  if (res && res.error) { toast(res.message || 'Error', true); return; }
+  ME = { ...ME, ...payload }; toast('Daily goals saved ✓', false, 'ok'); renderOverview();
+}
+
+async function saveWeeklyTargets() {
+  if (!ME || !_token || !isFounder()) return;
+  const ws = getWeekStart();
+  const payload = { week_start: ws, calls_target: parseInt(v('set-wt-calls')) || 100, leads_target: parseInt(v('set-wt-leads')) || 40, followups_target: parseInt(v('set-wt-fu')) || 30, clients_target: parseInt(v('set-wt-clients')) || 3, created_by: ME.id };
+  await dbCall('weekly_targets', { method: 'POST', params: 'on_conflict=week_start', body: payload });
+  await loadWeeklyTargets(); toast('Weekly targets saved ✓', false, 'ok'); renderOverview();
+}
+
+// ═══════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════
+function toast(msg, err = false, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = '';
+  if (err) t.classList.add('err');
+  else if (type === 'ok') t.classList.add('ok');
+  t.classList.add('show');
+  clearTimeout(window._toastT);
+  window._toastT = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER ALL
+// ═══════════════════════════════════════════════════════
+function renderAll() { renderOverview(); updateBadge(); }
+
+// ═══════════════════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.mo.open').forEach(m => m.classList.remove('open'));
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openLead(); }
+});
+
+// Close modals on backdrop click
+document.querySelectorAll('.mo').forEach(m => {
+  m.addEventListener('click', function (e) { if (e.target === this) this.classList.remove('open'); });
+});
+
+// ═══════════════════════════════════════════════════════
+// STARTUP
+// ═══════════════════════════════════════════════════════
+checkSession();
+</script>
 </body>
 </html>
